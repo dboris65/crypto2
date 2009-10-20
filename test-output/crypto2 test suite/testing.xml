@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="testing" failures="1" tests="3" time="0.437" errors="0">
+  <properties/>
+  <testcase name="testXmlParser" time="0.016" classname="edu.crypto2.cryptotest.TransformTest"/>
+  <testcase name="testAESMixColumns" time="0.0" classname="edu.crypto2.cryptotest.TransformTest">
+    <failure type="org.testng.TestNGException" message="
+Data Provider public java.lang.String edu.crypto2.cryptotest.TransformTest.getMixColumnsString() must return either Object[][] or Iterator&lt;Object&gt;[], not class java.lang.String">
+      <![CDATA[org.testng.TestNGException: 
+Data Provider public java.lang.String edu.crypto2.cryptotest.TransformTest.getMixColumnsString() must return either Object[][] or Iterator<Object>[], not class java.lang.String
+... Removed 19 stack frames]]>
+    </failure>
+  </testcase>
+  <testcase name="testAESSubBytes" time="0.0" classname="edu.crypto2.cryptotest.TransformTest"/>
+</testsuite>

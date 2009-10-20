@@ -1,0 +1,26 @@
+<html t:type="layout" title="crypto2 Create test vectors/values"
+      t:sidebarTitle="Current Time"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+        <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+    <p>${message:greeting}</p>
+  <head>
+    <title>Create New Values</title>
+  </head>
+  <body>
+
+    <h1>Create New Value</h1>
+    <t:beaneditform submitlabel="Create Values" object="testValues" />
+  
+    <p></p> <p></p><p></p><p></p>
+    
+		
+    <p>
+	<t:grid source="TestValuesList" inPlace="true" row="testValues" t:add="delete">
+	        <t:parameter name="deleteCell">
+				<t:actionlink t:id="delete" context="testValues.id">Delete</t:actionlink>
+        	</t:parameter>
+     </t:grid>
+     </p>
+  </body>
+</html>

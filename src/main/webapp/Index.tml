@@ -1,0 +1,53 @@
+<html t:type="layout" title="crypto2 Index"
+      t:sidebarTitle="Description"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+        <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+    <p>${message:greeting}</p>
+
+    <ul>
+      <li><t:pagelink page="values/CreateTestValues">Create new values</t:pagelink></li>
+    </ul>
+
+
+    <ul>
+      <li><t:pagelink page="SubBytesPG">SubBytesPG</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="ShiftRowsPG">ShiftRowsPG</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="MixColumnsPG">MixColumnsPG</t:pagelink></li>
+    </ul>
+    
+    <ul>
+      <li><t:pagelink page="AddRoundKeyPG">AddRoundKeyPG</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="MetaTransformationPG">MetaTransformationPG</t:pagelink></li>
+    </ul>
+
+
+    <p:sidebar>
+        <p>
+        
+        
+        In this project you can examine cryptographic algorithm AES. This algorithm perceived as a whole makes a huge and complex transformation - META-transformation. 
+        However, it comprises of certain number minor and much simpler transformations. 
+        The leading idea of this project is to assist students in understanding its parts and points to an extraordinary fact - 
+        once we realize its comprising parts, the algorithm itself is very simple.
+        
+        Project is realised using 
+        TestNG, Spring, HIbernate, Tapestry and Extreme programming concepts.
+        <br> </br>
+        After the first phase, when students get familiar with AES Transformations, they can try to experiment with  
+        AES transformations, to reorder them as META-transformation, in experimental purposes.
+
+
+            
+        </p>
+    </p:sidebar>
+</html>

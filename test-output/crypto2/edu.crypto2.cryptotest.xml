@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.crypto2.cryptotest" failures="0" tests="5" time="0.156" errors="0">
+  <properties/>
+  <testcase name="testAESKeyExpansion" time="0.094" classname="edu.crypto2.cryptotest.TransformTest"/>
+  <testcase name="testXmlParser" time="0.016" classname="edu.crypto2.cryptotest.TransformTest"/>
+  <testcase name="testAESMixColumns" time="0.0" classname="edu.crypto2.cryptotest.TransformTest"/>
+  <testcase name="testAESShiftRows" time="0.0" classname="edu.crypto2.cryptotest.TransformTest"/>
+  <testcase name="testAESSubBytes" time="0.016" classname="edu.crypto2.cryptotest.TransformTest"/>
+</testsuite>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="edu.crypto2.cryptotest.TransformTest" failures="1" tests="1" time="0.375" errors="0">
+  <properties/>
+  <testcase name="testAESSubBytes" time="0.0" classname="edu.crypto2.cryptotest.TransformTest">
+    <failure type="org.testng.TestNGException" message="
+Parameter &apos;SubBytesString&apos; is required by @Test on method testAESSubBytes
+but has not been marked @Optional or defined in C:\Documents and Settings\Boris\workspace\crypto2\temp-testng-customsuite.xml">
+      <![CDATA[org.testng.TestNGException: 
+Parameter 'SubBytesString' is required by @Test on method testAESSubBytes
+but has not been marked @Optional or defined in C:\Documents and Settings\Boris\workspace\crypto2\temp-testng-customsuite.xml
+... Removed 20 stack frames]]>
+    </failure>
+  </testcase>
+</testsuite>

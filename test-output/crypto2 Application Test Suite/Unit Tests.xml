@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Unit Tests" failures="0" tests="1" time="0.375" errors="0">
+  <properties/>
+  <testcase name="testAESSubBytes" time="0.015" classname="edu.crypto2.cryptotest.TransformTest"/>
+</testsuite>

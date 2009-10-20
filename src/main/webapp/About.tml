@@ -1,0 +1,8 @@
+<html t:type="layout" title="About crypto2"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p>About crypto2 application ...</p>
+    <p>Boris Damjanovic, index: master-230/2008, FON, Belgrade</p>
+
+</html>

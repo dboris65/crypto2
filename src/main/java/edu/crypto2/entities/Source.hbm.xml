@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="edu.crypto2.entities">
+	<class name="Source" table="source">
+		<id name="Id" type="long" column="ID">
+			<generator class="identity" />
+		</id>
+		<property name="sourceCode" type="string" column="SourceCode"
+			not-null="true" />
+
+	</class>
+</hibernate-mapping>

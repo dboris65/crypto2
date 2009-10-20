@@ -1,0 +1,38 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+<head>
+
+</head>
+<body>
+	<h1>Editable Grid (1)</h1>
+	
+	A table built with a Form around a Grid, with editable firstName.<br/><br/>
+	
+	The technique used here gets a list of _persons from the database during render and again during form submission.<br/>
+	It relies on that list of _persons being the same both times and <strong>in the same sequence</strong>.<br/>
+	During submit, each entry in _persons will have its firstName overwritten with the firstName from the corresponding entry in the Grid.<br/><br/>
+	
+	We chose not to annotate _persons with <strong>@Persist</strong> even though it would remove the need to get _persons during form submission.<br/>
+	Persisting a field in the session is risky because the field will be overwritten if the user opens a new window or tab 
+	with same session and visits the same page.<br/><br/>
+	
+	For more flexibility, see the Editable Loop examples.<br/>
+	
+	<form t:type="form" t:id="testValueRowsedit">
+		<t:errors/>
+		<table t:type="grid" t:source="testValueRows" t:row="testValueRow" t:include="id,ShiftRows_TestValue,InvShiftRows_TestValue,MixColumns_TestValue">[Persons Grid here]
+			<t:parameter name="firstNameCell">
+				<input t:type="textfield" t:value="testValueRow.ShiftRows_TestValue" t:validate="required, maxlength=32" size="32"/>
+				<!-- If optimistic locking is needed then uncomment this next line.
+					<t:hidden t:id="version" value="person.version"/>
+				 -->
+			</t:parameter>
+	 	</table>
+	 	<input type="submit" value="Save"/>
+	 </form><br/>
+
+	References: 
+	<a href="http://tapestry.apache.org/tapestry5/tapestry-core/ref/org/apache/tapestry5/corelib/components/Grid.html">Grid</a>.<br/><br/>
+	
+	<a t:type="pagelink" t:page="Index" href="#">Home</a><br/><br/>
+</body>
+</html>
