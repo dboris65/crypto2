@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="edu.crypto2.entities">
+	<class name="TestValues" table="crypto2">
+		<id name="Id" type="long" column="ID">
+			<generator class="native" />
+		</id>
+		<property name="subBytes_TestValue" type="string" column="SubBytes_TestValue"
+			not-null="true" />
+		<property name="mixColumns_TestValue" type="string" column="MixColumns_TestValue"
+			not-null="true" />
+		<property name="shiftRows_TestValue" type="string" column="ShiftRows_TestValue"
+			not-null="true" />
+		<property name="keyExpansion_TestValue" type="string" column="KeyExpansion_TestValue"
+			not-null="true" />
+		<property name="addRoundKey_TestValue" type="string" column="addRoundKey_TestValue"
+			not-null="true" />
+		<property name="metaTransformation_TestValue" type="string" column="MetaTransformation_TestValue"
+			not-null="true" />
+<!-- 			
+		<property name="invSubBytes_TestValue" type="string" column="InvSubBytes_TestValue"
+			not-null="true" />
+		<property name="invMixColumns_TestValue" type="string" column="InvMixColumns_TestValue"
+			not-null="true" />
+		<property name="invShiftRows_TestValue" type="string" column="InvShiftRows_TestValue"
+			not-null="true" />
+		<property name="GMUL_TestValue" type="string" column="GMUL_TestValue"
+			not-null="true" />
+ -->
+			
+	</class>
+</hibernate-mapping>
