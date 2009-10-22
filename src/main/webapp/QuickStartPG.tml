@@ -1,0 +1,84 @@
+<html t:type="layout" title="Crypto2 - Quick start"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+	
+    <h3>Quick start</h3>
+    
+    Advanced Encryption Standard (AES) is first cryptographic standard aroused 
+    as result of public competition and established by U.S. National Institute of Standards and Technology. 
+    Standard is composed of three cryptographic algorithms: AES-128, AES-192 and AES-256. 
+    Each of them, perceived as a whole makes a huge and complex transformation. 
+    However, it comprises of certain number minor and much simpler transformations.
+    <br></br>
+    
+    <h3>Basic transformations</h3>
+	Basic AES transformations that are implemented here so far are:
+	<li><t:pagelink page="SubBytesPG">SubBytes</t:pagelink></li>
+	<li><t:pagelink page="ShiftRowsPG">ShiftRows</t:pagelink></li>
+	<li><t:pagelink page="MixColumnsPG">MixColumns</t:pagelink></li>
+	<li><t:pagelink page="AddRoundKeyPG">AddRoundKey</t:pagelink></li>
+	You can use these transformations as an introduction to AES algorithm in a following way:<br></br>
+	At bottom of any of those pages, you can find grid with some predefined test vectors that are 
+	taken from FIPS 197 publication, defining the AES algorithm.<br></br>
+	You can see those transformations in action when you click on View transformation link in every row.
+	Every transformation will take test vector (or vectors) from grid, and give you results on the top of page 
+	in a form of the AES State. AES State is rectangular array of bytes, having four rows and 
+	(for present time) four columns, that holds results and inter-results of transformations.<br></br>
+	When you get familiar with them, you can try to enter your own test vectors, 
+	using <t:pagelink page="values/CreateTestValues">Create new values</t:pagelink> page,
+	to save them to database and then check out the results of specific transformations.
+    <br></br>
+    
+    <h3>Meta transformation</h3>
+	Extraordinary fact about AES is that, when you recognize its comprising parts, 
+	algorithm itself is quite simple. On Metatransformation page, you can find predefined 
+	metatransformations and test vectors, in two grids at page bottom. When I say predefined meta-transformation, 
+	I mean original AES128, AES192 or AES256 algorithm. <p></p>
+	Usage:<br></br>
+	<li>First, click on Edit/Fill link on Metatransformation source code grid.</li> 
+	This action will fill Input area with metatransformation source code.
+	<li>Second, select test vector from Metatransformation test value grid, using transform data link.</li>  
+	Tip:<br></br>
+	At the very beginning, try to combine first metatransformation and first test value, 
+	second metatransformation and second test value etc. - they are taken from FIPS 197 publication as pairs.
+	<br></br>
+	Metatransformations were being made in such a way that hide some details from you, and let you 
+	concentrate on core of AES algorithm.<br></br> 
+	After a while, you can try experiment with original AES transformation sequence, 
+	for example to reorder:<p></p>
+	subBytes.transform_state();<br></br>
+	shiftRows.transform_state();<br></br>
+	mixColumns.transform_state();<p></p>
+	into<p></p>
+	mixColumns.transform_state();<br></br> 
+	subBytes.transform_state();<br></br>
+	shiftRows.transform_state();<p></p>
+	For present state of this project, you MUST enter key_len and init_key variables in 
+	metatransformation source, as in following example:<br></br>
+	key_len = 128;<br></br>
+    init_key = "2b7e151628aed2a6abf7158809cf4f3c";<p></p>
+    Initial key value must be sequence of hex digits, and must obey the following rules:<br></br>
+
+<table border="1" bordercolor="#000000" cellspacing="0" cellpadding="2">
+	<tr>
+		<td>key_len</td>
+		<td>init_key_size</td>
+	</tr>
+	<tr>
+		<td>128</td>
+		<td>16 hex bytes (32 alphanumerics)</td>
+	</tr>
+	<tr>
+		<td>192</td>
+		<td>24 hex bytes (48 alphanumerics)</td>
+	</tr>
+	<tr>
+		<td>256</td>
+		<td>32 hex bytes (64 alphanumerics)</td>
+	</tr>
+</table>
+<br></br>
+Finally, when you are satisfied with results from some of your new algorithms/metatransformations,
+you can save them to database using Save new or Update buttons. 
+
+</html>
