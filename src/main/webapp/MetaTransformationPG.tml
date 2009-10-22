@@ -4,7 +4,7 @@
       
       
 	<div id="section">			
-	<h2>${message:greeting}</h2>
+	${message:greeting}
 		<t:zone t:id="viewZone"/>
 		<p>		
 		<t:block id="LinesOutDetails">
@@ -58,7 +58,7 @@
 		<br></br>		
 		<t:grid t:id="grid" source="TestValuesList" 
 			include="MetaTransformation_TestValue" 
-			t:add="transform" rowsPerPage="3"
+			t:add="transform" rowsPerPage="2"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="transformCell">
 				<t:actionlink t:id="transform" zone="viewZone" context="TestValues.id">Transform vector</t:actionlink>
@@ -102,19 +102,25 @@
 		Best way to learn rules for writing meta transformations is to use one of predefined AES transformation,
 		which you can find in source code grid. So, click on Edit/Fill link.<br></br>
 		Once, when you fill Input area with code, you can edit it's contents in experimental purposes.
-		You can try to reorder transformations, for example:  
+		You can try to reorder transformations, for example:
+		<p></p>  
 		subBytes.transform_state();<br></br>
 		shiftRows.transform_state();<br></br>
 		mixColumns.transform_state();<p></p>
 		into<p></p>
 		mixColumns.transform_state();<br></br> 
 		subBytes.transform_state();<br></br>
-		shiftRows.transform_state();<p></p>
+		shiftRows.transform_state();
+		<p></p>
 		For present state of this project, you MUST enter key_len and init_key variables in 
 		metatransformation source, as in following example:<br></br>
 		key_len = 128;<br></br>
     	init_key = "2b7e151628aed2a6abf7158809cf4f3c";<p></p>
     	Initial key value must be sequence of hex digits, and must obey the following rules:<br></br>
+	 	key_len=128 => length(init_key)=16 bytes or 32 hex alpha-numerics;<br></br>
+	 	key_len=192 => length(init_key)=24 bytes or 48 hex alpha-numerics;<br></br>
+	 	key_len=256 => length(init_key)=32 bytes or 64 hex alpha-numerics.<p></p>
+	 	
     	After taht, save your new transformation using Save new or Update button.<br></br>
     	After you finish editing and saving source code, you can try your new meta transformation by clicking on 
     	Transfrom vector link on Test vectors grid.

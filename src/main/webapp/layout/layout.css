@@ -8,10 +8,12 @@ DIV.t-beaneditor
 {
 display: block;
 background: #f1f1FF;
-border: 2px solid silver;
-padding: 2px;
+border: 1px solid silver;
+padding: 1px;
 font-family: "Trebuchet MS", Arial, sans-serif;
+font-size: "1em";
 }
+
 
 body {
     margin: 0;
@@ -28,7 +30,7 @@ form {
 }
 
 input {
-    padding: 5px;
+    padding: 2px;
     background: #FEFEFE url( images/img13.gif ) repeat-x;
     border: 1px solid #626262;
     font: normal 1em Arial, Helvetica, sans-serif;
@@ -170,9 +172,8 @@ a:hover {
 
 .post .title h2 {
     padding: 30px 30px 0 0px;
-    text-transform: lowercase;
     font-weight: normal;
-    font-size: 2.2em;
+    font-size: 1.5em;
 }
 
 .post .title p {
@@ -225,7 +226,7 @@ a:hover {
 
 #sidebar {
     float: right;
-    width: 600px;
+    width: 400px;
     margin-top: 30px;
 }
 
@@ -250,7 +251,7 @@ a:hover {
 }
 
 #sidebar h2 {
-    padding: 30px 30px 5px 10px;
+    padding: 15px 5px 15px 15px;
     background: url( images/img09.gif ) no-repeat;
     text-transform: lowercase;
     font-weight: normal;
@@ -259,7 +260,7 @@ a:hover {
 }
 
 #sidebar DIV.sidebar-content {
-    width: 565px;
+    width: 365px;
     margin-left: 10px;
     padding-bottom: 1px;
 }

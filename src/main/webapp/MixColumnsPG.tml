@@ -1,10 +1,10 @@
-<html t:type="layout" title="Crypto2 MixColumnsPG"
+<html t:type="layout" title="MixColumns transformation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
       
       
 	<div id="section">			
-	<h2>${message:greeting}</h2>
+	${message:greeting}
 		<t:zone t:id="viewZone"/>
 		<p>		
 		<t:block id="LinesOutDetails">
@@ -75,26 +75,21 @@
         <p>
         
     <br></br>   
-	You can use this transformation as an introduction to AES algorithm in a following way:<br></br>
-	At bottom of page, you can find grid with some predefined test vectors that are 
-	taken from FIPS 197 publication, defining the AES algorithm.<br></br><br></br>
-
-	To see this transformation in action just click on View transformation link in any grid row.
-	Transformation will take test vector from grid, and give you results on the top of page 
-	in a form of the AES State. AES State is rectangular array of bytes, (4x4), 
-	that holds results and inter-results of transformations.<br></br>
-
-	
-	MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:<br></br>
+	MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:
+	<br></br>
 	<font face="Courier New"> 
 . . . | 02 03 01 01 |<br></br>
 new = | 01 02 03 01 | * old_column<br></br>
 . . . | 01 01 02 03 |<br></br>
 . . . | 03 01 01 02 |<br></br>
 	</font>
-	<br></br>
+	<p></p>
+	And, as described before, just click on View transformation link in any grid row to see results of 
+	this transformation.
+	<p></p>
 	If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
-	Or, you can go further, to meet <t:pagelink page="AddRoundkeyPG">AddRoundkey transformation</t:pagelink>
+	Or, you can go further, to meet<br></br>
+	<t:pagelink page="AddRoundkeyPG">AddRoundkey transformation</t:pagelink>
     <p>.</p>        
         </p>
     </p:sidebar>

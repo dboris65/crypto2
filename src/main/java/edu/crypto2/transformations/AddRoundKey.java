@@ -82,7 +82,7 @@ public class AddRoundKey implements Transformation{
 		  int i, j;
 		  for (j=0; j <= 3; j++) {
 			for (i=0; i <= 3; i++) {
-				Data.State[i][j] = Data.State[i][j] ^ Data.key[key_index + 4*i + j] ;
+				Data.State[i][j] = Data.State[i][j] ^ Data.key[key_index + 4*i + j];
 			}
 		}
 			
