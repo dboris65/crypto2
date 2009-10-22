@@ -6,7 +6,17 @@ package edu.crypto2.data;
 /***********************************************************************
  * 
  */
+/**
+ * Data:<p>
+ * This class purpose is to hold initial values, results and inter-results.
+ */
 public class Data {
+	/** 
+	 * Predefined Substitution Box array for SubBytes.<br> 
+	 * Two basic components of many algorithms are substitution box ( S-Box) 
+	 * and permutation box ( P-Box).<br>
+	 * AES uses SBox explicitly, while permutations are done implicitly.
+	 */
 	public static int SBox [] = {
 			0x63, 0x7c, 0x77, 0x7b, 0xf2, 0x6b, 0x6f, 0xc5, 0x30, 0x01, 0x67, 0x2b, 0xfe, 0xd7, 0xab, 0x76,
 			0xca, 0x82, 0xc9, 0x7d, 0xfa, 0x59, 0x47, 0xf0, 0xad, 0xd4, 0xa2, 0xaf, 0x9c, 0xa4, 0x72, 0xc0,
@@ -24,7 +34,13 @@ public class Data {
 			0x70, 0x3e, 0xb5, 0x66, 0x48, 0x03, 0xf6, 0x0e, 0x61, 0x35, 0x57, 0xb9, 0x86, 0xc1, 0x1d, 0x9e,
 			0xe1, 0xf8, 0x98, 0x11, 0x69, 0xd9, 0x8e, 0x94, 0x9b, 0x1e, 0x87, 0xe9, 0xce, 0x55, 0x28, 0xdf,
 			0x8c, 0xa1, 0x89, 0x0d, 0xbf, 0xe6, 0x42, 0x68, 0x41, 0x99, 0x2d, 0x0f, 0xb0, 0x54, 0xbb, 0x16};
-public static int InvSBox [] = {
+	/** 
+	 * Predefined Inverse Substitution Box array for InvSubBytes.<br> 
+	 * Two basic components of many algorithms are substitution box ( S-Box) 
+	 * and permutation box ( P-Box).<br>
+	 * AES uses SBox explicitly, while permutations are done implicitly
+	 */
+	public static int InvSBox [] = {
 			0x52, 0x09, 0x6a, 0xd5, 0x30, 0x36, 0xa5, 0x38, 0xbf, 0x40, 0xa3, 0x9e, 0x81, 0xf3, 0xd7, 0xfb,
 			0x7c, 0xe3, 0x39, 0x82, 0x9b, 0x2f, 0xff, 0x87, 0x34, 0x8e, 0x43, 0x44, 0xc4, 0xde, 0xe9, 0xcb,
 			0x54, 0x7b, 0x94, 0x32, 0xa6, 0xc2, 0x23, 0x3d, 0xee, 0x4c, 0x95, 0x0b, 0x42, 0xfa, 0xc3, 0x4e,
@@ -42,8 +58,15 @@ public static int InvSBox [] = {
 			0xa0, 0xe0, 0x3b, 0x4d, 0xae, 0x2a, 0xf5, 0xb0, 0xc8, 0xeb, 0xbb, 0x3c, 0x83, 0x53, 0x99, 0x61,
 			0x17, 0x2b, 0x04, 0x7e, 0xba, 0x77, 0xd6, 0x26, 0xe1, 0x69, 0x14, 0x63, 0x55, 0x21, 0x0c, 0x7d};
 
-/* Tabela logaritama dobijena koristenjem 0xe5 (229) kao generatora */
-public static int ltable[] = {
+
+	/** 
+	 * Predefined logarithm array for Galois multiplication.<br>
+	 * generator: 0xe5 hex (229 dec)<p> 
+	 * To speed up Galois multiplication, we will use well known formula:<br>
+	 * log(x*y)=log(x)*log(y)<br>
+	 * x*y=antilog(log(x)*log(y))<br>
+	 */
+	public static int ltable[] = {
 			0x00, 0xff, 0xc8, 0x08, 0x91, 0x10, 0xd0, 0x36,
 			0x5a, 0x3e, 0xd8, 0x43, 0x99, 0x77, 0xfe, 0x18,
 			0x23, 0x20, 0x07, 0x70, 0xa1, 0x6c, 0x0c, 0x7f,
@@ -78,7 +101,14 @@ public static int ltable[] = {
 			0x68, 0x1b, 0x64, 0x04, 0x06, 0xbf, 0x83, 0x38 };
 
 /* tabela eksponenata: */
-public static int atable[] = {
+	/** 
+	 * Predefined exponent (antilog) array for Galois multiplication.<br>
+	 * generator: 0xe5 hex (229 dec) <p>
+	 * To speed up Galois multiplication, we will use well known formula:<br>
+	 * log(x*y)=log(x)*log(y)<br>
+	 * x*y=antilog(log(x)*log(y))<br>
+	 */
+	public static int atable[] = {
 			0x01, 0xe5, 0x4c, 0xb5, 0xfb, 0x9f, 0xfc, 0x12,
 			0x03, 0x34, 0xd4, 0xc4, 0x16, 0xba, 0x1f, 0x36,
 			0x05, 0x5c, 0x67, 0x57, 0x3a, 0xd5, 0x21, 0x5a,
@@ -112,7 +142,11 @@ public static int atable[] = {
 			0x66, 0xb2, 0x76, 0x60, 0xda, 0xc5, 0xf3, 0xf6,
 			0xaa, 0xcd, 0x9a, 0xa0, 0x75, 0x54, 0x0e, 0x01 };
 
-	/**
+/**
+ * Getter for Substituton Box, for SubButes transformation.<br>
+ * Two basic components of many algorithms are substitution box ( S-Box) 
+ * and permutation box ( P-Box).<br>
+ * AES uses SBox explicitly, while permutations are done implicitly
  * @return the sBox
  */
 public int[] getSBox() {
@@ -125,6 +159,10 @@ public void setSBox(int[] sBox) {
 	SBox = sBox;
 }
 /**
+ * Getter for Inverse Substituton Box, for InvSubButes transformation.<br>
+ * Two basic components of many algorithms are substitution box ( S-Box) 
+ * and permutation box ( P-Box).<br>
+ * AES uses SBox explicitly, while permutations are done implicitly
  * @return the invSBox
  */
 public int[] getInvSBox() {
@@ -136,7 +174,12 @@ public int[] getInvSBox() {
 public void setInvSBox(int[] invSBox) {
 	InvSBox = invSBox;
 }
-/**
+/** 
+ * Getter for logarithm array for Galois multiplication<br>
+ * generator: 0xe5 hex (229 dec) <p>
+ * To speed up Galois multiplication, we will use well known formula:<br>
+ * log(x*y)=log(x)*log(y)<br>
+ * x*y=antilog(log(x)*log(y))<br>
  * @return the ltable
  */
 public int[] getLtable() {
@@ -145,10 +188,15 @@ public int[] getLtable() {
 /**
  * @param ltable the ltable to set
  */
-public void setLtable(int[] ltable) {
-	this.ltable = ltable;
+public void setLtable(int[] _ltable) {
+	ltable = _ltable;
 }
 /**
+ * Getter for antilogarithm array for Galois multiplication.<br>
+ * generator: 0xe5 hex (229 dec)<p>
+ * To speed up Galois multiplication, we will use well known formula:<br>
+ * log(x*y)=log(x)*log(y)<br>
+ * x*y=antilog(log(x)*log(y))<br>
  * @return the atable
  */
 public int[] getAtable() {
@@ -157,10 +205,12 @@ public int[] getAtable() {
 /**
  * @param atable the atable to set
  */
-public void setAtable(int[] atable) {
-	this.atable = atable;
+public void setAtable(int[] _atable) {
+	atable = _atable;
 }
+
 /**
+ * Bytes (or blocks) of file that already encrypted/decrypted
  * @return the byte_counter
  */
 public int getByte_counter() {
@@ -173,6 +223,11 @@ public void setByte_counter(int byteCounter) {
 	byte_counter = byteCounter;
 }
 /**
+ * tmpKey holds initial four bytes for keyExpansion.<br>
+ * Procedure is as follows:<br>
+ *  1.Get last four bytes from already generated key<br>
+ *  2.Generate new 16 bytes of key<br>
+ *  repeat until reach full key size
  * @return the tmpkey
  */
 public int[] getTmpkey() {
@@ -181,10 +236,11 @@ public int[] getTmpkey() {
 /**
  * @param tmpkey the tmpkey to set
  */
-public void setTmpkey(int[] tmpkey) {
-	this.tmpkey = tmpkey;
+public void setTmpkey(int[] _tmpkey) {
+	tmpkey = _tmpkey;
 }
 /**
+ * Key array holds expanded key
  * @return the key
  */
 public int[] getKey() {
@@ -193,10 +249,11 @@ public int[] getKey() {
 /**
  * @param key the key to set
  */
-public void setKey(int[] key) {
-	this.key = key;
+public void setKey(int[] _key) {
+	key = _key;
 }
 /**
+ * Input - 4x4 bytes array that hold input into Cipher/InvCipher
  * @return the input
  */
 public int[][] getInput() {
@@ -209,6 +266,8 @@ public void setInput(int[][] input) {
 	Input = input;
 }
 /**
+ * Rectangular array of bytes, having 4 rows and 4 columns.
+ * Holds results and inter-results of transformations.
  * @return the state
  */
 public int[][] getState() {
@@ -221,6 +280,7 @@ public void setState(int[][] state) {
 	State = state;
 }
 /**
+ * Output - 4x4 bytes array that hold output from Cipher/InvCipher
  * @return the output
  */
 public int[][] getOutput() {
@@ -232,11 +292,47 @@ public int[][] getOutput() {
 public void setOutput(int[][] output) {
 	Output = output;
 }
+	/**
+	 * Bytes (or blocks) of file that already encrypted/decrypted
+	*/
 	public static int byte_counter;
+	
+	/**
+	 * tmpKey (int[4]) holds initial four bytes for keyExpansion.<br>
+	 * Procedure is as follows:<br>
+	 *  1.Get last four bytes from already generated key<br>
+	 *  2.Generate new 16 bytes of key<br>
+	 *  repeat until reach full key size
+	*/
 	public static int tmpkey[] = new int[4];
+	
+	/**
+	 * Key:<p>
+	 * Key array (int[240]) holds expanded key. Key expansion is done according to 
+	 * following rules for initial key length.<br>
+	 * InitKey128 => 10+1 rounds => 11*16 bytes<br>
+	 * InitKey192 => 12+1 rounds => 13*16 bytes<br>
+	 * InitKey256 => 14+1 rounds => 15*16 bytes
+	 */
 	public static int key[]= new int[240];
+
+	/**
+	 * Input:<p>
+	 * 4x4 bytes array (int[4][4]) that hold input into Cipher/InvCipher
+	 */
 	public static int [][] Input = new int[4][4];
+	
+	/**
+	 * State:<p>
+	 * Rectangular array of bytes, having 4 rows and 4 columns (int[4][4]).
+	 * Holds results and inter-results of transformations.
+	 */
 	public static int [][] State = new int[4][4];
+	
+	/**
+	 * Output:<p>
+	 * 4x4 bytes array (int[4][4]) that hold output from Cipher/InvCipher
+	 */
 	public static int [][] Output = new int[4][4];
 
 }

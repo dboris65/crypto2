@@ -5,11 +5,11 @@
         <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
     <p>${message:greeting}</p>
   <head>
-    <title>Create New Values</title>
+    <title>Create New Test Values</title>
   </head>
   <body>
 
-    <h1>Create New Value</h1>
+    <h1>Create New Test Values</h1>
     <t:beaneditform submitlabel="Create Values" object="testValues" />
   
     <p></p> <p></p><p></p><p></p>

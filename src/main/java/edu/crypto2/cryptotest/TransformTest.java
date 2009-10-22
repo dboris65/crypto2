@@ -3,13 +3,10 @@
  */
 package edu.crypto2.cryptotest;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
 import edu.crypto2.data.Data;
-import edu.crypto2.rest.XmlParser;
 import edu.crypto2.transformations.KeyExpansion;
 import edu.crypto2.transformations.MixColumns;
 import edu.crypto2.transformations.ShiftRows;
@@ -20,48 +17,11 @@ import edu.crypto2.transformations.TransformationService;
  * 
  */
 public class TransformTest {
-	private TransformationService TTransformation;
-	private SubBytes sub_bytes;
-	private MixColumns mix_columns;
-/*
-	@BeforeClass
-	public void oneTimeSetUp() {
-		System.out.println("@BeforeClass - oneTimeSetUp");
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
-		TransformationService TTransformation = (TransformationService) context.getBean("TransformationService");
-		Assert.assertNotNull(TTransformation); 
-
-		String s = TTransformation.GetTransformationName();
-		System.out.println(s);
-		
-		if (s == "----- SubBytes -----"){
-			sub_bytes = (SubBytes)TTransformation.transformation;
-			Assert.assertNotNull(sub_bytes);
-			System.out.println("@BeforeClass - (sub_bytes <> null)");
-		}
-		//if (s == "----- MixColumns -----"){
-		//	mix_columns = (MixColumns)TTransformation.transformation;
-		//	Assert.assertNotNull(mix_columns);
-		//	System.out.println("@BeforeClass - (mix_columns <> null)");
-		//}
-		
-	}
-*/
-	/***********************************************************
-	 * oneTimeTearDown
-	 * 
-	 */
-/*
-	@AfterClass
-	public void oneTimeTearDown() {
-		System.out.println("@AfterClass - oneTimeTearDown");
-	}
-*/
-	
 	
 	/***********************************************************
-	 *  SubBytes
+	 *  SubBytes Test<p>
 	 * 
+	 * Test using predefined vector "193de3bea0f4e22b9ac68d2ae9f84808"
 	 */
 	@Test
 	@Parameters(value = "SubBytesString")
@@ -122,35 +82,12 @@ public class TransformTest {
 	}
 	
 
-	@Test
-	@Parameters(value = "SubBytes")
-	public void testXmlParser(
-			@Optional("SubBytes") String element_name
-			) throws Exception 
-	{
-		
-		XmlParser xml_p = new XmlParser(element_name); 
-		String ValueBeforeSubBytes = xml_p.getResultString();
-		System.out.println(ValueBeforeSubBytes);
-		
-	}
-
 
 	
 	/***********************************************************
-	 *  MixColumns
-	 * 
+	 * MixColumns Test<br>
+	 * Test using predefined vector "d4bf5d30e0b452aeb84111f11e2798e5"
 	 */
-	/*
-	@DataProvider(name="MixColumnsString")
-	public Object[][] getMixColumnsString(){ 
-		return new Object[][]{
-				   {String.class, new String[] {"d4bf5d30e0b452aeb84111f11e2798e5"}},
-				   {Integer.class, new String[] {"1", "2"}}
-				  };
-	}
-	@Test(dataProvider="MixColumnsString")
-	*/
 	@Test
 	@Parameters(value = "MixColumnsString")
 	public void testAESMixColumns(
@@ -210,8 +147,9 @@ public class TransformTest {
 	
 
 	/***********************************************************
-	 *  ShiftRows
-	 * 
+	 *  ShiftRows test<br>
+	 *  
+	 * Test using predefined vector "d42711aee0bf98f1b8b45de51e415230"
 	 */
 
 	@Test
@@ -272,8 +210,8 @@ public class TransformTest {
 	}
 
 	/***********************************************************
-	 *  KeyExpansion
-	 * 
+	 *  KeyExpansion<br>
+	 *  Test using predefined vector "2b7e151628aed2a6abf7158809cf4f3c"
 	 */
 
 	@Test

@@ -3,31 +3,48 @@
  */
 package edu.crypto2.transformations;
 
-//import bsh.EvalError;
-import org.apache.log4j.Logger;
-
 import bsh.*;
 import edu.crypto2.data.*;
-import edu.crypto2.pages.MetaTransformationPG;
 import edu.crypto2.transformations.KeyExpansion;
 
 /***********************************************************************
  * 
  */
+/**
+ * Class MetaTransformation<p>
+ * Task:<br>
+ * To encrypt Test Vector according to selected algorithm.<br> 
+ * Uses bash interpreter to interpret Java code that represent transformation 
+ */
 public class MetaTransformation implements Transformation{
+	/**
+	 * Nb is always 4 (by FIPS-197), but authors of AES left
+	 * the space to change something in the future, 
+	 * so we wiil do the same
+	 */
 	public int Nb;
 	
 
-	
-	public String GetTransformationName() {
-		return "----- MetaTransformation -----";
-	}
+	/**
+	 * Dummy constructor.<br>
+	 * Task:<br>
+	 * Just to set Nb to 4<br>
+	 */
 	public MetaTransformation() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)
+		// Nb - always 4 (by FIPS-197)
 		this.Nb = 4;
 	}
-	/* initialize_State - samo za edukaciju i testiranje
-	 * initialize_State - just for education and testing
+	
+	/**
+	 *  initialize_State<p>
+	 *  Task:<br>
+	 *  Fills State array with initial values taken from testVector and expand key according to key_len and init_key variables.<br>
+	 *  Input variables must satisfy following conditions:<br>
+	 *  testVector - 32 alphanumercis with hex values (16 bytes)<br>
+	 *  key_len=128 => length(init_key)=16 bytes<br>
+	 *  key_len=192 => length(init_key)=24 bytes<br>
+	 *  key_len=256 => length(init_key)=32 bytes<br>
+	 *  Resulting key will be stored in Data.Key variable
 	 */
 	public void initialize_State(String testVector, int key_len, String init_key)
 	{
@@ -35,12 +52,6 @@ public class MetaTransformation implements Transformation{
 		int ulaz[] = new int[16];
 		int skey[] = new int[32];
 		int init_key_len = 0;
-		final Logger logger = Logger.getLogger(MetaTransformation.class);
-		logger.debug("-----Meta init. state--");
-		logger.debug("-----Meta---------");
-		logger.debug("-----Meta---------");
-		logger.debug("-----TestVector---" + testVector);
-		
 
 		KeyExpansion keyExpansion = new KeyExpansion();
 
@@ -48,54 +59,44 @@ public class MetaTransformation implements Transformation{
 			hex = "" + testVector.charAt(2 * i) + testVector.charAt(2 * i + 1);
 			ulaz[i] = Integer.parseInt(hex, 16);
 		}
-		logger.debug("-----Ulaz---" + ulaz);
 		
 		for (int i = 0; i <= 3; i++) {
 			for (int j = 0; j <= 3; j++) {
 				Data.State[i][j] = ulaz[4 * i + j];
 			}
 		}
-		logger.debug("-----State---" + Data.State);
 		
 		if (key_len == 128) init_key_len = 16;
 		if (key_len == 192) init_key_len = 24;  
 		if (key_len == 256) init_key_len = 32;
 		
-		logger.debug("-----key_len---" + key_len);
 		
 		for (int i = 0; i <= init_key_len; i++ ){
 			if (2*i+1 > init_key.length())
 				break;
 			hex = "" + init_key.charAt(2 * i) + init_key.charAt(2 * i + 1);
-			logger.debug("-----hex---" + hex);
 			skey[i] = Integer.parseInt(hex, 16);
 		}
-		logger.debug("-----skey---" + skey);
 
 	    for (int i = 0; i <= 239; i++)
 		     Data.key[i] = 0x0;
-	    logger.debug("-----Data.key---" + Data.key);
-	    logger.debug("-----key_len---" + key_len);
 	    
 	    if (key_len == 128) {
 			for (int i = 0; i <= 15; i++)
 				Data.key[i] = skey[i];
 			keyExpansion.KeyExpansion128();
-			logger.debug("-----Data.key---" + Data.key);
 		}
 		else
 		if (key_len == 192) {
 			for (int i = 0; i <= 23; i++)
 				Data.key[i] = skey[i];
 			keyExpansion.KeyExpansion192();
-			logger.debug("-----Data.key---" + Data.key);
 		}
 		else
 		if (key_len == 256) {
 			for (int i = 0; i <= 31; i++)
 				Data.key[i] = skey[i];
 			keyExpansion.KeyExpansion256();
-			logger.debug("-----Data.key---" + Data.key);
 		}
 	}
 	
@@ -108,16 +109,12 @@ public class MetaTransformation implements Transformation{
 		String str_to_interpret, hex_key;
 		str_to_interpret = "";
 
-		final Logger logger = Logger.getLogger(MetaTransformation.class);
-		logger.debug("----MetaTRState---");
-		logger.debug("-----Meta---------");
 		
     	try {
 			if (MetaTr == "TEST"){
-    		/* Ovdje cemo od korisnika sakriti 'dosadni' dio posla
-    		 * i dati mu priliku da se koncentrise na srz algoritma, 
-    		 * odnosno metatransformacije */
-			logger.debug("-----11111111---------");
+    		/* We will hide some parts of algorithm, and give
+    		 * users a chance to concentrate to algorithm core
+    	    */
     		str_to_interpret = 
   			"import System.out;\n" +
     		"import edu.crypto2.data.*;\n" +
@@ -149,91 +146,6 @@ public class MetaTransformation implements Transformation{
 			"s = \"" +  testVector +  "\";  \n" +
 			"init_key = \"" +  init_key +  "\";  \n" +
 			
-			/*
-			"for (int i = 0; i <= 15; i++) {\n" +
-			"	hex = \"\" + s.charAt(2 * i) + s.charAt(2 * i + 1);\n" +
-			"	ulaz[i] = Integer.parseInt(hex, 16);\n" +
-			"}\n" +
-
-			"for (int i = 0; i <= 3; i++) {\n" +
-			"	for (int j = 0; j <= 3; j++) {\n" +
-			"		Data.State[i][j] = ulaz[4 * i + j];\n" +
-			"	}\n" +
-			"}\n" +
-			
-			"if (key_len == 128) init_key_len = 16;\n" +
-			"if (key_len == 192) init_key_len = 24;\n" +  
-			"if (key_len == 256) init_key_len = 32;\n" +
-			"hex = \"\";\n" +
-			"for (int i = 0; i <= init_key_len; i++ ){\n" +
-			"	if (2*i+1 > init_key.length())\n" +
-			"		break;\n" +
-			"	hex = \"\" + init_key.charAt(2 * i) + init_key.charAt(2 * i + 1);\n" +
-			"	skey[i] = Integer.parseInt(hex, 16);\n" +
-			"}\n" +
-
-		    "for (int i = 0; i <= 239; i++)\n" +
-			"     Data.key[i] = 0x0;\n" +
-			
-			"keyExpansion = new KeyExpansion();\n" +
-			"keyExpansion.initialise(key_len, skey);\n" +
-			
-		    "if (key_len == 128) {\n" +
-			"	for (int i = 0; i <= 15; i++)\n" +
-			"		Data.key[i] = skey[i];\n" +
-			"	keyExpansion.KeyExpansion128();\n" +
-			"}\n" +
-			"else\n" +
-			"if (key_len == 192) {\n" +
-			"	for (int i = 0; i <= 191; i++)\n" +
-			"		Data.key[i] = skey[i];\n" +
-			"	keyExpansion.KeyExpansion192();\n" +
-			"}\n" +
-			"else\n" +
-			"if (key_len == 256) {\n" +
-			"	for (int i = 0; i <= 255; i++)\n" +
-			"		Data.key[i] = skey[i];\n" +
-			"	keyExpansion.KeyExpansion256();\n" +
-			"}\n" +
-
-			
-			
-			"switch (duzina_kljuca)\n" +
-			"{\n" +
-			"	case 128 :\n" +
-			"	{\n" +
-			"			  Nb = 4;  //br.kolona\n" +
-			"			  Nr = 10; //br.rundi\n" +
-			"			  break;\n" +
-			"	}\n" +
-			"	case 192 :\n" +
-			"	{\n" +
-			"			  Nb = 4;\n" +
-			"			  Nr = 12;\n" +
-			"			  break;\n" +
-			"	}\n" +
-			"	case 256 :\n" +
-			"	{\n" +
-			"			  Nb = 4;\n" +
-			"			  Nr = 14;\n" +
-			"			  break;\n" +
-			"	}\n" +
-			"	default  :\n" +
-			"	{\n" +
-			"			  System.out.println(\"Key length must be 128, 192 or 256\");\n" +
-			"			  return;\n" +
-			"	}\n" +
-			"}\n" +
-			
-			"for (i = 0; i <= 3; i++) {\n" +
-			"	for (j = 0; j <= 3; j++) {\n" +
-			"		Data.State[i][j] = ulaz[4*i + j];\n" +
-			"	}\n" +
-			"}\n" +
-			
-			"System.out.println(\"-----------\");\n" +
-			
-			*/
 			
 			
 			"runda2 = 0;\n" +
@@ -263,11 +175,10 @@ public class MetaTransformation implements Transformation{
 			}
 			else
 			{
-				logger.debug("-----222222222---------");
 
-	    		/* Ovdje cemo od korisnika sakriti 'dosadni' dio posla
-	    		 * i dati mu priliku da se koncentrise na srz algoritma, 
-	    		 * odnosno metatransformacije */
+	    		/* We will hide some parts of algorithm, and give
+	    		 * users a chance to concentrate to algorithm core
+	    	    */
 	    		str_to_interpret = 
 	  			"import System.out;\n" +
 	  			"import org.apache.log4j.Logger;\n" +
@@ -303,18 +214,6 @@ public class MetaTransformation implements Transformation{
 				"s = \"" +  testVector +  "\";  \n" +
 				"init_key = \"" +  init_key +  "\";  \n" +
 				
-				/*
-				"for (int i = 0; i <= 15; i++) {\n" +
-				"	hex = \"\" + s.charAt(2 * i) + s.charAt(2 * i + 1);\n" +
-				"	ulaz[i] = Integer.parseInt(hex, 16);\n" +
-				"}\n" +
-
-				"for (int i = 0; i <= 3; i++) {\n" +
-				"	for (int j = 0; j <= 3; j++) {\n" +
-				"		Data.State[i][j] = ulaz[4 * i + j];\n" +
-				"	}\n" +
-				"}\n" +
-				*/
 				
 				"if (key_len == 128) init_key_len = 16;\n" +
 				"if (key_len == 192) init_key_len = 24;\n" +  
@@ -332,84 +231,8 @@ public class MetaTransformation implements Transformation{
 				
 				"keyExpansion = new KeyExpansion();\n" +
 				"keyExpansion.initialise(key_len, skey);\n" +
-				/*
-			    "if (key_len == 128) {\n" +
-				"	for (int i = 0; i <= 15; i++)\n" +
-				"		Data.key[i] = skey[i];\n" +
-				"	keyExpansion.KeyExpansion128();\n" +
-				"}\n" +
-				"else\n" +
-				"if (key_len == 192) {\n" +
-				"	for (int i = 0; i <= 191; i++)\n" +
-				"		Data.key[i] = skey[i];\n" +
-				"	keyExpansion.KeyExpansion192();\n" +
-				"}\n" +
-				"else\n" +
-				"if (key_len == 256) {\n" +
-				"	for (int i = 0; i <= 255; i++)\n" +
-				"		Data.key[i] = skey[i];\n" +
-				"	keyExpansion.KeyExpansion256();\n" +
-				"}\n" +
-
 				
-				/*
-				"switch (duzina_kljuca)\n" +
-				"{\n" +
-				"	case 128 :\n" +
-				"	{\n" +
-				"			  Nb = 4;  //br.kolona\n" +
-				"			  Nr = 10; //br.rundi\n" +
-				"			  break;\n" +
-				"	}\n" +
-				"	case 192 :\n" +
-				"	{\n" +
-				"			  Nb = 4;\n" +
-				"			  Nr = 12;\n" +
-				"			  break;\n" +
-				"	}\n" +
-				"	case 256 :\n" +
-				"	{\n" +
-				"			  Nb = 4;\n" +
-				"			  Nr = 14;\n" +
-				"			  break;\n" +
-				"	}\n" +
-				"	default  :\n" +
-				"	{\n" +
-				"			  System.out.println(\"Key length must be 128, 192 or 256\");\n" +
-				"			  return;\n" +
-				"	}\n" +
-				"}\n" +
 				
-				"for (i = 0; i <= 3; i++) {\n" +
-				"	for (j = 0; j <= 3; j++) {\n" +
-				"		Data.State[i][j] = ulaz[4*i + j];\n" +
-				"	}\n" +
-				"}\n" +
-				
-				"System.out.println(\"-----------\");\n" +
-				
-				*/
-				
-				/*
-				"runda2 = 0;\n" +
-				"runda = 0;\n" +
-				"//*************************************\n" +
-				"addRoundKey.transform_state(0);\n" +
-				"for (runda = 1; runda <= Nr-1; runda++)\n" +
-				"{\n" +
-				"   subBytes.transform_state();\n" +
-				"	shiftRows.transform_state();\n" +
-				"	mixColumns.transform_state();\n" +
-				"	addRoundKey.transform_state(4*runda*Nb );\n" +
-				"	runda2=runda;\n" +
-				"}\n" +
-				"\n" +
-				"runda2++;\n" +
-				"subBytes.transform_state();\n" +
-				"// Final round\n" +
-				"shiftRows.transform_state();\n" +
-				"addRoundKey.transform_state( 4*runda2*Nb );\n" +
-				*/
 				
 				MetaTr +
 				"for (i = 0; i <= 3; i++) {\n" +
@@ -421,15 +244,7 @@ public class MetaTransformation implements Transformation{
 				}
 
 
-			
-			
-			
-
-			logger.debug("-----Meta before eval ------");
-			logger.debug(str_to_interpret);
-			logger.debug("-----Meta before eval ------");
 			i.eval(str_to_interpret);
-			logger.debug("-----Meta after eval ------");
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

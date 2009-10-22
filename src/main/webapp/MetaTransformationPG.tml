@@ -61,7 +61,7 @@
 			t:add="transform" rowsPerPage="3"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="transformCell">
-				<t:actionlink t:id="transform" zone="viewZone" context="TestValues.id">Transform data</t:actionlink>
+				<t:actionlink t:id="transform" zone="viewZone" context="TestValues.id">Transform vector</t:actionlink>
         	</t:parameter>
 		</t:grid>
 		<t:block id="valueNotFound">No Values Found</t:block>
@@ -70,9 +70,14 @@
 		<!-- <t:actionlink t:id="fill">Fill</t:actionlink> -->
 
 		<br></br>
+		<b>First steps:</b><br></br> 
+		Select one meta transformation from Source code grid using Edit/Fill link.<br></br>
+		Then select one test vector from Test vectors grid using Transform vector link.<br></br> 
+		Read more at <a href="#botom">bottom of page</a>.
 		<br></br>
+		
 		<t:grid source="SourceList" row="Source" 
-		t:add="edit_fill, delete" rowsPerPage="3" >
+		t:add="edit_fill, delete" rowsPerPage="2" >
 		  
 		    <t:parameter name="edit_fillCell">
 				<t:actionlink t:id="fill" context="Source.id">Edit-Fill</t:actionlink>
@@ -93,5 +98,26 @@
         </form>
 	
 	</div>
+		<br></br><a name="botom"></a>
+		Best way to learn rules for writing meta transformations is to use one of predefined AES transformation,
+		which you can find in source code grid. So, click on Edit/Fill link.<br></br>
+		Once, when you fill Input area with code, you can edit it's contents in experimental purposes.
+		You can try to reorder transformations, for example:  
+		subBytes.transform_state();<br></br>
+		shiftRows.transform_state();<br></br>
+		mixColumns.transform_state();<p></p>
+		into<p></p>
+		mixColumns.transform_state();<br></br> 
+		subBytes.transform_state();<br></br>
+		shiftRows.transform_state();<p></p>
+		For present state of this project, you MUST enter key_len and init_key variables in 
+		metatransformation source, as in following example:<br></br>
+		key_len = 128;<br></br>
+    	init_key = "2b7e151628aed2a6abf7158809cf4f3c";<p></p>
+    	Initial key value must be sequence of hex digits, and must obey the following rules:<br></br>
+    	After taht, save your new transformation using Save new or Update button.<br></br>
+    	After you finish editing and saving source code, you can try your new meta transformation by clicking on 
+    	Transfrom vector link on Test vectors grid.
+    	 
 
 </html>

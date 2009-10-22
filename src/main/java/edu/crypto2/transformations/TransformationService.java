@@ -18,10 +18,5 @@ public class TransformationService {
 		this.transformation = transformation;
 	}
 	
-	public String GetTransformationName(){
-		String s = transformation.GetTransformationName();
-		System.out.println(s);
-		return s;
-	}
 }
 

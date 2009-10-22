@@ -28,12 +28,12 @@
     </ul>
 
     <ul>
-      <li><t:pagelink page="values/CreateTestValues">Create new values</t:pagelink></li>
+      <li><t:pagelink page="values/CreateTestValues">Create test vectors</t:pagelink></li>
     </ul>
 
 
     <ul>
-      <li><t:pagelink page="MetaTransformationPG">MetaTransformationPG</t:pagelink></li>
+      <li><t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink></li>
     </ul>
 
 
@@ -50,7 +50,8 @@
         TestNG, Spring, HIbernate, Tapestry and Extreme programming concepts.
         <br> </br>
         After the first phase, when students get familiar with AES Transformations, they can try to experiment with  
-        AES transformations, to reorder them as META-transformation, in experimental purposes.
+        AES transformations, to reorder them as META-transformation, in experimental purposes.<br></br>
+        If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
 
 
             

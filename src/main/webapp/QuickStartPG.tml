@@ -79,6 +79,8 @@
 </table>
 <br></br>
 Finally, when you are satisfied with results from some of your new algorithms/metatransformations,
-you can save them to database using Save new or Update buttons. 
+you can save them to database using Save new or Update buttons. <br></br>
+
+Now, you can go further, to meet <t:pagelink page="SubBytesPG">SubBytes transformation</t:pagelink>
 
 </html>

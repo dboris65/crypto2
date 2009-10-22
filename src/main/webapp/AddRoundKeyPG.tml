@@ -3,7 +3,7 @@
       xmlns:p="tapestry:parameter">
       
       
-	<div id="section">			
+	<div id="section" float="left" width="600">			
 	<h2>${message:greeting}</h2>
 		<t:zone t:id="viewZone"/>
 		<p>		
@@ -71,5 +71,32 @@
 
 
 	</div>
+	
+        <p>
+        
+	You can use this transformation as an introduction to AES algorithm in a following way:<br></br>
+	At bottom of page, you can find grid with some predefined test vectors that are 
+	taken from FIPS 197 publication, defining the AES algorithm.<br></br><br></br>
+
+	To see this transformation in action just click on View transformation link in any grid row.
+	Transformation will take test vector from grid, and give you results on the top of page 
+	in a form of the AES State. AES State is rectangular array of bytes, (4x4), 
+	that holds results and inter-results of transformations.<br></br>
+
+	
+	MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:<br></br>
+	<font face="Courier New"> 
+. . . | 02 03 01 01 |<br></br>
+new = | 01 02 03 01 | * old_column<br></br>
+. . . | 01 01 02 03 |<br></br>
+. . . | 03 01 01 02 |<br></br>
+	</font>
+	<br></br>
+	If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
+	Now, you can go further, to create your own <t:pagelink page="values/CreateTestValues">test vectors</t:pagelink> or<br></br>
+	to try some predefined <t:pagelink page="MetaTransformationPG">meta transformations</t:pagelink>
+   
+        </p>
+
 
 </html>

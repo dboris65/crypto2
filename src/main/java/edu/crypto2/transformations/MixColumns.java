@@ -6,37 +6,53 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
+/**
+ * Class MixColumns<p>
+ * Task:<br>
+ * To mix State columns (socond part of permutation)<br> 
+ *MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:<br>
+ *.........| 02 03 01 01 |<br>
+ *new = | 01 02 03 01 | * old_column<br>
+ *.........| 01 01 02 03 |<br>
+ *.........| 03 01 01 02 |<br>
+*/
 public class MixColumns implements Transformation {
-	//public Data data = new Data();
-	public int Nb;
-	
-	public String GetTransformationName() {
-		return "----- mixColumns -----";
-	}
-	
 	/**
-	 * 
+	 * Nb is always 4 (by FIPS-197), but authors of AES left
+	 * the space to change something in the future, 
+	 * so we wiil do the same
+	 */
+	public int Nb;
+	/**
+	 * Dummy constructor.<br>
+	 * Task:<br>
+	 * Just set Nb to 4<br>
 	 */
 	public MixColumns() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)		
+		// Nb - always 4 (by FIPS-197)	
 		this.Nb = 4;
 	}
 	
-	/***********************************************************
-	 * Galois multiplication
-	 *
+	/**
+	 * Galois multiplication<br>
+	 * Task:<br>
+	 * multiply two numbers using AES (Galois) multiplication<br>
+	 * To speed up Galois multiplication, we will use well known formula:<br>
+	 * log(x*y)=log(x)*log(y)<br>
+	 * x*y=antilog(log(x)*log(y))<br>
+	 * and already calculated subresults stored in ltable and atable<br>
+	 * @return result of multiplication
 	 */
 	public int galoa_mul_tab(int a, int b) {
 		int s;
 		int z = 0;
 
-		/* korak 1. pronadji brojeve u tabelama logaritama */
-		/* korak 2. saberi i pronadji moduo 255 */
+		/* step 1. find numbers in logarithm table */
+		/* step 2. add and calculate moduo 255 */
 		s = Data.ltable[a] + Data.ltable[b];
 		s %= 255;
-		/* korak 3. pronadji rezultat u tabeli eksponenata */
+		/* step 3. find result in exponent table */
 		s = Data.atable[s];
-		/* treba da vratimo rezultat nula ako je ili a ili b nula (ili oba) */
 		if(a == 0) {
 			s = z;
 		}
@@ -47,12 +63,38 @@ public class MixColumns implements Transformation {
 		return s;
 	}
 
-	
-	/***********************************************************
-	/* Ovdje radimo pravi posao
-	 * Here we do the job
-	 * 
+	/**
+	 *  initialize_State<p>
+	 *  Fills State array with initial values taken from inStr.<p>
+	 *  input:<br>
+	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
+	public void initialize_State(String inStr)
+	{
+		String hex = "";
+		int ulaz[] = new int[16];
+
+		for (int i = 0; i <= 15; i++) {
+			hex = "" + inStr.charAt(2 * i) + inStr.charAt(2 * i + 1);
+			ulaz[i] = Integer.parseInt(hex, 16);
+		}
+
+		for (int i = 0; i <= 3; i++) {
+			for (int j = 0; j <= 3; j++) {
+				Data.State[i][j] = ulaz[4 * i + j];
+			}
+		}
+
+	}
+	
+	/**
+	 * MixColumns.transform_state<p>
+	 *MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:<br>
+	 *.........| 02 03 01 01 |<br>
+	 *new = | 01 02 03 01 | * old_column<br>
+	 *.........| 01 01 02 03 |<br>
+	 *.........| 03 01 01 02 |<br>
+	*/
 	public void transform_state() {
 	int a[] = new int [4];
 	int c;
@@ -93,27 +135,6 @@ public class MixColumns implements Transformation {
 	Data.State[3][1] = galoa_mul_tab(a[0],1) ^ galoa_mul_tab(a[1],2) ^ galoa_mul_tab(a[2],3) ^ galoa_mul_tab(a[3],1);
 	Data.State[3][2] = galoa_mul_tab(a[0],1) ^ galoa_mul_tab(a[1],1) ^ galoa_mul_tab(a[2],2) ^ galoa_mul_tab(a[3],3);
 	Data.State[3][3] = galoa_mul_tab(a[0],3) ^ galoa_mul_tab(a[1],1) ^ galoa_mul_tab(a[2],1) ^ galoa_mul_tab(a[3],2);
-
-	}
-	
-	/* initialize_State - samo za edukaciju i testiranje
-	 * initialize_State - just for education and testing
-	 */
-	public void initialize_State(String s)
-	{
-		String hex = "";
-		int ulaz[] = new int[16];
-
-		for (int i = 0; i <= 15; i++) {
-			hex = "" + s.charAt(2 * i) + s.charAt(2 * i + 1);
-			ulaz[i] = Integer.parseInt(hex, 16);
-		}
-
-		for (int i = 0; i <= 3; i++) {
-			for (int j = 0; j <= 3; j++) {
-				Data.State[i][j] = ulaz[4 * i + j];
-			}
-		}
 
 	}
 }

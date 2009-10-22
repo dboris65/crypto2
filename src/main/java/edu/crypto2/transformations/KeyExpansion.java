@@ -2,98 +2,97 @@
  * Boris Damjanovic, 230/08, FON, Belgrade - crypto2 - 2009
  */
 package edu.crypto2.transformations;
-import org.apache.log4j.Logger;
-//import org.apache.tapestry5.annotations.SessionState;
-
 import edu.crypto2.data.*;
-import edu.crypto2.pages.SubBytesPG;
 /***********************************************************************
  * 
  */
+/**
+ * Class KeyExpansion<p>
+ * Task:<br>
+ * To expand inital key from 16, 24 or 32 bytes to 16*11, 16*13 or 16*15 bytes, respectively<br> 
+ * This transformation always takes last 4 bytes from already generated key, 
+ * and expand it to give next 16 bytes of key 
+*/
 public class KeyExpansion implements Transformation{
-	//@Session State(create = false)
-	//SessionState;
+	/**
+	 * Nb is always 4 (by FIPS-197), but authors of AES left
+	 * the space to change something in the future, 
+	 * so we wiil do the same
+	 */
 	public int Nb;
-	
-	public String GetTransformationName() {
-		return "----- AddRoundKey -----";
-	}
-
+	/**
+	 * Dummy constructor.<br>
+	 * Task:<br>
+	 * Just set Nb to 4<br>
+	 */
 	public KeyExpansion() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)
+		// Nb - always 4 (by FIPS-197)
 		this.Nb = 4;
 	}
-
+	
+	/**
+	 *  initialize<p>
+	 *  Task:<br>
+	 *  To expand key.<br>
+	 *  Input variables must satisfy following conditions:<br>
+	 *  key_len=128 => length(kljuc)=16 bytes<br>
+	 *  key_len=192 => length(kljuc)=24 bytes<br>
+	 *  key_len=256 => length(kljuc)=32 bytes<br>
+	 *  Resulting key will be stored in Data.Key variable
+	 */
 	public void initialise(int key_len, int[] kljuc) {
 		int i;
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)
+		// Nb - always 4 (by FIPS-197)
 		this.Nb = 4;
 		for (i = 0; i <= 239; i++)
 			Data.key[i] = 0x0;
-		final Logger logger = Logger.getLogger(KeyExpansion.class);
-		logger.debug("--- key_len ---" + key_len);
-		logger.debug("--- kljuc ---" + kljuc);
-		
 			  if (key_len == 128) {
 				for (i = 0; i <= 15; i++)
 					Data.key[i] = kljuc[i];
-				logger.debug("--- pred KEX128 ---");
 				KeyExpansion128();
-			    logger.debug("--- nakon KEX128 ---");
 			  }
 			  else
 			  if (key_len == 192) {
 				for (i = 0; i <= 23; i++)
 					Data.key[i] = kljuc[i];
-				logger.debug("--- pred KEX192 ---");
 				KeyExpansion192();
-			    logger.debug("--- nakon KEX192 ---");
 			  }
 			  else
 			  if (key_len == 256) {
 				for (i = 0; i <= 31; i++)
 					Data.key[i] = kljuc[i];
-				logger.debug("--- pred KEX256 ---");
 				KeyExpansion256();
-			    logger.debug("--- nakon KEX256 ---");
 			  }
 			  
 			
-			logger.debug(" ");
-		    logger.debug("Constructor KEX ----------------------------------");
 		    String hex = "";
 		    for (int k=1; k<64; k++){
 		    	hex = hex + Integer.toString((Data.key[k] & 0xff) + 0x100,
   						16 /* radix */).substring(1);
-		    	
-		    	
 		    }
-		    logger.debug(hex);
-		    logger.debug("----------------------------------");
-		    logger.debug(" ");
-			//logger.debug(Data.key[1]);
-			//logger.debug(Data.key[2]);
-			//logger.debug(Data.key[3]);
-			  
-			  
 	}
 	
 	
-	/***********************************************************
-	 * Galois multiplication
-	 *
+	/**
+	 * Galois multiplication<br>
+	 * Task:<br>
+	 * multiply two numbers using AES (Galois) multiplication<br>
+	 * To speed up Galois multiplication, we will use well known formula:<br>
+	 * log(x*y)=log(x)*log(y)<br>
+	 * x*y=antilog(log(x)*log(y))<br>
+	 * and already calculated subresults stored in ltable and atable<br>
+	 * @return result of multiplication
 	 */
 	public int galoa_mul_tab(int a, int b) {
 		int s;
 		int z = 0;
 
-		/* korak 1. pronadji brojeve u tabelama logaritama */
-		/* korak 2. saberi i pronadji moduo 255 */
+		/* step 1. find numbers in logarithm table */
+		/* step 2. add and calculate moduo 255 */
 		s = Data.ltable[a] + Data.ltable[b];
 		s %= 255;
-		/* korak 3. pronadji rezultat u tabeli eksponenata */
+		/* step 3. find result in exponent table */
 		s = Data.atable[s];
-		/* treba da vratimo rezultat nula ako je ili a ili b nula (ili oba) */
 		if(a == 0) {
 			s = z;
 		}
@@ -104,9 +103,12 @@ public class KeyExpansion implements Transformation{
 		return s;
 	}
 
-	/***********************************************************
-	 * AES RotWord
-	 *
+	/**
+	 * AES RotWord<br>
+	 * Task:<br>
+	 * Rotate bytes inside 4 byte word, in following manner:<br>
+	 * 01 02 03 04  ----> 02 03 04 01<br>
+	 * This 4-byte word is Data.tmpKey variable.
 	 */
 	public void RotWord() {
 			int a,c;
@@ -117,10 +119,14 @@ public class KeyExpansion implements Transformation{
 			return;
 	}
 
-	/***********************************************************
-	 * AES rcon for key expansion
-	 *
-	 */
+	/**
+	 * AES RCon<br>
+	 * Task:<br>
+	 * Exponentiate 2 (in Galois fields) In times <br>
+	 * So, Variable In must be element of Galois field (e.g. Byte, or 0..255)<br>
+	 * Rcon[i] is constant array that contains values given by:<br>
+	 * [x^(i-1), {00}, {00}, {00}]
+ 	 */
 	public int rcon(int in) {
 			int c=1;
 			if(in == 0)
@@ -132,46 +138,51 @@ public class KeyExpansion implements Transformation{
 			return c;
 	}
 
-	/***********************************************************
-	 * AES key expansion base
-	 *
+	/**
+	 * key_expansion_base<br>
+	 * Task:<br>
+	 * Apply RotWord, SBox and RCon on Data.tmpKey variable.<br>
+	 * Key expansion function is slightly different for different initial key sizes.<br> 
+	 * For 256 bit key, we have to use SubWord (S-Box) transformation one more time 
+	 * then for expansion of 128 or 192 bit keys.<br>
+	 * Common part for expanding keys of any length is separated this function.
 	 */
 	public void key_expansion_base(int i) {
 		int a;
-		/* Rotiramo najvisih 8 bita ulaza */
+		/* Rotate hi 8 bits in tmpKey */
 		/*---------------------    ---------------------*/
 		/*| 1d | 2c | 3a | 4f | -> | 2c | 3a | 4f | 1d |*/
 		/*---------------------    ---------------------*/
 		RotWord();
 
-		/* Primjenicemo Rijndael-ov s-box na sva 4 bajta */
+		/* AES S-Box on every byte of State */
 		for(a = 0; a < 4; a++)
 			Data.tmpkey[a] = Data.SBox[ Data.tmpkey[a] ];
-		/* Na najvisi (prvi) bajt, primjenicemo XOR sa 2 na i */
+		/* On hi byte, apply XOR with 2^(i-1) */
 		/* word[0] = word[0] XOR RCON[i]; */
 		Data.tmpkey[0] ^= rcon(i);
 
 	}
 	
-	/***********************************************************
-	 * AES key expansion 128
-	 *
+	/**
+	 * AES key expansion 128<p>
+	 * Task:<br>
+	 * To expand key to 11*16 = 176 bytes<br>
+	 * We need 11 sets of 16 bytes each
+	 * because AES128 have (10+1) rounds and State is always 16 bytes long
 	 */
 	public void KeyExpansion128() {
-			/* c je 16 jer prvi podkljuc definise korisnik  */
+			/* c = 16 because first 16 bytes are user defined  */
 			int c = 16;
 			int i = 1;
 			int a;
 
-			/* Treba nam 11 skupova od po 16 bajtova za 128-bitni rezim rada */
-			/*   c < Nb*(Nr+1) Nb-broj kolona, uvjek 4, Nr-broj RUNDI, 10, 12 ili 14 */
-			/*     4*(10+1) * 4 bajta u rijeci */
 			while(c < 176) {
-					/* Kopiraj zadnja 4 bajta iz bloka u temp varijablu */
+					/* Copy last 4 bytes from key to temp variable */
 					for(a = 0; a < 4; a++)
 						Data.tmpkey[a] = Data.key[a + c - 4];
 
-					/* Na svaka 4 bloka (od po 4 bajta) malo racunamo */
+					/* On every 4 blocks (of four bytes), do calculations with tmpKey */
 					if(c % 16 == 0) {
 						key_expansion_base(i);
 						i++;
@@ -182,31 +193,26 @@ public class KeyExpansion implements Transformation{
 							c++;
 					}
 			}
-			final Logger logger = Logger.getLogger(KeyExpansion.class);
-			logger.debug("-----After KeyExpansion--");
-			logger.debug("-----KeyExpansion---------");
-			logger.debug("-----KeyExpansion---------");
-
 	}
 	
-	/***********************************************************
-	 * AES key expansion 192
-	 *
+	/**
+	 * AES key expansion 192<p>
+	 * Task:<br>
+	 * To expand key to 13*16 = 208 bytes<br>
+	 * We need 13 sets of 16 bytes each
+	 * because AES192 have (12+1) rounds and State is always 16 bytes long
 	 */
 	public void KeyExpansion192() {
-		/* c je 24 jer prvi podkljuc definise korisnik  */
+		/* c = 24 because first 24 bytes are user defined  */
 		int c = 24;
 		int i = 1;
 		int a;
 
-		/* Treba nam 12+1 skupova od po 16 bajtova za 192-bitni rezim rada */
-		//    c < Nb*(Nr+1)     Nb-broj kolona, uvjek 4, Nr-broj RUNDI, 10, 12 ili 14
-		//        4*(12+1) * 4 bajta u rijeci
 		while(c < 208) {
-				/* Kopiraj zadnja 4 bajta iz bloka u temp varijablu */
+				/* Copy last 4 bytes from key to temp variable */
 				for(a = 0; a < 4; a++)
 					Data.tmpkey[a] = Data.key[a + c - 4];
-				/* Na svaka 4 bloka (od po 4 bajta) malo racunamo */
+				/* On every 6 blocks (of four bytes), do calculations with tmpKey */
 				if(c % 24 == 0) {
 					key_expansion_base(i);
 					i++;
@@ -218,32 +224,31 @@ public class KeyExpansion implements Transformation{
 		}
 	}
 	
-	/***********************************************************
-	 * AES key expansion 256
-	 *
+	/**
+	 * AES key expansion 256<p>
+	 * Task:<br>
+	 * To expand key to 15*16 = 240 bytes<br>
+	 * We need 15 sets of 16 bytes each
+	 * because AES192 have (14+1) rounds and State is always 16 bytes long
 	 */
 	public void KeyExpansion256() {
-		/* c je 32 jer prvi podkljuc definise korisnik  */
+		/* c = 32 because first 32 bytes are user defined  */
 		int c = 32;
 		int i = 1;
 		int a;
 
-		/* Treba nam 14+1 skupova od po 16 bajtova za 256-bitni rezim rada */
-		// 4*(14+1) * 4 bajta u rijeci
 		while(c < 240) {
-				/* Kopiraj zadnja 4 bajta iz bloka u temp varijablu */
+				/* Copy last 4 bytes from key to temp variable */
 				for(a = 0; a < 4; a++)
 					Data.tmpkey[a] = Data.key[a + c - 4];
 
-				/* Na svaka 4 bloka (od po 4 bajta) malo racunamo */
+				/* On every 8 blocks (of four bytes), do calculations with tmpKey */
 				if(c % 32 == 0) {
 					key_expansion_base(i);
 					i++;
 				}
 				
-				//********************************************************
-				// ovdje se 256 malo razlikuje
-				// Za 256 bitni kljuc, dodajemo dodatni S-Box
+				// Extra S-Box, only in 256 bit mode
 				if(c % 32 == 16) {
 						for(a = 0; a < 4; a++)
 							Data.tmpkey[a] = Data.SBox[ Data.tmpkey[a] ];

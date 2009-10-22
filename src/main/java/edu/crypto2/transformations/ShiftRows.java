@@ -3,37 +3,53 @@
  */
 package edu.crypto2.transformations;
 
-import java.util.List;
-
 import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
+/**
+ * Class ShiftRows<p>
+ * Task:<br>
+ * To shift State rows (first part of permutation)<br> 
+ * State buffer will be transformed in following manner:<br> 
+ * <br>
+ * d4 e0 b8 1e  ---->  d4 e0 b8 1e <br>
+ * <b>27</b> bf b4 41  ----> bf b4 41 <b>27</b><br>
+ * <b>11 98</b> 5d 52  ---> 5d 52 <b>11 98</b><br>
+ * <b>ae f1 e5</b> 30  ---> 30 <b>ae f1 e5</b><br>
+ */
 public class ShiftRows implements Transformation{
-	//public Data data = new Data();
+	/**
+	 * Nb is always 4 (by FIPS-197), but authors of AES left
+	 * the space to change something in the future, 
+	 * so we wiil do the same
+	 */
 	public int Nb;
 	
 
-	
-	public String GetTransformationName() {
-		return "----- ShiftRows -----";
-	}
-	
+	/**
+	 * Dummy constructor.<br>
+	 * Task:<br>
+	 * Just to set Nb to 4<br>
+	 */
 	public ShiftRows() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)		
+		// Nb - always 4 (by FIPS-197)			
 		this.Nb = 4;
 	}
 	
-	/* initialize_State - samo za edukaciju i testiranje
-	 * initialize_State - just for education and testing
+	/**
+	 *  initialize_State<p>
+	 *  Fills State array with initial values taken from inStr.<p>
+	 *  input:<br>
+	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
-	public void initialize_State(String s)
+	public void initialize_State(String inStr)
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
 
 		for (int i = 0; i <= 15; i++) {
-			hex = "" + s.charAt(2 * i) + s.charAt(2 * i + 1);
+			hex = "" + inStr.charAt(2 * i) + inStr.charAt(2 * i + 1);
 			ulaz[i] = Integer.parseInt(hex, 16);
 		}
 
@@ -45,8 +61,14 @@ public class ShiftRows implements Transformation{
 
 	}
 	
-	/* Ovdje radimo pravi posao
-	 * Here we do the job
+	/**
+	 * ShiftRows.transform_state<p>
+	 * State buffer will be transformed in following manner:<br> 
+	 * <br>
+	 * d4 e0 b8 1e  ---->  d4 e0 b8 1e <br>
+	 * <b>27</b> bf b4 41  ----> bf b4 41 <b>27</b><br>
+	 * <b>11 98</b> 5d 52  ---> 5d 52 <b>11 98</b><br>
+	 * <b>ae f1 e5</b> 30  ---> 30 <b>ae f1 e5</b><br>
 	 * 
 	 */
 	public void transform_state() {

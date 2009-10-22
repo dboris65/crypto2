@@ -20,7 +20,6 @@ public class TransformApplication {
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 		TransformationService transformation = (TransformationService)context.getBean("TransformationService");
 
-		transformation.GetTransformationName();
 	}
 
 }

@@ -3,38 +3,51 @@
  */
 package edu.crypto2.transformations;
 
-import java.util.List;
-
 import edu.crypto2.data.*;
 
 /***********************************************************************
  * 
  */
+/**
+ * Class SubBytes<p>
+ * Task:<br>
+ * To apply S-Box on State buffer<br> 
+ * Two basic components of many algorithms are substitution box ( S-Box) 
+ * and permutation box ( P-Box).<br>
+ * AES performs SBox explicitly (using this transformation and SBox array), while permutations are done implicitly.
+ */
 public class SubBytes implements Transformation {
-	//public Data data = new Data();
+	/**
+	 * Nb is always 4 (by FIPS-197), but authors of AES left
+	 * the space to change something in the future, 
+	 * so we wiil do the same
+	 */
 	public int Nb;
 	
 
-	
-	public String GetTransformationName() {
-		return "----- SubBytes -----";
-	}
-
+	/**
+	 * Dummy constructor.<br>
+	 * Task:<br>
+	 * Just to set Nb to 4<br>
+	 */
 	public SubBytes() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu)		
+		// Nb - always 4 (by FIPS-197)		
 		this.Nb = 4;
 	}
 
-	/* initialize_State - samo za edukaciju i testiranje
-	 * initialize_State - just for education and testing
+	/**
+	 *  initialize_State<p>
+	 *  Fills State array with initial values taken from inStr.<p>
+	 *  input:<br>
+	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
-	public void initialize_State(String s)
+	public void initialize_State(String inStr)
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
 
 		for (int i = 0; i <= 15; i++) {
-			hex = "" + s.charAt(2 * i) + s.charAt(2 * i + 1);
+			hex = "" + inStr.charAt(2 * i) + inStr.charAt(2 * i + 1);
 			ulaz[i] = Integer.parseInt(hex, 16);
 		}
 
@@ -46,12 +59,13 @@ public class SubBytes implements Transformation {
 
 	}
 	
-	/* Ovdje radimo pravi posao
-	 * Here we do the job
+	/**
+	 * SubBytes.transform_state<p>
+	 * Apply AES S-Box to every byte of State.
 	 * 
 	 */
 	public void transform_state() {
-		// Nb je uvijek 4 (po FIPS-197 dokumentu), ali ostavljamo prostor da nesto promjenimo u buducnosti
+		// Nb is always 4 (by FIPS-197), but they live the space to change something in the future
 		for (int i = 0; i <= Nb - 1; i++) {
 			for (int j = 0; j <= Nb - 1; j++) {
 				Data.State[i][j] = Data.SBox[Data.State[i][j]];
