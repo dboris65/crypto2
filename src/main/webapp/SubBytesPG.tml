@@ -53,13 +53,14 @@
 		<p>.</p>
 		<p>.</p>
 		
-		
+		<br></br>
+		<br></br>
 		<t:grid t:id="grid" source="TestValuesList" 
 			include="SubBytes_TestValue" 
 			t:add="view" rowsPerPage="3"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="viewCell">
-				<t:actionlink t:id="view" zone="viewZone" context="TestValues.id">View</t:actionlink>
+				<t:actionlink t:id="view" zone="viewZone" context="TestValues.id">View transformation</t:actionlink>
         	</t:parameter>
 		</t:grid>
 		<t:block id="valueNotFound">No Values Found</t:block>

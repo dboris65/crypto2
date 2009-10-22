@@ -5,26 +5,32 @@
         <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
     <p>${message:greeting}</p>
 
+
+
+    <ul>
+      <li><t:pagelink page="QuickStartPG">Quick start</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="SubBytesPG">SubBytes</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="ShiftRowsPG">ShiftRows</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="MixColumnsPG">MixColumns</t:pagelink></li>
+    </ul>
+    
+    <ul>
+      <li><t:pagelink page="AddRoundKeyPG">AddRoundKey</t:pagelink></li>
+    </ul>
+
     <ul>
       <li><t:pagelink page="values/CreateTestValues">Create new values</t:pagelink></li>
     </ul>
 
-
-    <ul>
-      <li><t:pagelink page="SubBytesPG">SubBytesPG</t:pagelink></li>
-    </ul>
-
-    <ul>
-      <li><t:pagelink page="ShiftRowsPG">ShiftRowsPG</t:pagelink></li>
-    </ul>
-
-    <ul>
-      <li><t:pagelink page="MixColumnsPG">MixColumnsPG</t:pagelink></li>
-    </ul>
-    
-    <ul>
-      <li><t:pagelink page="AddRoundKeyPG">AddRoundKeyPG</t:pagelink></li>
-    </ul>
 
     <ul>
       <li><t:pagelink page="MetaTransformationPG">MetaTransformationPG</t:pagelink></li>

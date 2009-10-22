@@ -54,13 +54,14 @@
 		<p>.</p>
 		<br/>
 		
-		
+		<br></br>
+		<br></br>		
 		<t:grid t:id="grid" source="TestValuesList" 
 			include="MetaTransformation_TestValue" 
 			t:add="transform" rowsPerPage="3"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="transformCell">
-				<t:actionlink t:id="transform" zone="viewZone" context="TestValues.id">Transform</t:actionlink>
+				<t:actionlink t:id="transform" zone="viewZone" context="TestValues.id">Transform data</t:actionlink>
         	</t:parameter>
 		</t:grid>
 		<t:block id="valueNotFound">No Values Found</t:block>
@@ -68,7 +69,8 @@
 
 		<!-- <t:actionlink t:id="fill">Fill</t:actionlink> -->
 
-
+		<br></br>
+		<br></br>
 		<t:grid source="SourceList" row="Source" 
 		t:add="edit_fill, delete" rowsPerPage="3" >
 		  
