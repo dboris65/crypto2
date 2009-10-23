@@ -8,15 +8,15 @@
 		<t:zone t:id="viewZone"/>
 		<p>		
 		<t:block id="LinesOutDetails">
-		<font face="Courier New" size="2">
-		<table border="0" width="50%" id="table1" align="left">
+		
+		<table border="0" width="85%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
 		<tr>
 			<td width="60%">State buffer</td>
-			<td width="60%"></td>
+			<td width="40%"></td>
 		</tr>
 		<tr>
 			<td width="60%">before MixColumns:</td>
-			<td width="60%">After MixColumns:</td>
+			<td width="40%">After MixColumns:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
@@ -43,16 +43,17 @@
 			<td>---------------</td>
 		</tr>
 		</table>
-		</font>
+		
 		</t:block>
 
 		</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
 		<br></br>
 		<br></br>
 		
@@ -77,13 +78,12 @@
     <br></br>   
 	MixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:
 	<br></br>
-	<font face="Courier New"> 
-. . . | 02 03 01 01 |<br></br>
-new = | 01 02 03 01 | * old_column<br></br>
-. . . | 01 01 02 03 |<br></br>
-. . . | 03 01 01 02 |<br></br>
-	</font>
-	<p></p>
+	<p style="font-family: courier, monospace; white-space:pre; font-size:12px">
+. . . | 02 03 01 01 |
+new = | 01 02 03 01 | * old_column
+. . . | 01 01 02 03 |
+. . . | 03 01 01 02 |
+	</p>
 	And, as described before, just click on View transformation link in any grid row to see results of 
 	this transformation.
 	<p></p>

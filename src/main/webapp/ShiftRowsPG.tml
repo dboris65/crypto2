@@ -1,4 +1,4 @@
-<html t:type="layout" title="Crypto2 ShiftRowsPG"
+<html t:type="layout" title="ShiftRows transformation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
       
@@ -8,15 +8,15 @@
 		<t:zone t:id="viewZone"/>
 		<p>		
 		<t:block id="LinesOutDetails">
-		<font face="Courier New" size="2">
-		<table border="0" width="50%" id="table1" align="left">
+
+		<table border="0" width="80%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
 		<tr>
 			<td width="60%">State buffer</td>
-			<td width="60%"></td>
+			<td width="40%"></td>
 		</tr>
 		<tr>
 			<td width="60%">before ShiftRows:</td>
-			<td width="60%">After ShiftRows:</td>
+			<td width="40%">After ShiftRows:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
@@ -43,16 +43,17 @@
 			<td>---------------</td>
 		</tr>
 		</table>
-		</font>
+
 		</t:block>
 
 		</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		<p>.</p>
-		
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
+		<br></br>
 		<br></br>
 		<br></br>
 		
@@ -76,16 +77,17 @@
         <p>
         
     <br></br>   
-    We already described State buffer as 4x4 bytes buffer 
+    We already described State array as 4x4 bytes buffer 
     that holds results and sub-results of transformations. 
     In this transformation, State buffer will be transformed in following manner:<p></p>
-	<font face="Courier New"> 
+	<p style="font-family: courier, monospace; white-space: pre; font-size:12px">
+	 
        d4 e0 b8 1e      ---> d4 e0 b8 1e <br></br>
     <b>27</b> bf b4 41  ---> bf b4 41 <b>27</b> <br></br>
     <b>11 98</b> 5d 52  ---> 5d 52 <b>11 98</b> <br></br>
     <b>ae f1 e5</b> 30  ---> 30 <b>ae f1 e5</b> <br></br>
-	</font>
-	<p></p>
+	
+	</p>
 	Usage:<br></br>
 	Like in previous transformation, just click on View transformation link in any grid row.
 	Transformation will take test vector from grid, and give you results on the top of page 

@@ -9,14 +9,14 @@
 		<p>		
 		<t:block id="LinesOutDetails">
 		<font face="Courier New" size="2">
-		<table border="0" width="70%" id="table1" align="left">
+		<table border="0" width="80%" id="table1" align="left">
 		<tr>
-			<td width="70%">State buffer</td>
-			<td width="30%"></td>
+			<td width="60%">State buffer</td>
+			<td width="40%"></td>
 		</tr>
 		<tr>
-			<td width="70%">before MetaTransformation:</td>
-			<td width="30%">After MetaTransformation:</td>
+			<td width="60%">before MetaTransformation:</td>
+			<td width="40%">After MetaTransformation:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
