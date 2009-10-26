@@ -29,6 +29,8 @@ public class AppModule
     {
     	binder.bind(TestValuesDao.class, TestValuesDaoImpl.class);
     	binder.bind(SourceDao.class, SourceDaoImpl.class);
+    	binder.bind(UserDao.class, UserDaoImpl.class);
+    	
     	
         // binder.bind(MyServiceInterface.class, MyServiceImpl.class);
         

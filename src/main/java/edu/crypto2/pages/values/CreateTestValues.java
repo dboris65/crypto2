@@ -8,12 +8,14 @@ import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.OnEvent;
 
 import edu.crypto2.entities.TestValues;
+import edu.crypto2.entities.User;
 
 import edu.crypto2.pages.SubBytesPG;
 import edu.crypto2.pages.values.CreateTestValues;
@@ -26,6 +28,21 @@ import org.hibernate.Session;
 
 
 public class CreateTestValues {
+	@SessionState(create=false)
+	private User user;
+	
+	@Property
+	private String UserName = "";
+	
+
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+
+	
     @Inject
     private Session session;
     @Inject
@@ -36,6 +53,13 @@ public class CreateTestValues {
 
 	@SetupRender
 	boolean setup() {
+		if (user != null){
+			UserName = (user.getName());
+		}
+		else{
+			UserName = "";
+		}
+		
 		testValuesDao.reload();
 		//List<TestValues> result = session.createCriteria(TestValues.class).list();
 		return true;
@@ -48,6 +72,7 @@ public class CreateTestValues {
     @CommitAfter
     Object onSuccess()
     {
+    	testValues.setUserId(user.getId());
         session.persist(testValues);
    	    List<TestValues> result = session.createCriteria(TestValues.class).list();
 	    System.out.println(result);

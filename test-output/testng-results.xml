@@ -4,9 +4,9 @@
   <suite name="crypto2">
     <groups>
     </groups>
-    <test name="edu.crypto2.cryptotest.TransformTest">
+    <test name="cryptotest">
       <class name="edu.crypto2.cryptotest.TransformTest">
-        <test-method status="PASS" signature="testAESKeyExpansion(java.lang.String)" name="testAESKeyExpansion" duration-ms="16" started-at="2009-10-22T16:41:52Z" finished-at="2009-10-22T16:41:52Z">
+        <test-method status="PASS" signature="testAESKeyExpansion(java.lang.String)" name="testAESKeyExpansion" duration-ms="16" started-at="2009-10-25T23:31:07Z" finished-at="2009-10-25T23:31:07Z">
           <params>
             <param index="0">
               <value>
@@ -15,7 +15,7 @@
             </param>
           </params>
         </test-method>
-        <test-method status="PASS" signature="testAESShiftRows(java.lang.String)" name="testAESShiftRows" duration-ms="0" started-at="2009-10-22T16:41:52Z" finished-at="2009-10-22T16:41:52Z">
+        <test-method status="PASS" signature="testAESShiftRows(java.lang.String)" name="testAESShiftRows" duration-ms="0" started-at="2009-10-25T23:31:07Z" finished-at="2009-10-25T23:31:07Z">
           <params>
             <param index="0">
               <value>
@@ -24,20 +24,20 @@
             </param>
           </params>
         </test-method>
-        <test-method status="PASS" signature="testAESMixColumns(java.lang.String)" name="testAESMixColumns" duration-ms="15" started-at="2009-10-22T16:41:52Z" finished-at="2009-10-22T16:41:52Z">
-          <params>
-            <param index="0">
-              <value>
-                <![CDATA[d4bf5d30e0b452aeb84111f11e2798e5]]>
-              </value>
-            </param>
-          </params>
-        </test-method>
-        <test-method status="PASS" signature="testAESSubBytes(java.lang.String)" name="testAESSubBytes" duration-ms="0" started-at="2009-10-22T16:41:52Z" finished-at="2009-10-22T16:41:52Z">
+        <test-method status="PASS" signature="testAESSubBytes(java.lang.String)" name="testAESSubBytes" duration-ms="0" started-at="2009-10-25T23:31:07Z" finished-at="2009-10-25T23:31:07Z">
           <params>
             <param index="0">
               <value>
                 <![CDATA[193de3bea0f4e22b9ac68d2ae9f84808]]>
+              </value>
+            </param>
+          </params>
+        </test-method>
+        <test-method status="PASS" signature="testAESMixColumns(java.lang.String)" name="testAESMixColumns" duration-ms="0" started-at="2009-10-25T23:31:07Z" finished-at="2009-10-25T23:31:07Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[d4bf5d30e0b452aeb84111f11e2798e5]]>
               </value>
             </param>
           </params>

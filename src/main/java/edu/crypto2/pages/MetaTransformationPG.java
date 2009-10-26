@@ -22,6 +22,7 @@ import bsh.EvalError;
 /******************************************************/
 import edu.crypto2.entities.Source;
 import edu.crypto2.entities.TestValues;
+import edu.crypto2.entities.User;
 import edu.crypto2.services.SourceDao;
 import edu.crypto2.services.TestValuesDao;
 
@@ -33,6 +34,20 @@ import edu.crypto2.data.*;
  * 
  */
 public class MetaTransformationPG {
+	@SessionState(create=false)
+	private User user;
+	
+	@Property
+	private String UserName = "";
+	
+
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+	
 	@Inject
     private Session session;
 /* ----- GRID 1 -------- */
@@ -99,6 +114,12 @@ public class MetaTransformationPG {
 
 	@SetupRender
 	boolean setup() throws Exception {
+		if (user != null){
+			UserName = (user.getName());
+		}
+		else{
+			UserName = "";
+		}
 		/* Ovo odstupa od skolskih primjera za rad sa Tapestry-jem i DAO-ima.
 		 * 
 		 * Ako prvi put udjemo u stranicu, ona ce ucitati i formirati TestValuesDao
@@ -118,6 +139,7 @@ public class MetaTransformationPG {
 		 * ako budemo prosirivali aplikaciju...*/
 		sourceDao.reload();
 		testValuesDao.reload();
+		
 		
 		
 		if ((SesionValueBeforeMetaTransformation == "") || (SesionValueBeforeMetaTransformation == null)) 
@@ -582,7 +604,7 @@ public class MetaTransformationPG {
 			logger.debug("-----Before new Source--");
 			Source srce = new Source();
 			srce.setSourceCode(s); 
-			srce.setId(srce.getId());
+			srce.setUserId(user.getId());
 	
 			logger.debug("-----Before save(srce)--");
 			logger.debug("-----Before save(srce)--");

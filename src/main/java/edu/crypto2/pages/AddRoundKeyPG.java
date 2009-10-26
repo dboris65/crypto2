@@ -10,12 +10,14 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 /******************************************************/
 import edu.crypto2.entities.TestValues;
+import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
 import edu.crypto2.transformations.AddRoundKey;
@@ -26,7 +28,20 @@ import edu.crypto2.data.*;
  * 
  */
 public class AddRoundKeyPG {
+	@SessionState(create=false)
+	private User user;
 	
+	@Property
+	private String UserName = "";
+	
+
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+
 	@Inject
     private Session session;
 	@Inject
@@ -56,6 +71,12 @@ public class AddRoundKeyPG {
 	
 	@SetupRender
 	boolean setup() throws Exception {
+		if (user != null){
+			UserName = (user.getName());
+		}
+		else{
+			UserName = "";
+		}
 		testValuesDao.reload();
 		
 		if (SesionInit_Key == null)
@@ -347,6 +368,12 @@ public class AddRoundKeyPG {
 
 
 
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
 
 	
 	

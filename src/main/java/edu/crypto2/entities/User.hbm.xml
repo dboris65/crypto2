@@ -3,14 +3,19 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="edu.crypto2.entities">
-	<class name="Source" table="source">
+	<class name="User" table="user">
 		<id name="Id" type="long" column="ID">
 			<generator class="identity" />
 		</id>
-		<property name="sourceCode" type="string" column="SourceCode"
+		<property name="userName" type="string" column="UserName"
 			not-null="true" />
-		<property name="userId" type="long" column="UserId"
-			not-null="true" />	
+		<property name="password" type="string" column="Password"
+			not-null="true" />
+		<property name="name" type="string" column="Name"
+			not-null="true" />
+		<property name="email" type="string" column="Email"
+			not-null="true" />
+			
 
 	</class>
 </hibernate-mapping>

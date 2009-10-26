@@ -19,6 +19,9 @@
 			not-null="true" />
 		<property name="metaTransformation_TestValue" type="string" column="MetaTransformation_TestValue"
 			not-null="true" />
+		<property name="userId" type="long" column="UserId"
+			not-null="true" />
+			
 <!-- 			
 		<property name="invSubBytes_TestValue" type="string" column="InvSubBytes_TestValue"
 			not-null="true" />

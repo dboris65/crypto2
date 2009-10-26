@@ -4,7 +4,7 @@
       xmlns:p="tapestry:parameter">
         <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
     <p>${message:greeting}</p>
-
+    
 
 
     <ul>
@@ -27,14 +27,38 @@
       <li><t:pagelink page="AddRoundKeyPG">AddRoundKey</t:pagelink></li>
     </ul>
 
+
+
     <ul>
-      <li><t:pagelink page="values/CreateTestValues">Create test vectors</t:pagelink></li>
+    	<li>
+        <t:if test="loggedIn">
+            <t:pagelink page="values/CreateTestValues">Create test vectors</t:pagelink>
+            <p:else>
+                <b>Create test vectors</b> (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link).
+            </p:else>
+        </t:if>  
+        </li>
+              
     </ul>
 
 
     <ul>
-      <li><t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink></li>
+        <li>
+        <t:if test="loggedIn">
+            <t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink>
+            <p:else>
+                <b>Meta Transformations</b> (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link).
+            </p:else>
+        </t:if>  
+        </li>
+      
     </ul>
+
+
 
 
     <p:sidebar>
@@ -57,4 +81,18 @@
             
         </p>
     </p:sidebar>
+    
+
+	<br></br>
+
+        <t:if test="loggedIn">
+            Welcome back, ${UserName}. | <t:actionlink t:id="logOut" >Log out</t:actionlink>
+            <p:else>
+                Please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>.
+                <br></br>
+                Tip: If you register, you will be able to change test vectors and meta transformations.
+            </p:else>
+        </t:if>  
+
 </html>

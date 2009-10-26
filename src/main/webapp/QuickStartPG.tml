@@ -25,13 +25,38 @@
 	in a form of the AES State. AES State is rectangular array of bytes, having four rows and 
 	(for present time) four columns, that holds results and inter-results of transformations.<br></br>
 	When you get familiar with them, you can try to enter your own test vectors, 
-	using <t:pagelink page="values/CreateTestValues">Create new values</t:pagelink> page,
+	using 
+	        <t:if test="loggedIn">
+            <t:pagelink page="values/CreateTestValues">Create new values</t:pagelink> page,
+            <p:else>
+                <b>Create new values page</b>
+                (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link),
+            </p:else>
+        </t:if>  
+	
+	 
+	
 	to save them to database and then check out the results of specific transformations.
     <br></br>
     
     <h3>Meta transformation</h3>
 	Extraordinary fact about AES is that, when you recognize its comprising parts, 
-	algorithm itself is quite simple. On Metatransformation page, you can find predefined 
+	algorithm itself is quite simple. On a 
+	
+	        <t:if test="loggedIn">
+            <t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink> page,
+            <p:else>
+                <b>Metatransformation page,</b>
+                (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link),
+            </p:else>
+            </t:if>
+	 
+	
+	you can find predefined 
 	metatransformations and test vectors, in two grids at page bottom. When I say predefined meta-transformation, 
 	I mean original AES128, AES192 or AES256 algorithm. <p></p>
 	Usage:<br></br>

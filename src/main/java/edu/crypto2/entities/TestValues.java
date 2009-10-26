@@ -38,8 +38,12 @@ public class TestValues {
 	private String KeyExpansion_TestValue;
 	private String AddRoundKey_TestValue;
 	private String MetaTransformation_TestValue;
+	@NonVisual
+	private Long UserId;
 
-/*
+
+
+	/*
 	@Validate("required")
 	private String InvSubBytes_TestValue;
 	private String InvMixColumns_TestValue;
@@ -81,6 +85,13 @@ public class TestValues {
 	
 	public String getMetaTransformation_TestValue() {
 		return MetaTransformation_TestValue;
+	}
+
+	/**
+	 * @return the userId
+	 */
+	public Long getUserId() {
+		return UserId;
 	}
 	
 /*	
@@ -132,6 +143,13 @@ public class TestValues {
 	
 	public void setMetaTransformation_TestValue(String metaTransformation_TestValue) {
 		MetaTransformation_TestValue = metaTransformation_TestValue;
+	}
+	
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Long userId) {
+		UserId = userId;
 	}
 	
 /*	

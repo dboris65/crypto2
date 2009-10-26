@@ -50,6 +50,9 @@ public class Source {
 
 	@Validate("required")
 	private String SourceCode;
+	@NonVisual
+	private Long UserId;
+
 	
 
 	
@@ -69,6 +72,17 @@ public class Source {
 	public void setSourceCode(String sourceCode) {
 		SourceCode = sourceCode;
 	}
-    
+	/**
+	 * @return the userId
+	 */
+	public Long getUserId() {
+		return UserId;
+	}
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(Long userId) {
+		UserId = userId;
+	}
 
 }

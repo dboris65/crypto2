@@ -10,11 +10,13 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 /******************************************************/
 import edu.crypto2.entities.TestValues;
+import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
 import edu.crypto2.transformations.ShiftRows;
@@ -25,7 +27,20 @@ import edu.crypto2.data.*;
  * 
  */
 public class ShiftRowsPG {
+	@SessionState(create=false)
+	private User user;
 	
+	@Property
+	private String UserName = "";
+	
+
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+
     @Inject
     private TestValuesDao testValuesDao;
 	@Parameter
@@ -67,6 +82,13 @@ public class ShiftRowsPG {
 		 * Napisati funkciju reload, koja obezbjedjuje da ce pri svakom ulasku na stranicu 
 		 * DAO vrijednosti biti (pravilno) ponovo ucitane i prikazane.*/
 		testValuesDao.reload();
+		
+		if (user != null){
+			UserName = (user.getName());
+		}
+		else{
+			UserName = "";
+		}
 		
 		if ((SesionValueBeforeShiftRows == "") || (SesionValueBeforeShiftRows == null)) 
 		{
@@ -213,6 +235,12 @@ public class ShiftRowsPG {
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
 
 
 	public LinesOut getLinesOut() {

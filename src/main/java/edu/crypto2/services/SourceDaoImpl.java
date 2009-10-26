@@ -20,6 +20,8 @@ import edu.crypto2.rest.HibernateUtil;
  * 
  */
 public class SourceDaoImpl implements SourceDao{
+	
+	
 	private static int CurrentId = 0;
     
 	@Inject
@@ -76,8 +78,10 @@ public class SourceDaoImpl implements SourceDao{
 						"// Final round\n"+
 						"shiftRows.transform_state();\n"+
 						"addRoundKey.transform_state( 4*runda2*Nb );");
+				// Here, UserId is always 1
+				source.setUserId((long)1);
 				
-				//source.setId(nextId);
+
 				session.persist(source);
 				transaction.commit();
 				
@@ -107,8 +111,9 @@ public class SourceDaoImpl implements SourceDao{
 						"// Final round\n"+
 						"shiftRows.transform_state();\n"+
 						"addRoundKey.transform_state( 4*runda2*Nb );");
-				
-				//source.setId(nextId);
+				// Here, UserId is always 1
+				source.setUserId((long)1);
+
 				session.persist(source);
 				transaction.commit();
 
@@ -139,7 +144,9 @@ public class SourceDaoImpl implements SourceDao{
 						"shiftRows.transform_state();\n"+
 						"addRoundKey.transform_state( 4*runda2*Nb );");
 				
-				//source.setId(nextId);
+				// Here, UserId is always 1
+				source.setUserId((long)1);
+
 				session.persist(source);
 				transaction.commit();
 				
@@ -170,7 +177,9 @@ public class SourceDaoImpl implements SourceDao{
 						"shiftRows.transform_state();\n"+
 						"addRoundKey.transform_state( 4*runda2*Nb );");
 				
-				//source.setId(nextId);
+				// Here, UserId is always 1
+				source.setUserId((long)1);
+
 				session.persist(source);
 				transaction.commit();
 				CurrentId = source.getId().intValue();
@@ -291,13 +300,6 @@ public class SourceDaoImpl implements SourceDao{
 	};
 
 
-/*	
-	public void save(Source source) {
-		session.persist(database);
-		database.add(source);
-		source.setId(nextId++);
-	}
-*/
 
 
 				

@@ -1,0 +1,21 @@
+<html t:type="layout" title="Create test vectors/values"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+      xmlns:p="tapestry:parameter">
+        <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+
+  <head>
+    <title>Create New Test Values</title>
+  </head>
+  <body>
+
+	<t:beaneditform t:id="form" t:object="user">
+	  <t:parameter name="password">
+      <t:label for="password"/>
+      <t:passwordfield t:id="password" value="user.password"/>
+      </t:parameter>
+	</t:beaneditform>
+	
+
+  	
+  </body>
+</html>

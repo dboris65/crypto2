@@ -10,12 +10,14 @@ import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Persist;
+import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
 /******************************************************/
 import edu.crypto2.entities.TestValues;
+import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
 import edu.crypto2.transformations.SubBytes;
@@ -26,6 +28,20 @@ import edu.crypto2.data.*;
  * 
  */
 public class SubBytesPG {
+	@SessionState(create=false)
+	private User user;
+	
+	@Property
+	private String UserName = "";
+	
+
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+    
 	
 	@Inject
     private Session session;
@@ -55,25 +71,17 @@ public class SubBytesPG {
 	
 	@SetupRender
 	boolean setup() throws Exception {
+		if (user != null){
+			UserName = (user.getName());
+		}
+		else{
+			UserName = "";
+		}
+		
 		testValuesDao.reload();
-		
-		// prevents rending with the node parameter is null.
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("Usao");
-		logger.debug("--------------------------------------------------------------");
-		
-		
-
 		
 		if ((SesionValueBeforeSubBytes == "") || (SesionValueBeforeSubBytes ==null))
 		{
-			
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeSubBytes);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 1");
-			logger.debug("--------------------------------------------------------------");
 			
 			xml_p = new XmlParser("SubBytes"); 
 			String ValueBefore = xml_p.getResultString();
@@ -81,12 +89,7 @@ public class SubBytesPG {
 		}
 		else
 		{
-			
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeSubBytes);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 2");
-			logger.debug("--------------------------------------------------------------");
+
 			DoTransform(SesionValueBeforeSubBytes);
 		}
 		
@@ -220,7 +223,12 @@ public class SubBytesPG {
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 
-
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
 
 	public LinesOut getLinesOut() {
 		return LinesOut;
