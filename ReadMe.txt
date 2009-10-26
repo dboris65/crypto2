@@ -1,6 +1,6 @@
 
  Download and install HSQLDB from http://hsqldb.org/.
- Download and install Maven and Jetty.
+ Download and install Maven and Jetty. 
 
    
  1. Go to HSQLDB folder (for example: cd D:\FON\SavremeneSoftverskeArhitekture\JavaEclipse\hsqldb) 
