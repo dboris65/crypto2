@@ -3,7 +3,8 @@
  */
 package edu.crypto2.transformations;
 
-import bsh.*;
+
+import bsh.Interpreter;
 import edu.crypto2.data.*;
 import edu.crypto2.transformations.KeyExpansion;
 
