@@ -37,9 +37,9 @@
     </classes>
  	</test>
   	
-  	 <!--
+
     <test name="integration-test"  verbose="2">
-	<parameter name="SeleniumBrowser" value="*iexplore"/>
+	<parameter name="SeleniumBrowser" value="*googlechrome"/>
     <packages>
     	<package name="edu.crypto2.selenium.*"/>
     </packages>
@@ -47,6 +47,6 @@
     	<class name="edu.crypto2.selenium.SeleniumTest"/>   
     </classes>
   </test>
-  -->
+
 </suite>
 
