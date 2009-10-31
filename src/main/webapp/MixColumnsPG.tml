@@ -10,21 +10,23 @@
  				If you register, you will be able to change test vectors and meta transformations.
             </p:else>
         </t:if>  
-      
-	<div id="section">			
+    <br></br>  
 	${message:greeting}
+	<div id="section">			
+
 		<t:zone t:id="viewZone"/>
-		<p>		
+	
 		<t:block id="LinesOutDetails">
 		
-		<table border="0" width="85%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
+
+		<table border="0" width="80%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
 		<tr>
 			<td width="60%">State buffer</td>
 			<td width="40%"></td>
 		</tr>
 		<tr>
-			<td width="60%">before MixColumns:</td>
-			<td width="40%">After MixColumns:</td>
+			<td width="60%">before SubBytes:</td>
+			<td width="40%">After SubBytes:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
@@ -51,10 +53,14 @@
 			<td>---------------</td>
 		</tr>
 		</table>
+
 		
 		</t:block>
 
-		</p>
+
+		
+		
+		
 		<br></br>
 		<br></br>
 		<br></br>

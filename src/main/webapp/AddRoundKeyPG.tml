@@ -87,7 +87,7 @@
     This transformation takes two input vectors as parameters. One of them is fragment of AES key, 
     which will be mixed with second parameter - which is basically State buffer that holds sub-results 
     from other transformations.<p></p>
-    AES algorithm cyclic algorithm, and it is composed from (10+1), (12+1) or (14+1) rounds, depending on the key size.
+    AES algorithm is cyclic algorithm, and it is composed from (10+1), (12+1) or (14+1) rounds, depending on the key size.
     In each round, State buffer goes through specific transformations, and in each round we mix State buffer 
     with 16 bytes of expanded key.<p></p>
     So, AddRoundKey just adds, using XOR operation, current key fragment to the State, as follows:<p></p>
@@ -97,8 +97,30 @@
 	Transformation will take test vectors from grid, and give you results on the top of page.<p></p> 
 
 	If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
-	Now, you can go further, to create your own <t:pagelink page="values/CreateTestValues">test vectors</t:pagelink> or<br></br>
-	to try some predefined <t:pagelink page="MetaTransformationPG">meta transformations</t:pagelink>
+	Now, you can go further, to create your own
+	 
+    <t:if test="loggedIn">
+            <t:pagelink page="values/CreateTestValues">Create new values</t:pagelink> page,
+            <p:else>
+                <b>Create new values page</b>
+                (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link),
+            </p:else>
+    </t:if>  
+	 
+	 or<br></br>
+	to try some predefined 
+	
+	        <t:if test="loggedIn">
+            <t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink> page,
+            <p:else>
+                <b>Metatransformation page,</b>
+                (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link)
+            </p:else>
+            </t:if>.
    
         </p>
 

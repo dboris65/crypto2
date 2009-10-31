@@ -39,7 +39,7 @@ public class SubBytes implements Transformation {
 	 *  initialize_State<p>
 	 *  Fills State array with initial values taken from inStr.<p>
 	 *  input:<br>
-	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
+	 *  @param inStr (String) - 32 alphanumercis with hex values (16 bytes)
 	 */
 	public void initialize_State(String inStr)
 	{

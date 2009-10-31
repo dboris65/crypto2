@@ -5,7 +5,6 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -144,25 +143,12 @@ public class MetaTransformationPG {
 		
 		if ((SesionValueBeforeMetaTransformation == "") || (SesionValueBeforeMetaTransformation == null)) 
 		{
-			final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-			logger.debug("-------------------------------------------");
-			logger.debug(SesionValueBeforeMetaTransformation);
-			logger.debug("-------------------------------------------");
-			logger.debug("ulaz u 1");
-			logger.debug("-------------------------------------------");
-			
 			xml_p = new XmlParser("MetaTransformation"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
 		}
 		else
 		{
-			final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-			logger.debug("-------------------------------------------");
-			logger.debug(SesionValueBeforeMetaTransformation);
-			logger.debug("-------------------------------------------");
-			logger.debug("ulaz u 2");
-			logger.debug("-------------------------------------------");
 			DoTransform(SesionValueBeforeMetaTransformation, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
 		}
 		//source_code="";
@@ -229,14 +215,8 @@ public class MetaTransformationPG {
 		meta_transformation = new MetaTransformation();
 		
 		//String init_key = "2b7e151628aed2a6abf7158809cf4f3c";
-		final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-		logger.debug("DoTransform---KeyLen---" + key_len);
-		logger.debug("DoTransform---init_key---" + init_key);
 
 		meta_transformation.initialize_State(ValueBefore, key_len, init_key);
-		logger.debug("=======DoTransform---KeyLen---" + key_len + "=======");
-		logger.debug("=======DoTransform---init_key---" + init_key + "=======");
-
 		
 		String s = "";
 		/**********************************************
@@ -304,20 +284,14 @@ public class MetaTransformationPG {
     	if (In == null)
     		return 0;
     	
-    	final Logger logger = Logger.getLogger(MetaTransformationPG.class);
     	In = In.toUpperCase();
-    	logger.debug("-------->>>>....." +  In + " = in ---------------" );
     	pos = In.lastIndexOf("KEY_LEN");
     	
-    	logger.debug("parseKeyLen---------------" );
-		logger.debug(pos + " = pos ---------------" );
     	if (pos != -1)
     		substr = In.substring(pos, pos+14); // max alowed "KEY_LEN = 128;"
     	else
     		return 0;
     	
-    	logger.debug("SubStr---------------" );
-		logger.debug(substr + " = substr ---------------" );
 
     	if (substr.contains("128"))
     		key_len = 128;
@@ -339,19 +313,15 @@ public class MetaTransformationPG {
     	int first_apostroph = -1;
     	int second_apostroph = -1;
     	String substr;
-    	final Logger logger = Logger.getLogger(MetaTransformationPG.class);
     	if (In == null)
     		return "";
     	
     	In = In.toUpperCase();
     	pos = In.lastIndexOf("INIT_KEY");
-    	logger.debug("-------->>>>....." +  In + " = in ---------------" );
-    	logger.debug("-------->>>>....." +  pos + " = pos ---------------" );
     	
     	if (pos == -1)
     		return "";
     	
-    	logger.debug("-------->>>>....." +  In.charAt(pos) + " = In.charAt(pos) ---------------" );
     	// for 256 bit key
     	// max alowed 'init_key = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";'
     	for (int i = pos; i<pos+78; i++){
@@ -370,9 +340,6 @@ public class MetaTransformationPG {
     		return init_key;
     	}
     		
-    	logger.debug("-------->>>>....." +  first_apostroph + " = first_apostroph ---------------" );
-    	logger.debug("-------->>>>....." +  second_apostroph + " = second_apostroph ---------------" );
-
     	init_key = In.substring(first_apostroph+1, second_apostroph);
     	
     	
@@ -387,9 +354,6 @@ public class MetaTransformationPG {
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeMetaTransformation = tvrow.getMetaTransformation_TestValue();
 		SesionValueBeforeMetaTransformation = ValueBeforeMetaTransformation;
-		
-		final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-		
 		
 		Source src = sourceDao.getCurrent();
 		if (src == null){
@@ -408,18 +372,10 @@ public class MetaTransformationPG {
 			return LinesOutDetails;
 		}
 		
-		logger.debug("after srce costruct---------------" );
-		logger.debug(src + "---------------" );
-		
+	
 		String strToParse = src.getSourceCode();
-		logger.debug("After StrToParse---------------" );
-		logger.debug("---------------" + strToParse);
 		
-		
-		logger.debug("Before KeyLen Parse---------------" );
 		key_len = parseKey_len(strToParse);
-		logger.debug("After KeyLen Parse---------------" );
-		logger.debug(key_len);
 		if (key_len == 0){
 			before_line0 = "You must set key_len in a following way:";
 			before_line1 = "key_len = 128; or";
@@ -437,7 +393,6 @@ public class MetaTransformationPG {
 		}
 		
 		
-		logger.debug("Before InitKey Parse---------------" );
 		init_key = parseInit_key(strToParse);
 		if (init_key == ""){
 			before_line0 = "You must set init_key. Examples:";
@@ -491,17 +446,6 @@ public class MetaTransformationPG {
 			return LinesOutDetails;
 		}
 
-		logger.debug("---------------" );
-		logger.debug("---------------" );
-		logger.debug("---------------" );
-		logger.debug("-----Keylen--" + key_len);
-		logger.debug("-----Key--" + init_key);
-		logger.debug("---------------" );
-		logger.debug("---------------" );
-		logger.debug("---------------" );
-		
-		
-
 		
 		if ((0!=key_len) && (""!=init_key) && (""!=strToParse))
 			DoTransform(SesionValueBeforeMetaTransformation, key_len, init_key, strToParse);
@@ -515,18 +459,6 @@ public class MetaTransformationPG {
 		//source_code=source.getSourceCode();
 		String s = source.getSourceCode();
 		setSource_code(s);
-		final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug(source_code);
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
-		logger.debug("-----Meta fill--");
 
 		return metaTransformationPG;
 	}
@@ -534,23 +466,8 @@ public class MetaTransformationPG {
 	
 	Object onActionFromDelete(Long id){
 		String s = getSource_code();
-		final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		//logger.debug(source_code);
-		logger.debug(s);
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		logger.debug("-----Meta delete--");
-		
-		
 		
 		Source srce = sourceDao.find(id);
-		logger.debug("-----Before delete(srce)--");
-		logger.debug("-----Before delete(srce)--");
 		sourceDao.delete(srce);
 		return metaTransformationPG;
 	}
@@ -562,23 +479,8 @@ public class MetaTransformationPG {
 	Object onSuccess() {
 		if (_updateSource_code) {
 			String s = getSource_code();
-			final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			//logger.debug(source_code);
-			logger.debug(s);
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			logger.debug("-----Meta Update_selected--");
-			
-			
 			
 			Source srce = sourceDao.getCurrent();
-			logger.debug("-----Before Update_selected(srce)--");
-			logger.debug("-----Before Update_selected(srce)--");
 			srce.setSourceCode(s);
 			sourceDao.update(srce);
 			return metaTransformationPG;
@@ -586,34 +488,14 @@ public class MetaTransformationPG {
 		}
 		else
 		{
-			final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-			logger.debug("-----Meta save--");
-			logger.debug("-----Before getSource_codee--");
-			logger.debug("-----Before getSource_codee--");
-			
 			String s = getSource_code();
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug(source_code);
-			logger.debug(s);
 	
-			logger.debug("-----Before new Source--");
-			logger.debug("-----Before new Source--");
 			Source srce = new Source();
 			srce.setSourceCode(s); 
 			srce.setUserId(user.getId());
 	
-			logger.debug("-----Before save(srce)--");
-			logger.debug("-----Before save(srce)--");
 			sourceDao.save(srce);
 			
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
-			logger.debug("-----Meta save--");
 		}
 		return metaTransformationPG;
 		

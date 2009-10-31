@@ -5,7 +5,6 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -86,42 +85,17 @@ public class AddRoundKeyPG {
 		{
 	    	
 	    	int key_len;
-	    	
-	    	//testValues = testValuesDao.getCurrent();
-	    	//init_key = testValues.getKeyExpansion_TestValue();
-	    	
-
-			final Logger logger = Logger.getLogger(AddRoundKeyPG.class);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeAddRoundKey);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 1");
-			logger.debug("--------------------------------------------------------------");
-			
+		
 			xml_p = new XmlParser("AddRoundKey"); 
 			String ValueBefore = xml_p.getResultString();
 			key_len = 128; // jer citamo iz beana
-			logger.debug("ValueBefore --" + ValueBefore);
-			logger.debug("------------------------------");
-			logger.debug(" ");
-			logger.debug(" ");
-			logger.debug(" ");
-			
+
 			xml_p2 = new XmlParser("TestKeyAddRoundKey"); 
 			String init_key = xml_p2.getResultString();
 			DoTransform(key_len, init_key, ValueBefore);
 		}
 		else
 		{
-			final Logger logger = Logger.getLogger(AddRoundKeyPG.class);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeAddRoundKey);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 2");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(" ");
-			logger.debug(" ");
-			logger.debug(" ");
 
 			if (Init_KeyBeforeAddRoundKey.length() == 32) Key_LenBeforeAddRoundKey = 128;
 			else
@@ -132,11 +106,6 @@ public class AddRoundKeyPG {
 			DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, SesionValueBeforeAddRoundKey);
 		}
 
-		// prevents rending with the node parameter is null.
-		final Logger logger = Logger.getLogger(AddRoundKeyPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("Usao");
-		logger.debug("--------------------------------------------------------------");
 		return true;
 	}
 	
@@ -209,13 +178,6 @@ public class AddRoundKeyPG {
     	//SesionKey_Len = key_len;
     	Key_LenBeforeAddRoundKey = key_len;
 
-		final Logger logger = Logger.getLogger(AddRoundKeyPG.class);
-		logger.debug("-------------------------------");
-		logger.debug("------DoTransform----------");
-		logger.debug("SesionValueBeforeAddRoundKey--" + SesionValueBeforeAddRoundKey);
-		logger.debug("Init_KeyBeforeAddRoundKey--" + Init_KeyBeforeAddRoundKey);
-		logger.debug("Key_LenBeforeAddRoundKey--" + Key_LenBeforeAddRoundKey);
-		
     	add_round_key = new AddRoundKey();
     	add_round_key.initialize_State(Key_LenBeforeAddRoundKey, Init_KeyBeforeAddRoundKey, ValueBeforeAddRoundKey);
 		
@@ -276,55 +238,21 @@ public class AddRoundKeyPG {
 
 	}
 	
-	/*
-	void onActionFromDelete(Long id){
-		testValueRow = testValueRowDao.find(id);
-		if(testValueRow!=null)
-			testValueRowDao.delete(testValueRow);
-	}
-	
-	*/
     @InjectPage
     private AddRoundKeyPG addRoundKeyPG;
     
 	Object onActionFromView(Long id){
-		final Logger logger = Logger.getLogger(AddRoundKeyPG.class);
-		logger.debug("------ FormView ------------");
-		logger.debug("--- ValueBeforeAddRoundKey ----");
-		logger.debug(ValueBeforeAddRoundKey);
-		logger.debug(SesionValueBeforeAddRoundKey);
-		logger.debug("--------------------------------------------------------------");
 
 		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		String s = tvrow.getAddRoundKey_TestValue();
 		ValueBeforeAddRoundKey = s;
 		SesionValueBeforeAddRoundKey = s;
-		logger.debug("------ FormView ------------");
-		logger.debug("--- ValueBeforeAddRoundKey ----");
-		logger.debug(ValueBeforeAddRoundKey);
-		logger.debug(SesionValueBeforeAddRoundKey);
-		logger.debug("--------------------------------------------------------------");
-
 		
 		String s2 = tvrow.getKeyExpansion_TestValue();
 		Init_KeyBeforeAddRoundKey = s2;
 		SesionInit_Key = s2;
 		
-		logger.debug(" ");
-		logger.debug(" ");
-		logger.debug("------ FormView ------------");
-		logger.debug("--- ValueBeforeAddRoundKey ----");
-		logger.debug(ValueBeforeAddRoundKey);
-		logger.debug(SesionValueBeforeAddRoundKey);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--- Init_KeyBeforeAddRoundKey ----");
-		logger.debug(Init_KeyBeforeAddRoundKey);
-		logger.debug(SesionInit_Key);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug(" ");
-		logger.debug(" ");
-		logger.debug(" ");
 
 		
 		if (Init_KeyBeforeAddRoundKey.length() == 32) Key_LenBeforeAddRoundKey = 128;
@@ -332,23 +260,8 @@ public class AddRoundKeyPG {
 		if (Init_KeyBeforeAddRoundKey.length() == 48) Key_LenBeforeAddRoundKey = 192;
 		else
 		if (Init_KeyBeforeAddRoundKey.length() == 64) Key_LenBeforeAddRoundKey = 256;
-		//SesionKey_Len = Key_LenBeforeAddRoundKey;
 		
-		logger.debug(" ");
-		logger.debug(" ");
-		logger.debug("------ FormView ------------");
-		logger.debug("--- SesionValueBeforeAddRoundKey ----");
-		logger.debug(SesionValueBeforeAddRoundKey);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--- SesionInit_Key ----");
-		logger.debug(SesionInit_Key);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug(" ");
-		logger.debug(" ");
-		logger.debug(" ");
-
 		DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, SesionValueBeforeAddRoundKey);
-		logger.debug(line0);		
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 

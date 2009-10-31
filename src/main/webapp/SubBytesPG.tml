@@ -12,12 +12,12 @@
         </t:if>  
       
       
-	<div id="section">			
 	
-	${message:greeting}
-		<t:zone t:id="viewZone"/>
-		<p>		
+		<t:zone t:id="viewZone">
+
 		<t:block id="LinesOutDetails">
+
+
 
 		<table border="0" width="80%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
 		<tr>
@@ -55,8 +55,8 @@
 		</table>
 		
 		</t:block>
+		</t:zone>
 
-		</p>
 		<br></br>
 		<br></br>
 		<br></br>
@@ -76,12 +76,13 @@
         	</t:parameter>
 		</t:grid>
 		<t:block id="valueNotFound">No Values Found</t:block>
-		<br/>
+
 		
 
 
 
-	</div>
+
+	
     <p:sidebar>
         <p>
         

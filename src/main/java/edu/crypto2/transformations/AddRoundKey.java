@@ -12,12 +12,12 @@ public class AddRoundKey implements Transformation{
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
-	 * so we wiil do the same
+	 * so we will do the same
 	 */
 	public int Nb;
 
 	public KeyExpansion keyExpansion;
-
+ 
 
 	/**
 	 * Dummy constructor.<br>
@@ -34,10 +34,14 @@ public class AddRoundKey implements Transformation{
 	 *  Task:<br>
 	 *  Fills State array with initial values taken from InputVector and expand key according to key_len and init_key variables.<br>
 	 *  Input variables must satisfy following conditions:<br>
+	 *  @param InputVector
 	 *  InputVector - 32 alphanumercis with hex values (16 bytes)<br>
+	 *  @param key_len
 	 *  key_len=128 => length(init_key)=16 bytes<br>
 	 *  key_len=192 => length(init_key)=24 bytes<br>
 	 *  key_len=256 => length(init_key)=32 bytes<br>
+	 *  @param init_key
+	 *  init_key - key to expand
 	 *  Resulting key will be stored in Data.Key variable
 	 */
 	public void initialize_State(int key_len, String init_key, String InputVector)
@@ -76,8 +80,10 @@ public class AddRoundKey implements Transformation{
 
 	/**
 	 * AddRoundkey.transform_state<p>
-	 * Use key_index to XOR each of 16 State bytes with current 16 key bytes 
+	 * @param key_index
+	 * Transfrom_state() uses key_index to XOR each of 16 State bytes with current 16 key bytes 
 	*/
+
 	public void transform_state(int key_index) {
 		  int i, j;
 		  for (j=0; j <= 3; j++) {

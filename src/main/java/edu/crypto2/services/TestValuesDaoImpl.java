@@ -6,7 +6,7 @@ package edu.crypto2.services;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.HibernateException;
@@ -14,11 +14,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import edu.crypto2.entities.Source;
+
 import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 import edu.crypto2.pages.MetaTransformationPG;
-import edu.crypto2.pages.values.Register;
+
 import edu.crypto2.rest.HibernateUtil;
 /***********************************************************************
  * 
@@ -41,23 +41,16 @@ public class TestValuesDaoImpl implements TestValuesDao{
 	private List<TestValues> database; 
 	
 	public void reload(){
-    	final Logger logger = Logger.getLogger(TestValuesDaoImpl.class);
-    	
 		if (session.isOpen())
 			session.close();
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
 		if (getLoggedIn()){
-			logger.debug( "--- USERID = 1 --" + user + " " + user.getId()); 
-			
 			String qry = "from TestValues where USERID=" + user.getId();
 			database = session.createQuery(qry).list();
 		}
 		else{
-
-	    	logger.debug( "--- USERID = 1 --" + user);
-
 			database = session.createQuery("from TestValues where USERID=1").list();
 		}	
 		transaction.commit();
@@ -168,16 +161,6 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			transaction = session.beginTransaction();
 			database = session.createQuery("from TestValues").list();
 			transaction.commit();
-
-			final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-			logger.debug("createQuery(from Source)--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
 		}catch (HibernateException e) {
 			transaction.rollback();
 			e.printStackTrace();

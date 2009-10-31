@@ -5,7 +5,7 @@ package edu.crypto2.services;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -13,15 +13,22 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import edu.crypto2.entities.Source;
-import edu.crypto2.pages.MetaTransformationPG;
+import edu.crypto2.entities.User;
 import edu.crypto2.rest.HibernateUtil;
 
 /***********************************************************************
  * 
  */
 public class SourceDaoImpl implements SourceDao{
-	
-	
+	@SessionState(create=false)
+	private User user;
+    public boolean getLoggedIn() {
+        if (user != null)
+            return true;
+        else
+            return false;
+    }
+
 	private static int CurrentId = 0;
     
 	@Inject
@@ -35,7 +42,15 @@ public class SourceDaoImpl implements SourceDao{
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
-		database = session.createQuery("from Source").list();
+		//database = session.createQuery("from Source").list();
+		if (getLoggedIn()){
+			String qry = "from Source where USERID=" + user.getId();
+			database = session.createQuery(qry).list();
+		}
+		else{
+			database = session.createQuery("from Source").list();
+		}
+
 		transaction.commit();
 	}
 
@@ -189,17 +204,6 @@ public class SourceDaoImpl implements SourceDao{
 			transaction = session.beginTransaction();
 			database = session.createQuery("from Source").list();
 			
-			final Logger logger = Logger.getLogger(SourceDaoImpl.class);
-			logger.debug("createQuery(from Source)--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("---->>>>" + database);
-			
 			transaction.commit();
 			
 		}catch (HibernateException e) {
@@ -211,19 +215,7 @@ public class SourceDaoImpl implements SourceDao{
 	}
 	
 	public List<Source> findAllSources() {
-		final Logger logger = Logger.getLogger(SourceDaoImpl.class);
-		logger.debug("database--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("---->>>>" + database);
 		return database;
-		
-		
 	}
 
 
@@ -234,33 +226,19 @@ public class SourceDaoImpl implements SourceDao{
 		session.persist(source);
 		transaction.commit();
 		CurrentId = source.getId().intValue();
-		//session.persist(database);
-		//source.setId(nextId++);
-		//session.persist(database);
 	}
 
 	public void update(Source source) {
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
-		//database.set(CurrentId, source);
-		//database.set((int)CurrentId, source);
 		session.update(source);
 		transaction.commit();
-		//session.persist(database);
-		//source.setId(nextId++);
-		//session.persist(database);
 	}
 	
 	public Source find(long id){
-		final Logger logger = Logger.getLogger(SourceDaoImpl.class);
-		logger.debug("Find--------------------------------------------");
 		for (Source source: database) {
 			if(source.getId()==id){
 				CurrentId = source.getId().intValue();
-				
-				logger.debug("Find--------------------------------------------");
-				logger.debug("------------------------------------------------");
-				logger.debug(source.getSourceCode());
 				return source;
 			}	
 		}
@@ -270,11 +248,6 @@ public class SourceDaoImpl implements SourceDao{
 	public Source getCurrent(){
 		for (Source source: database) {
 			if(source.getId()==CurrentId){
-				final Logger logger = Logger.getLogger(SourceDaoImpl.class);
-				logger.debug("GetCurrent--------------------------------------------");
-				logger.debug("------------------------------------------------------");
-				logger.debug(source.getSourceCode());
-
 				return source;
 			}	
 		}

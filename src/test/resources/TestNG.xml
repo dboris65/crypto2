@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="crypto2">
+<suite name="TransfromTest">
   <test name="cryptotest" verbose="2">
     <parameter name="SubBytesString" value="193de3bea0f4e22b9ac68d2ae9f84808"/>
     <parameter name="MixColumnsString" value="d4bf5d30e0b452aeb84111f11e2798e5"/> 	
@@ -12,7 +12,7 @@
     <parameter name="CipherInitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/> 	
     <parameter name="InputVector128" value="3243f6a8885a308d313198a2e0370734"/> 	
     <parameter name="ResultCipherText128" value="3925841D02DC09FBDC118597196A0B32"/> 	
-     	
+    
     <packages>
       <package name="edu.crypto2.cryptotest"/>
     </packages>
@@ -20,6 +20,33 @@
        <class name="edu.crypto2.cryptotest.TransformTest" />
     </classes>
 
+  	</test>
+    <test name="AllUnitTests"  verbose="2">
+    <packages>
+    	<package name="edu.crypto2.entities.*"/>
+    	<package name="edu.crypto2.components.*"/>
+    	<package name="edu.crypto2.services.*"/>
+    </packages>
+    <classes>
+    	<class name="edu.crypto2.entities.UserTest"/>
+    	<class name="edu.crypto2.entities.TestValuesTest"/>
+    	<class name="edu.crypto2.entities.SourceTest"/>
+    	<class name="edu.crypto2.components.LinesOutTest"/>
+    	<class name="edu.crypto2.services.SourceDaoTest"/>
+    	<class name="edu.crypto2.services.TestValuesDaoTest"/>
+    </classes>
+ 	</test>
+  	
+  	 <!--
+    <test name="integration-test"  verbose="2">
+	<parameter name="SeleniumBrowser" value="*iexplore"/>
+    <packages>
+    	<package name="edu.crypto2.selenium.*"/>
+    </packages>
+    <classes>
+    	<class name="edu.crypto2.selenium.SeleniumTest"/>   
+    </classes>
   </test>
+  -->
 </suite>
 

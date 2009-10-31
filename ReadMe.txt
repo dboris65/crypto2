@@ -20,11 +20,14 @@
 
 
  5. BeanShell installation:
-    Drop bsh-2.0b4.jar (from project lib folder) into "C:\Program Files\Java\jdk1.x.x.x.x\jre\lib\ext" folder
-    NOTE: If you have another jre folder, for example "C:\Program Files\Java\jre6", 
-       BeanShell will (probably) not work correctly.
+    Windows users: If you have two jre folders, for example "C:\Program Files\Java\jre6",
+    and "C:\Program Files\Java\jdk1.6.0_12\jre" BeanShell (and many other things) will not work correctly.
  
  6. In Eclipse, open Project-->Properties-->Java compiler-->Errors/Warnings-->
-    Locate the "Forbidden reference (access rules)" option under "Deprecated and restricted API"
-    section in the dialog box. If it is set to error, change it to Warning. This will allow BeanShell
-    to run properly.
+    On some Eclipse instalations, you have to locate the "Forbidden reference (access rules)" 
+    option under "Deprecated and restricted API"
+    section in the dialog box. If it is set to Error, change it to Warning.  
+    
+ 7. NOTE: Some of IE plugin's (YouTube video downloaders, Flashget)
+    are in collision with Tapestry 5 Zone component.
+    

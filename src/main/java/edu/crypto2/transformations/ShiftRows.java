@@ -40,7 +40,7 @@ public class ShiftRows implements Transformation{
 	/**
 	 *  initialize_State<p>
 	 *  Fills State array with initial values taken from inStr.<p>
-	 *  input:<br>
+	 *  @param inStr
 	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
 	public void initialize_State(String inStr)

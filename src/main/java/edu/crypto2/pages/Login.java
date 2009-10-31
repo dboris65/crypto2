@@ -1,6 +1,5 @@
 package edu.crypto2.pages;
 
-import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -48,17 +47,11 @@ public class Login
 	}
 
 	public boolean isValid(String userName, String password){
-    	final Logger logger = Logger.getLogger(Login.class);
-    	logger.debug(userName + "---isValid 1--" + password);
-    	logger.debug(userDao + "---isValid 2 UserDao--" );
-		
+	
 		user = userDao.findUserName(userName);
-		logger.debug(user + "---isValid 3 user --" );
-		logger.debug((user != null) + "---isValid 4 (user != null) --" );
 		
 		if ((user != null) )
 		{
-			logger.debug("user != null ....... if user.getUserName()...." + user.getUserName() + "-----" );
 			if ((user.getUserName() != null) && (user.getPassword() != null)){
 				if ((user.getUserName().equals(userName)) && (user.getPassword().equals(password))){
 					return true;
@@ -76,11 +69,8 @@ public class Login
 	}
 	
 	void onValidateForm() {
-    	final Logger logger = Logger.getLogger(Login.class);
-    	logger.debug(userName + "-----" + password);
         if (!isValid(userName, password))
         {
-        	logger.debug("--Prikazi gresku---" );
             form.recordError(passwordField, "Invalid user name or password.");
         }
 	}
@@ -91,25 +81,4 @@ public class Login
         return "Index";
     }
 
-/*    
-    public String getPassword()
-    {
-        return password;
-    }
-
-    public void setPassword(String password)
-    {
-        password = password;
-    }
-
-    public String getUserName()
-    {
-        return userName;
-    }
-
-    public void setUserName(String userName)
-    {
-        userName = userName;
-    }
-*/
 }

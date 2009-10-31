@@ -21,7 +21,7 @@ public class MetaTransformation implements Transformation{
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
-	 * so we wiil do the same
+	 * so we will do the same 
 	 */
 	public int Nb;
 	
@@ -39,12 +39,16 @@ public class MetaTransformation implements Transformation{
 	/**
 	 *  initialize_State<p>
 	 *  Task:<br>
-	 *  Fills State array with initial values taken from testVector and expand key according to key_len and init_key variables.<br>
+	 *  Fills State array with initial values taken from testVector and expand key according to 
+	 *  key_len and init_key variables.<br>
 	 *  Input variables must satisfy following conditions:<br>
+	 *  @param testVector
 	 *  testVector - 32 alphanumercis with hex values (16 bytes)<br>
+	 *  @param key_len
 	 *  key_len=128 => length(init_key)=16 bytes<br>
 	 *  key_len=192 => length(init_key)=24 bytes<br>
 	 *  key_len=256 => length(init_key)=32 bytes<br>
+	 *  @param init_key - initial key to be expanded 
 	 *  Resulting key will be stored in Data.Key variable
 	 */
 	public void initialize_State(String testVector, int key_len, String init_key)
@@ -101,9 +105,20 @@ public class MetaTransformation implements Transformation{
 		}
 	}
 	
-	/* Ovdje radimo pravi posao
-	 * Here we do the job
-	 * 
+
+	/**
+	 * transform_state<br>
+	 * Task:<br>
+	 * Process meta transformation stored in MetaTr string using BeanShell.  
+	 * @param testVector - transformation input
+	 * @param key_len - 128, 192 or 256
+	 * @param init_key - initial key to expand
+	 * @param MetaTr - meta transformation string. If set to "TEST", then just for testing<br>
+	 * Input variables must satisfy following conditions:<br>
+	 * testVector - 32 alphanumercis with hex values (16 bytes)<br>
+	 * key_len=128 => length(init_key)=16 bytes<br>
+	 * key_len=192 => length(init_key)=24 bytes<br>
+	 * key_len=256 => length(init_key)=32 bytes<br>
 	 */
 	public void transform_state(String testVector, int key_len, String init_key, String MetaTr) {
 		Interpreter i = new Interpreter();

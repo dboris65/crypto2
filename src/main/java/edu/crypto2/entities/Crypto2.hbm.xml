@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping package="edu.crypto2.entities">
-	<class name="TestValues" table="crypto2">
+	<class name="edu.crypto2.entities.TestValues" table="crypto2">
 		<id name="Id" type="long" column="ID">
 			<generator class="native" />
 		</id>

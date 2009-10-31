@@ -17,8 +17,8 @@ public class KeyExpansion implements Transformation{
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
-	 * so we wiil do the same
-	 */
+	 * so we will do the same
+	 */ 
 	public int Nb;
 	/**
 	 * Dummy constructor.<br>
@@ -34,6 +34,8 @@ public class KeyExpansion implements Transformation{
 	 *  initialize<p>
 	 *  Task:<br>
 	 *  To expand key.<br>
+	 *  @param key_len - (128, 192 or 256)
+	 *  @param kljuc - initial key to expand.<br> 
 	 *  Input variables must satisfy following conditions:<br>
 	 *  key_len=128 => length(kljuc)=16 bytes<br>
 	 *  key_len=192 => length(kljuc)=24 bytes<br>
@@ -81,6 +83,8 @@ public class KeyExpansion implements Transformation{
 	 * log(x*y)=log(x)*log(y)<br>
 	 * x*y=antilog(log(x)*log(y))<br>
 	 * and already calculated subresults stored in ltable and atable<br>
+	 * @param a (int/byte 0..255)
+	 * @param b (int/byte 0..255)
 	 * @return result of multiplication
 	 */
 	public int galoa_mul_tab(int a, int b) {
@@ -126,6 +130,7 @@ public class KeyExpansion implements Transformation{
 	 * So, Variable In must be element of Galois field (e.g. Byte, or 0..255)<br>
 	 * Rcon[i] is constant array that contains values given by:<br>
 	 * [x^(i-1), {00}, {00}, {00}]
+	 * @return result of exponentiation
  	 */
 	public int rcon(int in) {
 			int c=1;
@@ -143,9 +148,10 @@ public class KeyExpansion implements Transformation{
 	 * Task:<br>
 	 * Apply RotWord, SBox and RCon on Data.tmpKey variable.<br>
 	 * Key expansion function is slightly different for different initial key sizes.<br> 
-	 * For 256 bit key, we have to use SubWord (S-Box) transformation one more time 
+	 * For 256 bit key, we have to use SubWord (S-Box) transformation one time more  
 	 * then for expansion of 128 or 192 bit keys.<br>
 	 * Common part for expanding keys of any length is separated this function.
+	 * @param i - key_expansion_base counter, used in rcon() function
 	 */
 	public void key_expansion_base(int i) {
 		int a;

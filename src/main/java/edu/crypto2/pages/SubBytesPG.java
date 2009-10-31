@@ -5,7 +5,7 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -14,7 +14,6 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
-import org.hibernate.Session;
 /******************************************************/
 import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
@@ -42,9 +41,7 @@ public class SubBytesPG {
             return false;
     }
     
-	
-	@Inject
-    private Session session;
+
     @Inject
     private TestValuesDao testValuesDao;
 	@Parameter
@@ -195,14 +192,7 @@ public class SubBytesPG {
 
 		
 	}
-	/*
-	void onActionFromDelete(Long id){
-		testValueRow = testValueRowDao.find(id);
-		if(testValueRow!=null)
-			testValueRowDao.delete(testValueRow);
-	}
-	
-	*/
+
 	
 	
     @InjectPage
@@ -213,13 +203,8 @@ public class SubBytesPG {
 		ValueBeforeSubBytes = tvrow.getSubBytes_TestValue();
 		SesionValueBeforeSubBytes = ValueBeforeSubBytes;
 		
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug(SesionValueBeforeSubBytes);
-		logger.debug("--------------------------------------------------------------");
 
-		DoTransform(SesionValueBeforeSubBytes);
-		logger.debug(line0);		
+		DoTransform(SesionValueBeforeSubBytes);;		
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 
@@ -243,15 +228,6 @@ public class SubBytesPG {
 		return detailLinesOut;
 	}	
 
-
-
-/*	
-	public TestValueRow getDetailTestValueRow() {
-		return detailTestValueRow;
-	}
-	
-*/	
-	
 	
 	
 	public String getBefore_Line0() 

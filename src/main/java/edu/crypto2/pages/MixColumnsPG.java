@@ -4,7 +4,7 @@
 package edu.crypto2.pages;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -76,23 +76,8 @@ public class MixColumnsPG {
 			UserName = "";
 		}
 		testValuesDao.reload();
-		// prevents rending with the node parameter is null.
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug("Usao");
-		logger.debug("--------------------------------------------------------------");
-		
-
-		
 		if ((SesionValueBeforeMixColumns == "") || (SesionValueBeforeMixColumns == null)) 
 		{
-			
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeMixColumns);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 1");
-			logger.debug("--------------------------------------------------------------");
-			
 			xml_p = new XmlParser("MixColumns"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
@@ -100,11 +85,6 @@ public class MixColumnsPG {
 		else
 		{
 			
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeMixColumns);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 2");
-			logger.debug("--------------------------------------------------------------");
 			DoTransform(SesionValueBeforeMixColumns);
 		}
 
@@ -211,14 +191,8 @@ public class MixColumnsPG {
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeMixColumns = tvrow.getMixColumns_TestValue();
 		SesionValueBeforeMixColumns = ValueBeforeMixColumns;
-		
-		final Logger logger = Logger.getLogger(MixColumnsPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug(SesionValueBeforeMixColumns);
-		logger.debug("--------------------------------------------------------------");
 
 		DoTransform(SesionValueBeforeMixColumns);
-		logger.debug(line0);		
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 	

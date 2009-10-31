@@ -10,6 +10,9 @@ import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 import edu.crypto2.entities.User;
 import edu.crypto2.services.SourceDao;
@@ -22,6 +25,8 @@ import edu.crypto2.services.TestValuesDao;
 
 public class Index
 {
+	private Session session = null;
+	
 	@Inject
 	private TestValuesDao testValuesDao;
 	@Inject
@@ -42,22 +47,22 @@ public class Index
             return false;
     }
     
-	@SetupRender
-	boolean setup() throws Exception {
-		
-		if (user != null){
-			UserName = (user.getName());
-		}
-		else{
-			UserName = "";
-		}
+    @SetupRender
+    boolean setup() throws Exception {
+            
+            if (user != null){
+                    UserName = (user.getName());
+            }
+            else{
+                    UserName = "";
+            }
 
-		sourceDao.reload();
-		testValuesDao.reload();
-				
-		return true;
-		
-	}
+            sourceDao.reload();
+            testValuesDao.reload();
+                            
+            return true;
+            
+    }
 	
     @InjectPage
     private Index index;

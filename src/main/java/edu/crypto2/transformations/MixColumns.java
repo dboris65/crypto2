@@ -41,6 +41,8 @@ public class MixColumns implements Transformation {
 	 * log(x*y)=log(x)*log(y)<br>
 	 * x*y=antilog(log(x)*log(y))<br>
 	 * and already calculated subresults stored in ltable and atable<br>
+	 * @param a (int/byte 0..255)
+	 * @param b (int/byte 0..255)
 	 * @return result of multiplication
 	 */
 	public int galoa_mul_tab(int a, int b) {
@@ -66,7 +68,7 @@ public class MixColumns implements Transformation {
 	/**
 	 *  initialize_State<p>
 	 *  Fills State array with initial values taken from inStr.<p>
-	 *  input:<br>
+	 *  @param inStr
 	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
 	public void initialize_State(String inStr)
