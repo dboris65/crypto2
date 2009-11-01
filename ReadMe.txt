@@ -1,6 +1,5 @@
 
- Download and install HSQLDB from http://hsqldb.org/.
- Download and install Maven and Jetty. 
+ Download and install Maven. 
 
     
  1. Install/Update Maven dependencies from Eclipse and run Tomcat or

@@ -5,6 +5,7 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -32,8 +33,11 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
+/***********************************************************************
+ * 
+ */
 public class MetaTransformationPG {
-	@SessionState(create=false)
+	@SessionState
 	private User user;
 	
 	@Property
@@ -111,37 +115,38 @@ public class MetaTransformationPG {
 	private LinesOut LinesOut;
 	private LinesOut detailLinesOut;
 
+	/**
+	 * Task:<br>
+	 * before page loading, check if user is logged to decide 
+	 * which values to show.  
+	 */
 	@SetupRender
 	boolean setup() throws Exception {
+		long userId = 1; 
 		if (user != null){
 			UserName = (user.getName());
+			userId = user.getId();
 		}
 		else{
 			UserName = "";
+			userId = 1;
 		}
-		/* Ovo odstupa od skolskih primjera za rad sa Tapestry-jem i DAO-ima.
-		 * 
-		 * Ako prvi put udjemo u stranicu, ona ce ucitati i formirati TestValuesDao
-		 * iz baze podataka. Pri svakom slijedecem ulasku na ovu (ili neku drugu)
-		 * stranicu, uvjek cemo dobiti te iste vrijednosti, sto je potencijalna greska.
-		 * 
-		 * PRIMJER potencijalne greske:
-		 * Ako poslije ucitavanja neke od strana sa transformacijama
-		 * npr. odemo na stranicu za unos novih vrijednosti i unesemo nesto novo,
-		 * nakon povratka na ovu stranicu necemo vidjeti novu vrijednost - DAO je ranije ucitan.
-		 * 
-		 * RJESENJE potencijalne greske - Reload()
-		 * Napisati funkciju reload, koja obezbjedjuje da ce pri svakom ulasku na stranicu 
-		 * DAO vrijednosti biti (pravilno) ponovo ucitane i prikazane.
-		 * 
-		 * Ovdje bi mogli i bez SourceDAO, jer se on na drugim stranicama ne javlja, ali
-		 * ako budemo prosirivali aplikaciju...*/
-		sourceDao.reload();
-		testValuesDao.reload();
+
+		
+		
+    	final Logger logger = Logger.getLogger(MetaTransformationPG.class);
+		logger.debug("MetaTransformationPG setUp ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("User -------------" + user +  "--------------------");
+		logger.debug("---------------------------------");
+
+		sourceDao.reload(userId);
+		testValuesDao.reload(userId);
 		
 		
 		
-		if ((SesionValueBeforeMetaTransformation == "") || (SesionValueBeforeMetaTransformation == null)) 
+		if ((persistValueBeforeMetaTransformation == "") || (persistValueBeforeMetaTransformation == null)) 
 		{
 			xml_p = new XmlParser("MetaTransformation"); 
 			String ValueBefore = xml_p.getResultString();
@@ -149,7 +154,7 @@ public class MetaTransformationPG {
 		}
 		else
 		{
-			DoTransform(SesionValueBeforeMetaTransformation, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
+			DoTransform(persistValueBeforeMetaTransformation, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
 		}
 		//source_code="";
 
@@ -183,8 +188,12 @@ public class MetaTransformationPG {
 
 
 	
+	/**
+	 * variable persistValueBeforeMetaTransformation (String)
+	 * holds test vector for meta transformation when page reload
+	 * **/
 	@Persist
-	private String SesionValueBeforeMetaTransformation;
+	private String persistValueBeforeMetaTransformation;
     
 	
 	
@@ -194,9 +203,11 @@ public class MetaTransformationPG {
 	/***************************************************************/
 	@Component
     private Form form;
-    //@Property
+    
+	//@Property
 	@Persist
     private String source_code;
+	
 	public String getSource_code(){
 		return source_code;
 	}
@@ -209,14 +220,22 @@ public class MetaTransformationPG {
 	/***************************************************************/
 
 	
-    public void DoTransform(String ValueBefore, int key_len, String init_key, String MetaTr){
-    	ValueBeforeMetaTransformation = ValueBefore;
-    	SesionValueBeforeMetaTransformation = ValueBefore;
+    /**
+     * Task:<br>
+     * To do meta transformation according to selected values
+     * @param testVector - selected testVector
+     * @param key_len - selectted key length
+     * @param init_key - selected initial key
+     * @param MetaTr - selected meta transformation
+     */
+    public void DoTransform(String testVector, int key_len, String init_key, String MetaTr){
+    	ValueBeforeMetaTransformation = testVector;
+    	persistValueBeforeMetaTransformation = testVector;
 		meta_transformation = new MetaTransformation();
 		
 		//String init_key = "2b7e151628aed2a6abf7158809cf4f3c";
 
-		meta_transformation.initialize_State(ValueBefore, key_len, init_key);
+		meta_transformation.initialize_State(testVector, key_len, init_key);
 		
 		String s = "";
 		/**********************************************
@@ -238,7 +257,7 @@ public class MetaTransformationPG {
 			s = "";
 		}
 		
-		meta_transformation.transform_state(ValueBefore, key_len, init_key, MetaTr);
+		meta_transformation.transform_state(testVector, key_len, init_key, MetaTr);
 		s = "";
 		
 		/**********************************************
@@ -274,8 +293,16 @@ public class MetaTransformationPG {
     @InjectPage
     private MetaTransformationPG metaTransformationPG;
     
-    /*
-     * Return 0 on error*/
+
+    /**
+     * Task:<br>
+     * To parse line with, for example key_len = 128; and extract number 128
+     * @param In string which have form<br>
+     * 'key_len = 128;' or<br>
+     * 'key_len = 192;' or<br>
+     * 'key_len = 256;'
+     * @return selected key_len or 0 on error
+     */
     int parseKey_len(String In){
     	int key_len = 0;
     	int pos = -1;
@@ -305,14 +332,20 @@ public class MetaTransformationPG {
     	return key_len;
     }
 
-    /*
-     * Return "" on error*/
+
+    /**
+     * Task:<br>
+     * To parse line with init_key = "xxzzyy..." and extract key
+     * @param In - String which have form
+     * 'init_key = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";'
+     * @return "" on error
+     */
     String parseInit_key(String In){
     	String init_key = "";
     	int pos = -1;
     	int first_apostroph = -1;
     	int second_apostroph = -1;
-    	String substr;
+
     	if (In == null)
     		return "";
     	
@@ -346,6 +379,13 @@ public class MetaTransformationPG {
     	return init_key;
     }
     
+	/**
+	 * Task:<br>
+	 * To trigger transformation according to selected test value and 
+	 * previously selected source metatransformation
+	 * @param id - int id from testValues table
+	 * @return LinesOutDetails - to be rendered on screen
+	 */
 	Object onActionFromTransform(Long id){
 		int key_len = 0;
 		String init_key = "";
@@ -353,7 +393,7 @@ public class MetaTransformationPG {
 		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeMetaTransformation = tvrow.getMetaTransformation_TestValue();
-		SesionValueBeforeMetaTransformation = ValueBeforeMetaTransformation;
+		persistValueBeforeMetaTransformation = ValueBeforeMetaTransformation;
 		
 		Source src = sourceDao.getCurrent();
 		if (src == null){
@@ -426,10 +466,6 @@ public class MetaTransformationPG {
 				greska=true;
 		}
 			
-		
-
-		
-		
 		if (greska){
 			before_line0 = "You must set apropriate init_key lenghts. Examples:";
 			before_line1 = "For 128 bit key, 32 hex letters.";
@@ -448,12 +484,18 @@ public class MetaTransformationPG {
 
 		
 		if ((0!=key_len) && (""!=init_key) && (""!=strToParse))
-			DoTransform(SesionValueBeforeMetaTransformation, key_len, init_key, strToParse);
+			DoTransform(persistValueBeforeMetaTransformation, key_len, init_key, strToParse);
 		
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 		
 	}
 	
+	/**
+	 * Task:<br>
+	 * To fill text area according to selected row in source grid
+	 * @param id - int id - selected row id to show in text area
+	 * @return metaTransformationPG
+	 */
 	Object onActionFromFill(Long id){
 		Source source = sourceDao.find(id);
 		//source_code=source.getSourceCode();
@@ -464,6 +506,12 @@ public class MetaTransformationPG {
 	}
 
 	
+	/**
+	 * Task:<br>
+	 * To delete row from source table/grid
+	 * @param id - int id - selected row id to delete
+	 * @return
+	 */
 	Object onActionFromDelete(Long id){
 		String s = getSource_code();
 		
@@ -472,83 +520,134 @@ public class MetaTransformationPG {
 		return metaTransformationPG;
 	}
 	
+	/**
+	 * variable boolean _updateSource_code<br>
+	 * indicate action to be performed on form success
+	 * **/
 	private boolean _updateSource_code;
 
+    /**
+     * Task:<br>
+     * to set variable boolean _updateSource_code which
+	 * indicate action to be performed on form success
+     */
     void onSelectedFromUpdate() { _updateSource_code = true; }
 
+    
+	/**
+	 * Task:<br>
+	 * Depending on _updateSource_code value, update or insert new row in source table/grid<br>
+	 * _updateSource_code - true: action = update;<br>
+	 * _updateSource_code - false: action = insert new;<br>
+	 * @return metaTransformationPG
+	 */
 	Object onSuccess() {
 		if (_updateSource_code) {
 			String s = getSource_code();
-			
 			Source srce = sourceDao.getCurrent();
 			srce.setSourceCode(s);
 			sourceDao.update(srce);
 			return metaTransformationPG;
-			
 		}
 		else
 		{
 			String s = getSource_code();
-	
 			Source srce = new Source();
 			srce.setSourceCode(s); 
 			srce.setUserId(user.getId());
-	
 			sourceDao.save(srce);
-			
 		}
 		return metaTransformationPG;
-		
 	}
 
 
+	/**
+	 * getter for LinesOut
+	 * @return LinesOut
+	 */
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
 
+	/**
+	 * setter for LinesOut
+	 * @param LinesOut
+	 */
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
 
 
+	/**
+	 * getter for detailLinesOut
+	 * @return detailLinesOut
+	 */
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
 
 
-	
-	
-	
-	
+	/**
+	 * getter for before_line0
+	 * @return before_line0
+	 */
 	public String getBefore_Line0() 
 	{ 
 		return before_line0; 
 	}
+	/**
+	 * getter for before_line1
+	 * @return before_line1
+	 */
 	public String getBefore_Line1() 
 	{ 
 		return before_line1; 
 	}
+	/**
+	 * getter for before_line2
+	 * @return before_line2
+	 */
 	public String getBefore_Line2() 
 	{ 
 		return before_line2; 
 	}
+	/**
+	 * getter for before_line3
+	 * @return before_line3
+	 */
 	public String getBefore_Line3() 
 	{ 
 		return before_line3; 
 	}
 
+	/**
+	 * getter for line0
+	 * @return line0
+	 */
 	public String getLine0() 
 	{ 
 		return line0; 
 	}
+	/**
+	 * getter for line1
+	 * @return line1
+	 */
 	public String getLine1() 
 	{ 
 		return line1; 
 	}
+	/**
+	 * getter for line2
+	 * @return line2
+	 */
 	public String getLine2() 
 	{ 
 		return line2; 
 	}
+	/**
+	 * getter for line3
+	 * @return line3
+	 */
 	public String getLine3() 
 	{ 
 		return line3; 

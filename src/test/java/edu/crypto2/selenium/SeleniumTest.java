@@ -11,16 +11,25 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import edu.crypto2.services.SourceDao;
+import edu.crypto2.services.TestValuesDao;
+
+
 import org.openqa.selenium.server.SeleniumServer;
 
-import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.*;
+//This is the driver's import. You'll use this for instantiating a
+//browser and making it do what you need.
 
 
 /***********************************************************************
  * 
  */
-public class SeleniumTest extends TestCase{
-   
+public class SeleniumTest extends SeleneseTestCase{
+/*	
+	private TestValuesDao testValuesDao;
+	private SourceDao sourceDao;
     private SeleniumServer server;
     private DefaultSelenium selenium;
     
@@ -39,8 +48,11 @@ public class SeleniumTest extends TestCase{
     
     @BeforeClass
     @Parameters(value = "SeleniumBrowser")
-    public void setUp(@Optional("*googlechrome") String br) {
+    public void setUp(@Optional("*iexplore") String br) {
         try {
+          sourceDao.reload();
+          testValuesDao.reload();
+            
           this.server = new SeleniumServer();
           this.server.start();
      } catch (Exception e) {
@@ -48,8 +60,11 @@ public class SeleniumTest extends TestCase{
      }
 	  	//String br = "*iexplore";  
 	    //String br = "*googlechrome";
-        this.selenium  = new DefaultSelenium("localhost", 4444, br, "http://localhost:8080/crypto2/");
+     
+        this.selenium  = new DefaultSelenium("localhost", 4444, br, "http://localhost:8080/");
         this.selenium.start();
+        this.selenium.open("http://localhost:8080/crypto2/");
+
         this.selenium.setSpeed("1000");
 }
     
@@ -77,6 +92,10 @@ public class SeleniumTest extends TestCase{
         selenium.waitForPageToLoad("1000");
         selenium.click("link=Log out");
     }
+    
+*/    
+    
+/*    
 
     @Test
     public void testAddRoundKeyPG() {
@@ -141,5 +160,5 @@ public class SeleniumTest extends TestCase{
         selenium.stop();
     }
 
-	
+*/	
 }

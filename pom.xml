@@ -8,6 +8,171 @@
 	<packaging>war</packaging>
 	<name>crypto2 Tapestry 5 Application</name>
 
+
+
+<profiles>
+    <profile>
+        <id>integration-test</id>
+        <activation>
+            <property>
+                <name>!maven.test.skip</name>
+            </property>
+        </activation>
+        <build>
+            <plugins>
+            
+            
+            
+            
+            <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
+            <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
+			<plugin>
+ 				<groupId>org.codehaus.cargo</groupId>
+ 				<artifactId>cargo-maven2-plugin</artifactId>
+ 				<version>0.3-SNAPSHOT</version>
+ 			<configuration>
+  					<wait>false</wait>
+  					<container>
+   					<containerId>jetty6x</containerId>
+   					<type>embedded</type>
+   					<port>8080</port>
+  					</container>
+ 			</configuration>
+
+ 			<executions>
+  					<execution>
+   					<id>start-container</id>
+   					<phase>pre-integration-test</phase>
+   					<goals>
+    				<goal>start</goal>
+    				<goal>deploy</goal>
+   					</goals>
+  				</execution>
+ 
+ 				<execution>
+   					<id>stop-container</id>
+   					<phase>post-integration-test</phase>
+  					<goals>
+ 				   	<goal>stop</goal>
+   					</goals>
+  				</execution>
+ 			</executions>
+			</plugin>			
+            <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
+            <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
+            
+<!--            
+  <plugin>
+ <groupId>org.codehaus.mojo</groupId>
+ <artifactId>selenium-maven-plugin</artifactId>
+ <configuration>
+  <port>4449</port>
+  <browser>*googlechrome</browser>
+  <suite>src/test/resources/seltest.html</suite>
+  <startURL>http://localhost:8080/</startURL>
+ </configuration>
+ 
+ <executions>
+  <execution>
+   <id>test</id>
+   <phase>test</phase>
+   <goals>
+    <goal>selenese</goal>
+   </goals>
+  </execution>
+ </executions>
+</plugin>
+            
+-->             
+	<plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>selenium-maven-plugin</artifactId>
+		<version>1.0</version>
+
+		<executions>
+			<execution>
+				<id>start-selenium</id>
+				<phase>pre-integration-test</phase>
+				<goals>
+					<goal>start-server</goal>
+				</goals>
+			</execution>
+			
+			<execution>
+				<id>stop-selenium</id>
+				<phase>pre-integration-test</phase>
+				<goals>
+					<goal>stop-server</goal>
+				</goals>
+			</execution>
+		</executions>
+		<configuration>
+			<timeout>30</timeout>
+			<background>false</background>
+			<port>4444</port>
+			<avoidProxy>true</avoidProxy>
+			<logOutput>true</logOutput>
+			
+		</configuration>
+
+		
+	</plugin>
+	
+	
+            
+
+<!-- 
+                <plugin>
+                    <groupId>org.codehaus.cargo</groupId>
+                    <artifactId>cargo-maven2-plugin</artifactId>
+                    <version>1.0</version>
+                    <configuration>
+                        <wait>${cargo.wait}</wait>
+                        <container>
+                            <containerId>${cargo.container}</containerId>
+                            <!- -home>${cargo.container.home}</home- -//>
+                            <zipUrlInstaller>
+                                <url>${cargo.container.url}</url>
+                                <installDir>${installDir}</installDir>
+                            </zipUrlInstaller>
+                        </container>
+                        <configuration>
+                            <home>${project.build.directory}/${cargo.container}/container</home>
+                            <properties>
+                                <cargo.hostname>http://localhost:</cargo.hostname>
+                                <cargo.servlet.port>4444</cargo.servlet.port>
+                            </properties>
+                        </configuration>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>start-container</id>
+                            <phase>pre-integration-test</phase>
+                            <goals>
+                                <goal>start</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>stop-container</id>
+                            <phase>post-integration-test</phase>
+                            <goals>
+                                <goal>stop</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+ -->                            
+                
+                
+            </plugins>
+        </build>
+    </profile>
+</profiles>    
+	
+
+
+
+
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.tapestry</groupId>
@@ -150,30 +315,12 @@
   --> 
   <append>true</append> 
   </requestLog>
-  <scanIntervalSeconds>10</scanIntervalSeconds> 
-  <stopKey>foo</stopKey> 
-  <stopPort>9080</stopPort> 
+
   </configuration>
-<executions>
-<execution>
-  <id>start-jetty</id> 
-  <phase>pre-integration-test</phase> 
-<goals>
-  <goal>run</goal> 
-  </goals>
-<configuration>
-  <scanIntervalSeconds>0</scanIntervalSeconds> 
-  <daemon>true</daemon> 
-  </configuration>
-  </execution>
-<execution>
-  <id>stop-jetty</id> 
-  <phase>post-integration-test</phase> 
-<goals>
-  <goal>stop</goal> 
-  </goals>
-  </execution>
-  </executions>
+
+
+
+
   </plugin>
 
 
@@ -186,11 +333,14 @@
     			<artifactId>maven-surefire-plugin</artifactId>
     			<configuration>
       			<suiteXmlFiles>
-        		<suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+        		<suiteXmlFile>src/test/conf/testng.xml</suiteXmlFile>
       			</suiteXmlFiles>
     			</configuration>
   			</plugin>
-  				<plugin>
+  			
+  			
+<!--
+   				<plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>2.2-beta-2</version>
                 <configuration>
@@ -235,6 +385,7 @@
 		</configuration>
 		
 	</plugin>
+-->	
 	<plugin>
 		<groupId>org.apache.maven.plugins</groupId>
 		<artifactId>maven-surefire-plugin</artifactId>

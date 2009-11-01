@@ -12,6 +12,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import edu.crypto2.data.Data;
 import edu.crypto2.entities.Source;
 import edu.crypto2.entities.User;
 import edu.crypto2.rest.HibernateUtil;
@@ -22,6 +23,9 @@ import edu.crypto2.rest.HibernateUtil;
 public class SourceDaoImpl implements SourceDao{
 	@SessionState(create=false)
 	private User user;
+	
+	
+	
     public boolean getLoggedIn() {
         if (user != null)
             return true;
@@ -36,21 +40,70 @@ public class SourceDaoImpl implements SourceDao{
     
 	private List<Source> database; 
 	
-	public void reload(){
+	public void reload(long userId){
+
+		UserDao userDao = new UserDaoImpl();
+		user = userDao.find(userId);
+
+		String qry = "from Source where USERID=" + user.getId();
+
+		
 		if (session.isOpen())
 			session.close();
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
+		database = session.createQuery(qry).list();
 		//database = session.createQuery("from Source").list();
-		if (getLoggedIn()){
-			String qry = "from Source where USERID=" + user.getId();
-			database = session.createQuery(qry).list();
-		}
-		else{
-			database = session.createQuery("from Source").list();
-		}
+		if (database.isEmpty())
+		{
+			transaction = null;
+			transaction = session.beginTransaction();
+			Source source = new Source();
+			source.setSourceCode(Data.source_code_template_0);
+			// Here, UserId is always 1
+			source.setUserId(userId);
+			
 
+			session.persist(source);
+			transaction.commit();
+			
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.source_code_template_1);
+			// Here, UserId is always 1
+			source.setUserId(userId);
+
+			session.persist(source);
+			transaction.commit();
+
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.source_code_template_2);
+			
+			// Here, UserId is always 1
+			source.setUserId(userId);
+
+			session.persist(source);
+			transaction.commit();
+			
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.source_code_template_3);
+			
+			// Here, UserId is always 1
+			source.setUserId(userId);
+
+			session.persist(source);
+			transaction.commit();
+			CurrentId = source.getId().intValue();
+		}
+		
+		transaction = null;
+		transaction = session.beginTransaction();
+		String qry2 = "from Source where USERID=" + user.getId();
+		database = session.createQuery(qry2).list();
+		
 		transaction.commit();
 	}
 
@@ -63,36 +116,13 @@ public class SourceDaoImpl implements SourceDao{
 			//transaction = null;
 			transaction = session.beginTransaction();
 			database = session.createQuery("from Source").list();
-			transaction.commit();
+			//transaction.commit();
 			if (database.isEmpty())
 			{
 				transaction = null;
 				transaction = session.beginTransaction();
 				Source source = new Source();
-				source.setSourceCode(
-						"// AES128 from FIPS197 pg.33-34\n"+
-						"// First try test vector no.1\n"+
-						"// (3243f6a8885a308d313198a2e0370734)\n"+
-						"// Then try to experiment.\n"+
-						"key_len = 128;\n"+
-						"init_key = \"2b7e151628aed2a6abf7158809cf4f3c\";\n"+
-						"keyExpansion.KeyExpansion128();\n"+ 
-						"Nb = 4;  //br.kolona //number of columns\n"+
-						"Nr = 10; //br.rundi // number of rounds\n"+
-						"addRoundKey.transform_state(0);\n"+
-						"for (runda = 1; runda <= Nr-1; runda++)\n"+
-						"{\n"+
-						"	subBytes.transform_state();\n"+
-						"	shiftRows.transform_state();\n"+
-						"	mixColumns.transform_state();\n"+
-						"	addRoundKey.transform_state(4*runda*Nb );\n"+
-						"	runda2=runda;\n"+
-						"}\n"+
-						"runda2++;\n"+
-						"subBytes.transform_state();\n"+
-						"// Final round\n"+
-						"shiftRows.transform_state();\n"+
-						"addRoundKey.transform_state( 4*runda2*Nb );");
+				source.setSourceCode(Data.source_code_template_0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
 				
@@ -102,62 +132,17 @@ public class SourceDaoImpl implements SourceDao{
 				
 				transaction = session.beginTransaction();
 				source = new Source();
-				source.setSourceCode(
-						"// AES128 from FIPS197 pg.35-36\n"+
-						"// First try test vector no.2\n"+
-						"// (3243f6a8885a308d313198a2e0370734)\n"+
-						"// Then try to experiment.\n"+
-						"key_len = 128;\n"+
-						"init_key = \"000102030405060708090a0b0c0d0e0f\";\n"+
-						"keyExpansion.KeyExpansion128();\n"+ 
-						"Nb = 4;  //br.kolona //number of columns\n"+
-						"Nr = 10; //br.rundi // number of rounds\n"+
-						"addRoundKey.transform_state(0);\n"+
-						"for (runda = 1; runda <= Nr-1; runda++)\n"+
-						"{\n"+
-						"	subBytes.transform_state();\n"+
-						"	shiftRows.transform_state();\n"+
-						"	mixColumns.transform_state();\n"+
-						"	addRoundKey.transform_state(4*runda*Nb );\n"+
-						"	runda2=runda;\n"+
-						"}\n"+
-						"runda2++;\n"+
-						"subBytes.transform_state();\n"+
-						"// Final round\n"+
-						"shiftRows.transform_state();\n"+
-						"addRoundKey.transform_state( 4*runda2*Nb );");
+				source.setSourceCode(Data.source_code_template_1);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
 
 				session.persist(source);
 				transaction.commit();
 
+				
 				transaction = session.beginTransaction();
 				source = new Source();
-				source.setSourceCode(
-						"// AES192 from FIPS197 pg.38-39\n"+
-						"// First, try test vector no.3\n"+
-						"// (00112233445566778899aabbccddeeff)\n"+
-						"// Then try to experiment.\n"+
-						"key_len = 192;\n"+
-						"init_key = \"000102030405060708090a0b0c0d0e0f1011121314151617\";\n"+
-						"keyExpansion.KeyExpansion192();\n"+ 
-						"Nb = 4;  //br.kolona //number of columns\n"+
-						"Nr = 12; //br.rundi // number of rounds\n"+
-						"addRoundKey.transform_state(0);\n"+
-						"for (runda = 1; runda <= Nr-1; runda++)\n"+
-						"{\n"+
-						"	subBytes.transform_state();\n"+
-						"	shiftRows.transform_state();\n"+
-						"	mixColumns.transform_state();\n"+
-						"	addRoundKey.transform_state(4*runda*Nb );\n"+
-						"	runda2=runda;\n"+
-						"}\n"+
-						"runda2++;\n"+
-						"subBytes.transform_state();\n"+
-						"// Final round\n"+
-						"shiftRows.transform_state();\n"+
-						"addRoundKey.transform_state( 4*runda2*Nb );");
+				source.setSourceCode(Data.source_code_template_2);
 				
 				// Here, UserId is always 1
 				source.setUserId((long)1);
@@ -167,30 +152,7 @@ public class SourceDaoImpl implements SourceDao{
 				
 				transaction = session.beginTransaction();
 				source = new Source();
-				source.setSourceCode(
-						"// AES256 from FIPS197 pg.42\n"+
-						"// First, try test vector no.4\n"+
-						"// (00112233445566778899aabbccddeeff)\n"+
-						"// Then try to experiment.\n"+
-						"key_len = 256;\n"+
-						"init_key = \"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f\";\n"+
-						"keyExpansion.KeyExpansion256();\n"+ 
-						"Nb = 4;  //br.kolona //number of columns\n"+
-						"Nr = 14; //br.rundi // number of rounds\n"+
-						"addRoundKey.transform_state(0);\n"+
-						"for (runda = 1; runda <= Nr-1; runda++)\n"+
-						"{\n"+
-						"	subBytes.transform_state();\n"+
-						"	shiftRows.transform_state();\n"+
-						"	mixColumns.transform_state();\n"+
-						"	addRoundKey.transform_state(4*runda*Nb );\n"+
-						"	runda2=runda;\n"+
-						"}\n"+
-						"runda2++;\n"+
-						"subBytes.transform_state();\n"+
-						"// Final round\n"+
-						"shiftRows.transform_state();\n"+
-						"addRoundKey.transform_state( 4*runda2*Nb );");
+				source.setSourceCode(Data.source_code_template_3);
 				
 				// Here, UserId is always 1
 				source.setUserId((long)1);

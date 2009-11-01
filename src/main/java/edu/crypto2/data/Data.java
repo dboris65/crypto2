@@ -334,5 +334,107 @@ public void setOutput(int[][] output) {
 	 * 4x4 bytes array (int[4][4]) that hold output from Cipher/InvCipher
 	 */
 	public static int [][] Output = new int[4][4];
+	
+	public static String source_code_template_0 = 
+		"// AES128 from FIPS197 pg.33-34\n"+
+		"// First try test vector no.1\n"+
+		"// (3243f6a8885a308d313198a2e0370734)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 128;\n"+
+		"init_key = \"2b7e151628aed2a6abf7158809cf4f3c\";\n"+
+		"keyExpansion.KeyExpansion128();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 10; //br.rundi // number of rounds\n"+
+		"addRoundKey.transform_state(0);\n"+
+		"for (runda = 1; runda <= Nr-1; runda++)\n"+
+		"{\n"+
+		"	subBytes.transform_state();\n"+
+		"	shiftRows.transform_state();\n"+
+		"	mixColumns.transform_state();\n"+
+		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	runda2=runda;\n"+
+		"}\n"+
+		"runda2++;\n"+
+		"subBytes.transform_state();\n"+
+		"// Final round\n"+
+		"shiftRows.transform_state();\n"+
+		"addRoundKey.transform_state( 4*runda2*Nb );";
+	
+	
+	public static String source_code_template_1 = 
+		"// AES128 from FIPS197 pg.35-36\n"+
+		"// First try test vector no.2\n"+
+		"// (3243f6a8885a308d313198a2e0370734)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 128;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f\";\n"+
+		"keyExpansion.KeyExpansion128();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 10; //br.rundi // number of rounds\n"+
+		"addRoundKey.transform_state(0);\n"+
+		"for (runda = 1; runda <= Nr-1; runda++)\n"+
+		"{\n"+
+		"	subBytes.transform_state();\n"+
+		"	shiftRows.transform_state();\n"+
+		"	mixColumns.transform_state();\n"+
+		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	runda2=runda;\n"+
+		"}\n"+
+		"runda2++;\n"+
+		"subBytes.transform_state();\n"+
+		"// Final round\n"+
+		"shiftRows.transform_state();\n"+
+		"addRoundKey.transform_state( 4*runda2*Nb );";
+	
+	public static String source_code_template_2 =
+		"// AES192 from FIPS197 pg.38-39\n"+
+		"// First, try test vector no.3\n"+
+		"// (00112233445566778899aabbccddeeff)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 192;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f1011121314151617\";\n"+
+		"keyExpansion.KeyExpansion192();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 12; //br.rundi // number of rounds\n"+
+		"addRoundKey.transform_state(0);\n"+
+		"for (runda = 1; runda <= Nr-1; runda++)\n"+
+		"{\n"+
+		"	subBytes.transform_state();\n"+
+		"	shiftRows.transform_state();\n"+
+		"	mixColumns.transform_state();\n"+
+		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	runda2=runda;\n"+
+		"}\n"+
+		"runda2++;\n"+
+		"subBytes.transform_state();\n"+
+		"// Final round\n"+
+		"shiftRows.transform_state();\n"+
+		"addRoundKey.transform_state( 4*runda2*Nb );";
 
+	public static String source_code_template_3 =
+		"// AES256 from FIPS197 pg.42\n"+
+		"// First, try test vector no.4\n"+
+		"// (00112233445566778899aabbccddeeff)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 256;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f\";\n"+
+		"keyExpansion.KeyExpansion256();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 14; //br.rundi // number of rounds\n"+
+		"addRoundKey.transform_state(0);\n"+
+		"for (runda = 1; runda <= Nr-1; runda++)\n"+
+		"{\n"+
+		"	subBytes.transform_state();\n"+
+		"	shiftRows.transform_state();\n"+
+		"	mixColumns.transform_state();\n"+
+		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	runda2=runda;\n"+
+		"}\n"+
+		"runda2++;\n"+
+		"subBytes.transform_state();\n"+
+		"// Final round\n"+
+		"shiftRows.transform_state();\n"+
+		"addRoundKey.transform_state( 4*runda2*Nb );";
+	
+	
 }

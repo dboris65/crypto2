@@ -84,12 +84,8 @@ public class Register {
 
 	void onValidateForm()
 	{
-    	final Logger logger = Logger.getLogger(Register.class);
-    	logger.debug( "--- onValidateForm 1 --" + user);
-
 		if (! isValid(user.getUserName(), user.getPassword()))
 		{
-			logger.debug("Nije validna");
 			form.recordError("Invalid user name or password.");
 		}
 	}

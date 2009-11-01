@@ -67,21 +67,17 @@ public class ShiftRowsPG {
 	
 	@SetupRender
 	boolean setup() throws Exception {
-		/* Ovo odstupa od skolskih primjera za rad sa Tapestry-jem i DAO-ima.
-		 * 
-		 * Ako prvi put udjemo u stranicu, ona ce ucitati i formirati TestValuesDao
-		 * iz baze podataka. Pri svakom slijedecem ulasku na ovu (ili neku drugu)
-		 * stranicu, uvjek cemo dobiti te iste vrijednosti, sto je potencijalna greska.
-		 * 
-		 * PRIMJER potencijalne greske:
-		 * Ako poslije ucitavanja neke od strana sa transformacijama
-		 * npr. odemo na stranicu za unos novih vrijednosti i unesemo nesto novo,
-		 * nakon povratka na ovu stranicu necemo vidjeti novu vrijednost - DAO je ranije ucitan.
-		 * 
-		 * RJESENJE potencijalne greske - Reload()
-		 * Napisati funkciju reload, koja obezbjedjuje da ce pri svakom ulasku na stranicu 
-		 * DAO vrijednosti biti (pravilno) ponovo ucitane i prikazane.*/
-		testValuesDao.reload();
+		long userId = 1; 
+		if (user != null){
+			UserName = (user.getName());
+			userId = user.getId();
+		}
+		else{
+			UserName = "";
+			userId = 1;
+		}
+	
+		testValuesDao.reload(userId);
 		
 		if (user != null){
 			UserName = (user.getName());

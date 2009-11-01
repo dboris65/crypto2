@@ -1,5 +1,6 @@
 package edu.crypto2.pages;
 
+import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
@@ -10,6 +11,7 @@ import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.ioc.annotations.Inject;
 
 import edu.crypto2.entities.User;
+import edu.crypto2.services.SourceDaoImpl;
 import edu.crypto2.services.UserDao;
 				    
 
@@ -17,8 +19,10 @@ import edu.crypto2.services.UserDao;
 public class Login
 {
 	@SessionState
-	@Property
 	private User user;
+	
+	@Property
+	private User userForm;
 	
     @Persist
     @Property
@@ -48,7 +52,22 @@ public class Login
 
 	public boolean isValid(String userName, String password){
 	
-		user = userDao.findUserName(userName);
+    	final Logger logger = Logger.getLogger(Login.class);
+		logger.debug("Index 1 ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("User -------------" + user +  "--------------------");
+		logger.debug("---------------------------------");
+
+		userForm = userDao.findUserName(userName);
+		user = userForm;
+		
+		logger.debug("Index 2 ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("User -------------" + user +  "--------------------");
+		logger.debug("---------------------------------");
+
 		
 		if ((user != null) )
 		{
@@ -73,10 +92,29 @@ public class Login
         {
             form.recordError(passwordField, "Invalid user name or password.");
         }
+
+        final Logger logger = Logger.getLogger(Login.class);
+		logger.debug("Index out 3 ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("User -------------" + user +  "--------------------");
+		logger.debug("---------------------------------");
+
 	}
     String onSuccess()
     {
+    	final Logger logger = Logger.getLogger(Login.class);
+		logger.debug("Index out 4 ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("User -------------" + user +  "--------------------");
+		logger.debug("---------------------------------");
 
+		logger.debug("Index out ---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("---------------------------------");
+		logger.debug("UserForm -------------" + userForm +  "--------------------");
+		logger.debug("---------------------------------");
 
         return "Index";
     }

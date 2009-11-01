@@ -5,6 +5,7 @@ import java.util.List;
 
 
 import org.apache.log4j.Logger;
+import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
 import org.apache.tapestry5.annotations.Property;
@@ -13,6 +14,7 @@ import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.apache.tapestry5.annotations.OnEvent;
+import org.apache.tapestry5.corelib.components.BeanEditForm;
 
 import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
@@ -33,7 +35,8 @@ public class CreateTestValues {
 	
 	@Property
 	private String UserName = "";
-	
+    @Component
+    private BeanEditForm form;
 
     public boolean getLoggedIn() {
         if (user != null)
@@ -53,14 +56,17 @@ public class CreateTestValues {
 
 	@SetupRender
 	boolean setup() {
+		long userId = 1; 
 		if (user != null){
 			UserName = (user.getName());
+			userId = user.getId();
 		}
 		else{
 			UserName = "";
+			userId = 1;
 		}
 		
-		testValuesDao.reload();
+		testValuesDao.reload(userId);
 		//List<TestValues> result = session.createCriteria(TestValues.class).list();
 		return true;
 	}
@@ -69,6 +75,64 @@ public class CreateTestValues {
     /*  link za prelazak na umetanje test vrijednosti         */
     @InjectPage
     private CreateTestValues createTestValues;
+
+    public boolean isHexDigit(String hexDigit)
+    {
+    	char[] hexDigitArray = hexDigit.toCharArray();
+    	int hexDigitLength = hexDigitArray.length;
+
+    	boolean isNotHex;
+    	for (int i = 0; i < hexDigitLength; i++) {
+    		isNotHex = Character.digit(hexDigitArray[i], 16) == -1;
+    		if (isNotHex) {
+    			final Logger logger = Logger.getLogger(SubBytesPG.class);
+    			logger.debug("-----------------------------------");
+    			logger.debug("I =" + i);
+    			logger.debug("hexDigitArray[i] =" + hexDigitArray[i]);
+    			logger.debug("-----------------------------------");
+
+    			return false;
+    		}
+    	}
+    	return true;
+    }
+    
+    void onValidateForm()
+	{
+    	// FIRST round *********************************************
+    	// some of these can be done through Validate anotation, but
+    	// not all of them. So we will keep all of them on same place. 
+		if (testValues.getSubBytes_TestValue().length() != 32)
+			form.recordError("Invalid SubBytes test vector length.");
+		if (testValues.getMixColumns_TestValue().length() != 32)
+			form.recordError("Invalid MixColumns test vector length.");
+		if (testValues.getShiftRows_TestValue().length() != 32)
+			form.recordError("Invalid ShiftRows test vector length.");
+		if (testValues.getAddRoundKey_TestValue().length() != 32)
+			form.recordError("Invalid AddRoundKey test vector length.");
+		if (testValues.getMetaTransformation_TestValue().length() != 32)
+			form.recordError("Invalid MetaTransformation test vector length.");
+		if ((testValues.getKeyExpansion_TestValue().length() != 32) &&
+			(testValues.getKeyExpansion_TestValue().length() != 48) &&
+			(testValues.getKeyExpansion_TestValue().length() != 64)	)
+			form.recordError("Invalid KeyExpansion test vector length.");
+	
+    	// SECOND round *********************************************
+		if (!isHexDigit(testValues.getSubBytes_TestValue()))
+			form.recordError("Invalid SubBytes test vector value.");
+		if (!isHexDigit(testValues.getMixColumns_TestValue()))
+			form.recordError("Invalid MixColumns test vector value.");
+		if (!isHexDigit(testValues.getShiftRows_TestValue()))
+			form.recordError("Invalid ShiftRows test vector value.");
+		if (!isHexDigit(testValues.getAddRoundKey_TestValue()))
+			form.recordError("Invalid AddRoundKey test vector value.");
+		if (!isHexDigit(testValues.getMetaTransformation_TestValue()))
+			form.recordError("Invalid MetaTransformation test vector value.");
+		if (!isHexDigit(testValues.getKeyExpansion_TestValue()))
+			form.recordError("Invalid KeyExpansion test vector value.");
+				
+	}
+
     @CommitAfter
     Object onSuccess()
     {

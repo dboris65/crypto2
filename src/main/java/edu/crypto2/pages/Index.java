@@ -5,6 +5,7 @@ package edu.crypto2.pages;
 
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -17,6 +18,8 @@ import org.hibernate.cfg.Configuration;
 import edu.crypto2.entities.User;
 import edu.crypto2.services.SourceDao;
 import edu.crypto2.services.TestValuesDao;
+import edu.crypto2.services.UserDao;
+import edu.crypto2.services.UserDaoImpl;
 
 
 /**
@@ -36,6 +39,7 @@ public class Index
 	@SessionState(create=false)
 	private User user;
 	
+	
 	@Property
 	private String UserName = "";
 	
@@ -49,20 +53,40 @@ public class Index
     
     @SetupRender
     boolean setup() throws Exception {
-            
+            long userId = 1; 
             if (user != null){
-                    UserName = (user.getName());
+            	
+                    try {
+						UserName = (user.getName());
+						userId = user.getId();
+					} catch (Exception e) {
+						//UserDao userDao = new UserDaoImpl();
+						//user = userDao.find(1);
+	                    //UserName = (user.getName());
+	                    //userId = user.getId();
+						user = null;
+						userId = 1;
+					}
+                    
             }
             else{
                     UserName = "";
+                    userId = 1;
             }
+        	final Logger logger = Logger.getLogger(Index.class);
+    		logger.debug("Index setUp ---------------------------------");
+    		logger.debug("---------------------------------");
+    		logger.debug("---------------------------------");
+    		logger.debug("User -------------" + user +  "--------------------");
+    		logger.debug("---------------------------------");
 
-            sourceDao.reload();
-            testValuesDao.reload();
+            sourceDao.reload(userId);
+            testValuesDao.reload(userId);
                             
             return true;
             
     }
+
 	
     @InjectPage
     private Index index;

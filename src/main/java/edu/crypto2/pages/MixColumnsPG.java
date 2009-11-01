@@ -69,13 +69,17 @@ public class MixColumnsPG {
 	
 	@SetupRender
 	boolean setup() throws Exception {
+		long userId = 1; 
 		if (user != null){
 			UserName = (user.getName());
+			userId = user.getId();
 		}
 		else{
 			UserName = "";
+			userId = 1;
 		}
-		testValuesDao.reload();
+		testValuesDao.reload(userId);
+		
 		if ((SesionValueBeforeMixColumns == "") || (SesionValueBeforeMixColumns == null)) 
 		{
 			xml_p = new XmlParser("MixColumns"); 

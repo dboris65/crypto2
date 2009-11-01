@@ -17,7 +17,7 @@ public interface TestValuesDao {
 
 	void delete(TestValues testValues);
 	
-	public void reload();
+	public void reload(long userId);
 
 	TestValues findTestValuesBySubBytesValue(String name);
 }

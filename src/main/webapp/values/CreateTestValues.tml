@@ -9,7 +9,7 @@
   <body>
 
 
-    <t:beaneditform submitlabel="Create Values" object="testValues" />
+    <t:beaneditform t:id="form" submitlabel="Create Values" object="testValues" />
   
     <p></p> <p></p><p></p><p></p>
     
