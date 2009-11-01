@@ -26,7 +26,7 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-public class ShiftRowsPG {
+public class ShiftRowsPG { 
 	@SessionState(create=false)
 	private User user;
 	

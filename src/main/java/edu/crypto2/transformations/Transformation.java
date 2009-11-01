@@ -9,3 +9,4 @@ package edu.crypto2.transformations;
 public interface Transformation {
 	
 }
+  

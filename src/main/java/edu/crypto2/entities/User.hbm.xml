@@ -16,6 +16,6 @@
 		<property name="email" type="string" column="Email"
 			not-null="true" />
 			
-
+ 
 	</class>
 </hibernate-mapping>

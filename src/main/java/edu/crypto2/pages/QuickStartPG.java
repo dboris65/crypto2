@@ -13,7 +13,7 @@ import edu.crypto2.entities.User;
  * 
  */
 public class QuickStartPG {
-	@SessionState(create=false)
+	@SessionState(create=false) 
 	private User user;
 	
 	@Property

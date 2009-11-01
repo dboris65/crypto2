@@ -5,7 +5,7 @@ package edu.crypto2.transformations;
 
 import edu.crypto2.data.*;
 /***********************************************************************
- * 
+ *  
  */
 /**
  * Class ShiftRows<p>

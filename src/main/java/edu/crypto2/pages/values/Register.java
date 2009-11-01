@@ -71,7 +71,7 @@ public class Register {
 		
 		find_user = userDao.findPassword(password);
 		
-		if ((find_user != null) )
+		if ((find_user != null) ) 
 		{
 			logger.debug(find_user.getPassword() + "-----" );
 			if ((find_user.getPassword().equals(password)) )

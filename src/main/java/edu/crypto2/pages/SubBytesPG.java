@@ -28,7 +28,7 @@ import edu.crypto2.data.*;
  */
 public class SubBytesPG {
 	@SessionState(create=false)
-	private User user;
+	private User user; 
 	
 	@Property
 	private String UserName = "";

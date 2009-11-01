@@ -6,7 +6,7 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-/**
+/** 
  * Class KeyExpansion<p>
  * Task:<br>
  * To expand inital key from 16, 24 or 32 bytes to 16*11, 16*13 or 16*15 bytes, respectively<br> 

@@ -16,7 +16,7 @@ import org.apache.tapestry5.beaneditor.Validate;
  * 
  */
 @Entity
-@Table(name="User")
+@Table(name="User") 
 public class User {
 	
 
@@ -107,7 +107,7 @@ public class User {
 	public void setEmail(String Email) {
 		this.Email = Email;
 	}
-	
+	 
 	
 
 

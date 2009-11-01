@@ -155,7 +155,7 @@ public class SourceDaoImpl implements SourceDao{
 				source.setSourceCode(Data.source_code_template_3);
 				
 				// Here, UserId is always 1
-				source.setUserId((long)1);
+				source.setUserId((long)1);  
 
 				session.persist(source);
 				transaction.commit();

@@ -7,14 +7,14 @@ import edu.crypto2.data.*;
 
 /***********************************************************************
  * 
- */
+ */ 
 public class AddRoundKey implements Transformation{
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
 	 * so we will do the same
 	 */
-	public int Nb;
+	public int Nb; 
 
 	public KeyExpansion keyExpansion;
  

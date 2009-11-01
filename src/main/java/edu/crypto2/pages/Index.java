@@ -73,12 +73,7 @@ public class Index
                     UserName = "";
                     userId = 1;
             }
-        	final Logger logger = Logger.getLogger(Index.class);
-    		logger.debug("Index setUp ---------------------------------");
-    		logger.debug("---------------------------------");
-    		logger.debug("---------------------------------");
-    		logger.debug("User -------------" + user +  "--------------------");
-    		logger.debug("---------------------------------");
+
 
             sourceDao.reload(userId);
             testValuesDao.reload(userId);
@@ -86,7 +81,7 @@ public class Index
             return true;
             
     }
-
+ 
 	
     @InjectPage
     private Index index;

@@ -11,11 +11,11 @@ import edu.crypto2.entities.User;
  */
 public interface UserDao {
 	List<User> findAllUsers();
-	
+	 
 	User find(long id);
 	
 	User findUserName(String userName);
-	
+	 
 	User findPassword(String password);
 	
 	

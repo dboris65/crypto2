@@ -4,8 +4,8 @@
 package edu.crypto2.data;
 
 /***********************************************************************
- * 
- */ 
+ *  
+ */  
 /**
  * Data:<p>
  * This class purpose is to hold initial values, results and inter-results.

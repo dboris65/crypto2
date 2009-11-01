@@ -140,7 +140,7 @@ public class TestValues {
 	public void setAddRoundKey_TestValue(String addRoundKeyTestValue) {
 		AddRoundKey_TestValue = addRoundKeyTestValue;
 	}
-	
+	 
 	public void setMetaTransformation_TestValue(String metaTransformation_TestValue) {
 		MetaTransformation_TestValue = metaTransformation_TestValue;
 	}
@@ -150,7 +150,7 @@ public class TestValues {
 	 */
 	public void setUserId(Long userId) {
 		UserId = userId;
-	}
+	} 
 	
 /*	
 	public void setInvSubBytes_TestValue(String invSubBytesTestValue) {

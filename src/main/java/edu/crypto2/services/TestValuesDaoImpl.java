@@ -231,7 +231,7 @@ public class TestValuesDaoImpl implements TestValuesDao{
 				session.persist(testValues3);
 				transaction.commit();
 				
-				// AES 256, from FIPS197, pg.38-39
+				// AES 256, from FIPS197, pg.38-39 
 				transaction = session.beginTransaction();
 				TestValues testValues4 = new TestValues();
 				testValues4.setShiftRows_TestValue("63CAB7040953D051CD60E0E7BA70E18C");
@@ -298,7 +298,7 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			}	
 		}
 		return null;
-	}
+	} 
 	
 	public TestValues getCurrent(){
 		for (TestValues testValues: database) {

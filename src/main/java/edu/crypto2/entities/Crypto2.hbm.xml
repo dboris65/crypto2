@@ -31,7 +31,7 @@
 			not-null="true" />
 		<property name="GMUL_TestValue" type="string" column="GMUL_TestValue"
 			not-null="true" />
- -->
+ --> 
 			
 	</class>
 </hibernate-mapping>

@@ -8,7 +8,7 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-/**
+/** 
  * Class SubBytes<p>
  * Task:<br>
  * To apply S-Box on State buffer<br> 

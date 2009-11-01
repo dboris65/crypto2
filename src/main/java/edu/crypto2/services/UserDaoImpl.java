@@ -96,12 +96,12 @@ private static int CurrentId = 0;
 		transaction.commit();
 	}
 
-	public User find(long id){
+	public User find(long id){ 
 		for (User user: database){
 			if(user.getId()==id){
 				CurrentId = user.getId().intValue();
 				return user;
-			}	
+			}	 
 		}
 		return null;
 	}

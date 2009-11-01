@@ -12,5 +12,5 @@
 		<property name="userId" type="long" column="UserId"
 			not-null="true" />	
 
-	</class>
+	</class> 
 </hibernate-mapping>

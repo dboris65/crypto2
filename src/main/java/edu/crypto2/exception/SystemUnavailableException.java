@@ -11,7 +11,7 @@ public class SystemUnavailableException extends Exception{
 	public SystemUnavailableException(Throwable throwable) {
 		super(throwable);
 	}
-
+ 
 	/**
 	 * Throw this exception when the system becomes unavailable eg. due to database connection failure.
 	 */

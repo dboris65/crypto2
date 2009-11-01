@@ -8,16 +8,16 @@ public interface TestValuesDao {
 	List<TestValues> findAllTestValues();
 	
 	TestValues find(long id);
-	
+	 
 	TestValues getCurrent();
 	
 	public void update (TestValues testValues);
 	
-	void save(TestValues testValues);
+	void save(TestValues testValues); 
 
 	void delete(TestValues testValues);
 	
-	public void reload(long userId);
+	public void reload(long userId); 
 
 	TestValues findTestValuesBySubBytesValue(String name);
 }

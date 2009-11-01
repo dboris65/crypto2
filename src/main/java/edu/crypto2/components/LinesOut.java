@@ -1,7 +1,7 @@
 package edu.crypto2.components;
 
 public class LinesOut {
-	
+	 
 	private String line0_before;
 	private String line1_before;
 	private String line2_before;

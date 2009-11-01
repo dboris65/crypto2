@@ -22,10 +22,10 @@ Description: A Web 2.0 design with fluid width suitable for blogs and small webs
         <div id="header">
             <div id="logo">
                 <h1>
-                    <t:pagelink page="index">edu.crypto:crypto2.ver.0.7.09.10.29</t:pagelink>
+                    <t:pagelink page="index">edu.crypto:crypto2.v.0.8.09.11.01</t:pagelink>
                 </h1>
             </div>
-            <div id="menu">
+            <div id="menu"> 
                 <ul>
                     <li t:type="loop" source="pageNames" value="pageName" class="prop:classForPageName">
                         <t:pagelink page="prop:pageName">${pageName}</t:pagelink>

@@ -6,7 +6,7 @@ import org.apache.tapestry5.ioc.annotations.*;
 import org.apache.tapestry5.BindingConstants;
 
 
-
+ 
 /**
  * Layout component for pages of application crypto2.
  */

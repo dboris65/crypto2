@@ -9,7 +9,7 @@
 	<name>crypto2 Tapestry 5 Application</name>
 
 
-
+<!-- Exclude1
 <profiles>
     <profile>
         <id>integration-test</id>
@@ -20,12 +20,13 @@
         </activation>
         <build>
             <plugins>
-            
+Exclude1-->            
             
             
             
             <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
             <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
+            <!-- Exclude1
 			<plugin>
  				<groupId>org.codehaus.cargo</groupId>
  				<artifactId>cargo-maven2-plugin</artifactId>
@@ -57,7 +58,8 @@
    					</goals>
   				</execution>
  			</executions>
-			</plugin>			
+			</plugin>		
+			Exclude1-->	
             <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
             <!-- START Jetty - - START Jetty - - START Jetty START Jetty -->
             
@@ -83,7 +85,8 @@
  </executions>
 </plugin>
             
--->             
+-->           
+<!-- Exclude1
 	<plugin>
 		<groupId>org.codehaus.mojo</groupId>
 		<artifactId>selenium-maven-plugin</artifactId>
@@ -117,7 +120,7 @@
 
 		
 	</plugin>
-	
+Exclude1-->	
 	
             
 
@@ -163,12 +166,12 @@
                 </plugin>
  -->                            
                 
-                
+<!-- Exclude1                
             </plugins>
         </build>
     </profile>
 </profiles>    
-	
+Exclude1-->	
 
 
 

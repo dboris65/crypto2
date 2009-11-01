@@ -47,11 +47,11 @@ public class Source {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	//@NonVisual
 	private Long id;
-
+ 
 	@Validate("required")
 	private String SourceCode;
 	//@NonVisual
-	private Long UserId;
+	private Long UserId; 
 
 	
 

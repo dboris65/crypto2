@@ -31,7 +31,7 @@ public class MixColumnsPG {
 	private User user;
 	
 	@Property
-	private String UserName = "";
+	private String UserName = ""; 
 	
 
     public boolean getLoggedIn() {

@@ -59,7 +59,7 @@ public class CreateTestValues {
 		long userId = 1; 
 		if (user != null){
 			UserName = (user.getName());
-			userId = user.getId();
+			userId = user.getId(); 
 		}
 		else{
 			UserName = "";

@@ -14,7 +14,7 @@ import edu.crypto2.transformations.MixColumns;
  * 
  */
 public class Cipher {
-	public Cipher(int duzina_kljuca) {
+	public Cipher(int duzina_kljuca) { 
 		int Nb;
 		int Nr;
 		int i, j;

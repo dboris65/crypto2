@@ -6,7 +6,7 @@ import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-/**
+/** 
  * Class MixColumns<p>
  * Task:<br>
  * To mix State columns (socond part of permutation)<br> 
