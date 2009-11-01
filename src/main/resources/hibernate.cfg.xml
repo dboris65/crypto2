@@ -16,9 +16,9 @@
         <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
         <property name="current_session_context_class">thread</property>
         
-		<mapping resource="edu/crypto2/entities/Crypto2.hbm.xml"/>
 		<mapping resource="edu/crypto2/entities/Source.hbm.xml"/>
-		<mapping resource="edu/crypto2/entities/User.hbm.xml"/>
+		<mapping resource="edu/crypto2/entities/User.hbm.xml"/> 
+		<mapping resource="edu/crypto2/entities/Crypto2.hbm.xml"/>
 		
     </session-factory>
 </hibernate-configuration>

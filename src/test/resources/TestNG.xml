@@ -1,5 +1,54 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="TransfromTest">
  
+	<test name="cryptotest" verbose="2">
+    <parameter name="SubBytesString" value="193de3bea0f4e22b9ac68d2ae9f84808"/>
+    <parameter name="MixColumnsString" value="d4bf5d30e0b452aeb84111f11e2798e5"/> 	
+    <parameter name="ShiftRowsString" value="d42711aee0bf98f1b8b45de51e415230"/> 	
+    
+
+    <parameter name="InitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/> 	
+    <parameter name="ResultingExpandedKey128" value="2B7E151628AED2A6ABF7158809CF4F3CA0FAFE1788542CB123A339392A6C7605F2C295F27A96B9435935807A7359F67F3D80477D4716FE3E1E237E446D7A883BEF44A541A8525B7FB671253BDB0BAD00D4D1C6F87C839D87CAF2B8BC11F915BC6D88A37A110B3EFDDBF98641CA0093FD4E54F70E5F5FC9F384A64FB24EA6DC4FEAD27321B58DBAD2312BF5607F8D292FAC7766F319FADC2128D12941575C006ED014F9A8C9EE2589E13F0CC8B6630CA6"/> 	
+    
+    <parameter name="CipherInitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/> 	
+    <parameter name="InputVector128" value="3243f6a8885a308d313198a2e0370734"/> 	
+    <parameter name="ResultCipherText128" value="3925841D02DC09FBDC118597196A0B32"/> 	
+    
+    <packages>
+      <package name="edu.crypto2.cryptotest"/>
+    </packages>
+    <classes>
+       <class name="edu.crypto2.cryptotest.TransformTest" />
+    </classes>
+
+  	</test>
+    <test name="AllUnitTests"  verbose="2">
+    <packages>
+    	<package name="edu.crypto2.entities.*"/>
+    	<package name="edu.crypto2.components.*"/>
+    	<package name="edu.crypto2.services.*"/>
+    </packages>
+    <classes>
+    	<class name="edu.crypto2.entities.UserTest"/>
+    	<class name="edu.crypto2.entities.TestValuesTest"/>
+    	<class name="edu.crypto2.entities.SourceTest"/>
+    	<class name="edu.crypto2.components.LinesOutTest"/>
+    	<class name="edu.crypto2.services.SourceDaoTest"/>
+    	<class name="edu.crypto2.services.TestValuesDaoTest"/>
+    </classes>
+ 	</test>
+  	
+<!-- 
+    <test name="integration-test"  verbose="2">
+	<parameter name="SeleniumBrowser" value="*googlechrome"/>
+    <packages>
+    	<package name="edu.crypto2.selenium.*"/>
+    </packages>
+    <classes>
+    	<class name="edu.crypto2.selenium.SeleniumTest"/>   
+    </classes>
+  </test>
+ -->
+ 
 </suite>
 

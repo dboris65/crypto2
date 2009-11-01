@@ -30,27 +30,28 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 <table cellspacing=0 cellpadding=0 class="param">
 <tr><th>Test</th><th class="numi">Methods<br/>Passed</th><th class="numi">Scenarios<br/>Passed</th><th class="numi"># skipped</th><th class="numi"># failed</th><th class="numi">Total<br/>Time</th><th class="numi">Included<br/>Groups</th><th class="numi">Excluded<br/>Groups</th></tr>
 <tr><td style="text-align:left;padding-right:2em">cryptotest</td><td class="numi">5</td><td class="numi">5</td><td class="numi">0</td><td class="numi">0</td><td class="numi">0.1 seconds</td><td class="numi"></td><td class="numi"></td></tr>
-<tr class="stripe"><td style="text-align:left;padding-right:2em">AllUnitTests</td><td class="numi">23</td><td class="numi">23</td><td class="numi">0</td><td class="numi_attn">5</td><td class="numi">1.2 seconds</td><td class="numi"></td><td class="numi"></td></tr>
+<tr class="stripe"><td style="text-align:left;padding-right:2em">AllUnitTests</td><td class="numi">20</td><td class="numi">20</td><td class="numi_attn">3</td><td class="numi">0</td><td class="numi">0.3 seconds</td><td class="numi"></td><td class="numi"></td></tr>
 <tr class="total"><td>Total</td>
-<td class="numi">28</td><td class="numi">28</td><td class="numi">0</td><td class="numi_attn">5</td><td class="numi">1.3 seconds</td><td colspan="2">&nbsp;</td></tr>
+<td class="numi">25</td><td class="numi">25</td><td class="numi_attn">3</td><td class="numi">0</td><td class="numi">0.4 seconds</td><td colspan="2">&nbsp;</td></tr>
 </table>
 <a id="summary"></a>
 <table cellspacing=0 cellpadding=0 class="passed">
 <tr><th>Class</th><th>Method</th><th># of<br/>Scenarios</th><th>Time<br/>(Msecs)</th></tr>
 <tr><th colspan="4">cryptotest &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="5">edu.crypto2.cryptotest.TransformTest<td><a href="#m1"><b>testAESAddRoundKey</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m2"><b>testAESKeyExpansion</b> </a></td><td class="numi">1</td><td class="numi">16</td></tr><tr class="passedodd"><td><a href="#m3"><b>testAESMixColumns</b> </a></td><td class="numi">1</td><td class="numi">16</td></tr><tr class="passedodd"><td><a href="#m4"><b>testAESShiftRows</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m5"><b>testAESSubBytes</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="passedodd"><td rowspan="5">edu.crypto2.cryptotest.TransformTest<td><a href="#m1"><b>testAESAddRoundKey</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m2"><b>testAESKeyExpansion</b> </a></td><td class="numi">1</td><td class="numi">16</td></tr><tr class="passedodd"><td><a href="#m3"><b>testAESMixColumns</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m4"><b>testAESShiftRows</b> </a></td><td class="numi">1</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m5"><b>testAESSubBytes</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
 <tr><th colspan="4">AllUnitTests &#8212; failed (configuration methods)</th></tr>
-<tr class="failedodd"><td rowspan="1">edu.crypto2.selenium.SeleniumTest<td><a href="#m6"><b>tearDown</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr><th colspan="4">AllUnitTests &#8212; failed</th></tr>
-<tr class="failedodd"><td rowspan="5">edu.crypto2.selenium.SeleniumTest<td><a href="#m7"><b>testAddRoundKeyPG</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="failedodd"><td><a href="#m8"><b>testMetaTransformationPG</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="failedodd"><td><a href="#m9"><b>testMixColumnsPG</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="failedodd"><td><a href="#m10"><b>testShiftRowsPG</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="failedodd"><td><a href="#m11"><b>testSubBytesPG</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="failedodd"><td rowspan="1">edu.crypto2.services.SourceDaoTest<td><a href="#m6"><b>setUp</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="failedeven"><td rowspan="1">edu.crypto2.services.TestValuesDaoTest<td><a href="#m7"><b>setUp</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="failedodd"><td rowspan="1">edu.crypto2.services.UserDaoTest<td><a href="#m8"><b>setUp</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr><th colspan="4">AllUnitTests &#8212; skipped</th></tr>
+<tr class="skippedodd"><td rowspan="1">edu.crypto2.services.SourceDaoTest<td><a href="#m9"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="skippedeven"><td rowspan="1">edu.crypto2.services.TestValuesDaoTest<td><a href="#m10"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="skippedodd"><td rowspan="1">edu.crypto2.services.UserDaoTest<td><a href="#m11"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
 <tr><th colspan="4">AllUnitTests &#8212; passed</th></tr>
-<tr class="passedodd"><td rowspan="9">edu.crypto2.components.LinesOutTest<td><a href="#m12"><b>testAddLine0</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m13"><b>testAddLine0_before</b> </a></td><td class="numi">1</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m14"><b>testAddLine1</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m15"><b>testAddLine1_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m16"><b>testAddLine2</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m17"><b>testAddLine2_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m18"><b>testAddLine3</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m19"><b>testAddLine3_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m20"><b>testConstrustor</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="passedodd"><td rowspan="9">edu.crypto2.components.LinesOutTest<td><a href="#m12"><b>testAddLine0</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m13"><b>testAddLine0_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m14"><b>testAddLine1</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m15"><b>testAddLine1_before</b> </a></td><td class="numi">1</td><td class="numi">16</td></tr><tr class="passedodd"><td><a href="#m16"><b>testAddLine2</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m17"><b>testAddLine2_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m18"><b>testAddLine3</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m19"><b>testAddLine3_before</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m20"><b>testConstrustor</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
 <tr class="passedeven"><td rowspan="2">edu.crypto2.entities.SourceTest<td><a href="#m21"><b>testAddSourceCode</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedeven"><td><a href="#m22"><b>testAddUserId</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr class="passedodd"><td rowspan="6">edu.crypto2.entities.TestValuesTest<td><a href="#m23"><b>testAddAddRoundKey_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m24"><b>testAddKeyExpansion_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m25"><b>testAddMetaTransformation_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m26"><b>testAddMixColumns_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m27"><b>testAddShiftRows_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m28"><b>testAddSubBytes_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr class="passedeven"><td rowspan="3">edu.crypto2.entities.UserTest<td><a href="#m29"><b>testAddName</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedeven"><td><a href="#m30"><b>testAddPassword</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedeven"><td><a href="#m31"><b>testAddUserName</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr class="passedodd"><td rowspan="1">edu.crypto2.services.SourceDaoTest<td><a href="#m32"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr class="passedeven"><td rowspan="1">edu.crypto2.services.TestValuesDaoTest<td><a href="#m33"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
-<tr class="passedodd"><td rowspan="1">edu.crypto2.services.UserDaoTest<td><a href="#m34"><b>testGetByType</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="passedodd"><td rowspan="6">edu.crypto2.entities.TestValuesTest<td><a href="#m23"><b>testAddAddRoundKey_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m24"><b>testAddKeyExpansion_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m25"><b>testAddMetaTransformation_TestValue</b> </a></td><td class="numi">1</td><td class="numi">15</td></tr><tr class="passedodd"><td><a href="#m26"><b>testAddMixColumns_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m27"><b>testAddShiftRows_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedodd"><td><a href="#m28"><b>testAddSubBytes_TestValue</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr>
+<tr class="passedeven"><td rowspan="3">edu.crypto2.entities.UserTest<td><a href="#m29"><b>testAddName</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedeven"><td><a href="#m30"><b>testAddPassword</b> </a></td><td class="numi">1</td><td class="numi">0</td></tr><tr class="passedeven"><td><a href="#m31"><b>testAddUserName</b> </a></td><td class="numi">1</td><td class="numi">16</td></tr>
 </table>
 <h1>cryptotest</h1>
 <a id="m1"></a><h2>edu.crypto2.cryptotest.TransformTest:testAESAddRoundKey</h2>
@@ -90,68 +91,52 @@ div.shootout {padding:2em;border:3px #4854A8 solid}
 </table>
 <p class="totop"><a href="#summary">back to summary</a></p>
 <h1>AllUnitTests</h1>
-<a id="m6"></a><h2>edu.crypto2.selenium.SeleniumTest:tearDown</h2>
+<a id="m6"></a><h2>edu.crypto2.services.SourceDaoTest:setUp</h2>
 <div style="padding-left:3em">
 <p>null</p>
-edu.crypto2.selenium.SeleniumTest.tearDown(SeleniumTest.java:156)
-<br/>16 lines not shown
+edu.crypto2.rest.HibernateUtil.&lt;clinit&gt;(HibernateUtil.java:15)
+<br/>at edu.crypto2.services.SourceDaoImpl.&lt;init&gt;(SourceDaoImpl.java:112)
+<br/>at edu.crypto2.services.SourceDaoTest.createTestedObject(SourceDaoTest.java:30)
+<br/>at edu.crypto2.services.SourceDaoTest.setUp(SourceDaoTest.java:34)
+<br/>25 lines not shown
+<p>Caused by resource: edu/crypto2/entities/Crypto2.hbm.xml not found</p>
+org.hibernate.cfg.Configuration.addResource(Configuration.java:596)
+<br/>at org.hibernate.cfg.Configuration.parseMappingElement(Configuration.java:1621)
+<br/>at org.hibernate.cfg.Configuration.parseSessionFactory(Configuration.java:1589)
+<br/>at org.hibernate.cfg.Configuration.doConfigure(Configuration.java:1568)
+<br/>at org.hibernate.cfg.Configuration.doConfigure(Configuration.java:1542)
+<br/>at org.hibernate.cfg.Configuration.configure(Configuration.java:1462)
+<br/>at org.hibernate.cfg.Configuration.configure(Configuration.java:1448)
+<br/>at edu.crypto2.rest.HibernateUtil.&lt;clinit&gt;(HibernateUtil.java:12)
+<br/>at edu.crypto2.services.SourceDaoImpl.&lt;init&gt;(SourceDaoImpl.java:112)
+<br/>at edu.crypto2.services.SourceDaoTest.createTestedObject(SourceDaoTest.java:30)
+<br/>at edu.crypto2.services.SourceDaoTest.setUp(SourceDaoTest.java:34)
+<br/>25 lines not shown
 </div>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m7"></a><h2>edu.crypto2.selenium.SeleniumTest:testAddRoundKeyPG</h2>
+<a id="m7"></a><h2>edu.crypto2.services.TestValuesDaoTest:setUp</h2>
 <div style="padding-left:3em">
-<p>null</p>
-edu.crypto2.selenium.SeleniumTest.testAddRoundKeyPG(SeleniumTest.java:99)
-<br/>23 lines not shown
+<p>Could not initialize class edu.crypto2.rest.HibernateUtil</p>
+edu.crypto2.services.TestValuesDaoImpl.&lt;init&gt;(TestValuesDaoImpl.java:158)
+<br/>at edu.crypto2.services.TestValuesDaoTest.createTestedObject(TestValuesDaoTest.java:29)
+<br/>at edu.crypto2.services.TestValuesDaoTest.setUp(TestValuesDaoTest.java:33)
+<br/>25 lines not shown
 </div>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m8"></a><h2>edu.crypto2.selenium.SeleniumTest:testMetaTransformationPG</h2>
+<a id="m8"></a><h2>edu.crypto2.services.UserDaoTest:setUp</h2>
 <div style="padding-left:3em">
-<p>
-Parameter 'seleniumBrowser' is required by @Test on method testMetaTransformationPG
-but has not been marked @Optional or defined in C:\Documents and Settings\Boris\workspace\crypto2\src\test\resources\TestNG.xml</p>
-org.testng.internal.Parameters.createParameters(Parameters.java:119)
-<br/>at org.testng.internal.Parameters.createParameters(Parameters.java:280)
-<br/>at org.testng.internal.Parameters.handleParameters(Parameters.java:365)
-<br/>at org.testng.internal.Invoker.handleParameters(Invoker.java:1060)
-<br/>at org.testng.internal.Invoker.createParameters(Invoker.java:841)
-<br/>at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:923)
-<br/>at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:126)
-<br/>at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:110)
-<br/>at org.testng.TestRunner.runWorkers(TestRunner.java:759)
-<br/>at org.testng.TestRunner.privateRun(TestRunner.java:592)
-<br/>at org.testng.TestRunner.run(TestRunner.java:486)
-<br/>at org.testng.SuiteRunner.runTest(SuiteRunner.java:332)
-<br/>at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:327)
-<br/>at org.testng.SuiteRunner.privateRun(SuiteRunner.java:299)
-<br/>at org.testng.SuiteRunner.run(SuiteRunner.java:204)
-<br/>at org.testng.TestNG.createAndRunSuiteRunners(TestNG.java:877)
-<br/>at org.testng.TestNG.runSuitesLocally(TestNG.java:842)
-<br/>at org.testng.TestNG.run(TestNG.java:751)
-<br/>at org.testng.remote.RemoteTestNG.run(RemoteTestNG.java:73)
-<br/>at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:124)
-<br/>1 lines not shown
+<p>Could not initialize class edu.crypto2.rest.HibernateUtil</p>
+edu.crypto2.services.UserDaoImpl.&lt;init&gt;(UserDaoImpl.java:43)
+<br/>at edu.crypto2.services.UserDaoTest.createTestedObject(UserDaoTest.java:29)
+<br/>at edu.crypto2.services.UserDaoTest.setUp(UserDaoTest.java:33)
+<br/>25 lines not shown
 </div>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m9"></a><h2>edu.crypto2.selenium.SeleniumTest:testMixColumnsPG</h2>
-<div style="padding-left:3em">
-<p>null</p>
-edu.crypto2.selenium.SeleniumTest.testMixColumnsPG(SeleniumTest.java:113)
-<br/>23 lines not shown
-</div>
+<a id="m9"></a><h2>edu.crypto2.services.SourceDaoTest:testGetByType</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m10"></a><h2>edu.crypto2.selenium.SeleniumTest:testShiftRowsPG</h2>
-<div style="padding-left:3em">
-<p>null</p>
-edu.crypto2.selenium.SeleniumTest.testShiftRowsPG(SeleniumTest.java:128)
-<br/>23 lines not shown
-</div>
+<a id="m10"></a><h2>edu.crypto2.services.TestValuesDaoTest:testGetByType</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m11"></a><h2>edu.crypto2.selenium.SeleniumTest:testSubBytesPG</h2>
-<div style="padding-left:3em">
-<p>null</p>
-edu.crypto2.selenium.SeleniumTest.testSubBytesPG(SeleniumTest.java:142)
-<br/>23 lines not shown
-</div>
+<a id="m11"></a><h2>edu.crypto2.services.UserDaoTest:testGetByType</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 <a id="m12"></a><h2>edu.crypto2.components.LinesOutTest:testAddLine0</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
@@ -192,11 +177,5 @@ edu.crypto2.selenium.SeleniumTest.testSubBytesPG(SeleniumTest.java:142)
 <a id="m30"></a><h2>edu.crypto2.entities.UserTest:testAddPassword</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 <a id="m31"></a><h2>edu.crypto2.entities.UserTest:testAddUserName</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m32"></a><h2>edu.crypto2.services.SourceDaoTest:testGetByType</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m33"></a><h2>edu.crypto2.services.TestValuesDaoTest:testGetByType</h2>
-<p class="totop"><a href="#summary">back to summary</a></p>
-<a id="m34"></a><h2>edu.crypto2.services.UserDaoTest:testGetByType</h2>
 <p class="totop"><a href="#summary">back to summary</a></p>
 </body></html>

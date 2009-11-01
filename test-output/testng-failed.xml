@@ -6,33 +6,27 @@
   <parameter name="ResultCipherText128" value="3925841D02DC09FBDC118597196A0B32"/>
   <parameter name="InitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/>
   <parameter name="MixColumnsString" value="d4bf5d30e0b452aeb84111f11e2798e5"/>
-  <parameter name="SeleniumBrowser" value="*iexplore"/>
   <parameter name="InputVector128" value="3243f6a8885a308d313198a2e0370734"/>
   <parameter name="ShiftRowsString" value="d42711aee0bf98f1b8b45de51e415230"/>
   <test name="AllUnitTests(failed)" junit="false" parallel="false" annotations="JDK">
-    <parameter name="SeleniumBrowser" value="*iexplore"/>
     <classes>
-      <class name="edu.crypto2.services.SourceDaoTest">
-        <methods>
-          <include name="setUp"/>
-        </methods>
-      </class>
-      <class name="edu.crypto2.services.UserDaoTest">
-        <methods>
-          <include name="setUp"/>
-        </methods>
-      </class>
-      <class name="edu.crypto2.entities.TestValuesTest">
+      <class name="edu.crypto2.entities.UserTest">
         <methods>
           <include name="begin"/>
         </methods>
       </class>
-      <class name="edu.crypto2.services.TestValuesDaoTest">
+      <class name="edu.crypto2.components.LinesOutTest">
         <methods>
-          <include name="setUp"/>
+          <include name="begin"/>
         </methods>
       </class>
-      <class name="edu.crypto2.components.LinesOutTest">
+      <class name="edu.crypto2.services.SourceDaoTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="testGetByType"/>
+        </methods>
+      </class>
+      <class name="edu.crypto2.entities.TestValuesTest">
         <methods>
           <include name="begin"/>
         </methods>
@@ -42,20 +36,16 @@
           <include name="begin"/>
         </methods>
       </class>
-      <class name="edu.crypto2.entities.UserTest">
+      <class name="edu.crypto2.services.TestValuesDaoTest">
         <methods>
-          <include name="begin"/>
+          <include name="setUp"/>
+          <include name="testGetByType"/>
         </methods>
       </class>
-      <class name="edu.crypto2.selenium.SeleniumTest">
+      <class name="edu.crypto2.services.UserDaoTest">
         <methods>
-          <include name="testMixColumnsPG"/>
           <include name="setUp"/>
-          <include name="testAddRoundKeyPG"/>
-          <include name="testShiftRowsPG"/>
-          <include name="testSubBytesPG"/>
-          <include name="tearDown"/>
-          <include name="testMetaTransformationPG"/>
+          <include name="testGetByType"/>
         </methods>
       </class>
     </classes>
