@@ -41,20 +41,15 @@ public class SourceDaoImpl implements SourceDao{
 	private List<Source> database; 
 	
 	public void reload(long userId){
-
 		UserDao userDao = new UserDaoImpl();
 		user = userDao.find(userId);
-
 		String qry = "from Source where USERID=" + user.getId();
-
-		
 		if (session.isOpen())
 			session.close();
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
 		transaction = session.beginTransaction();
 		database = session.createQuery(qry).list();
-		//database = session.createQuery("from Source").list();
 		if (database.isEmpty())
 		{
 			transaction = null;
@@ -63,11 +58,9 @@ public class SourceDaoImpl implements SourceDao{
 			source.setSourceCode(Data.source_code_template_0);
 			// Here, UserId is always 1
 			source.setUserId(userId);
-			
 
 			session.persist(source);
 			transaction.commit();
-			
 			transaction = session.beginTransaction();
 			source = new Source();
 			source.setSourceCode(Data.source_code_template_1);
@@ -108,15 +101,11 @@ public class SourceDaoImpl implements SourceDao{
 	}
 
 	public SourceDaoImpl(){
-		
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
-		
 		try {
-			//transaction = null;
 			transaction = session.beginTransaction();
 			database = session.createQuery("from Source").list();
-			//transaction.commit();
 			if (database.isEmpty())
 			{
 				transaction = null;
@@ -125,11 +114,9 @@ public class SourceDaoImpl implements SourceDao{
 				source.setSourceCode(Data.source_code_template_0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
-				
 
 				session.persist(source);
 				transaction.commit();
-				
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_1);
@@ -138,22 +125,17 @@ public class SourceDaoImpl implements SourceDao{
 
 				session.persist(source);
 				transaction.commit();
-
 				
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_2);
-				
 				// Here, UserId is always 1
 				source.setUserId((long)1);
-
 				session.persist(source);
 				transaction.commit();
-				
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_3);
-				
 				// Here, UserId is always 1
 				source.setUserId((long)1);  
 
@@ -161,13 +143,10 @@ public class SourceDaoImpl implements SourceDao{
 				transaction.commit();
 				CurrentId = source.getId().intValue();
 			}
-			
 			transaction = null;
 			transaction = session.beginTransaction();
 			database = session.createQuery("from Source").list();
-			
 			transaction.commit();
-			
 		}catch (HibernateException e) {
 			transaction.rollback();
 			e.printStackTrace();
@@ -228,15 +207,10 @@ public class SourceDaoImpl implements SourceDao{
 			
 			Query query = session.createQuery(hql);
 			int row = query.executeUpdate();
-			// ako je row = 0, onda error
 			transaction.commit();
 		}
 		CurrentId = source.getId().intValue();
 	};
-
-
-
-
 				
 
 }

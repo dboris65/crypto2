@@ -32,7 +32,6 @@ public class AddRoundKeyPG {
 	
 	@Property
 	private String UserName = "";
-	
 
     public boolean getLoggedIn() {
         if (user != null)
@@ -72,43 +71,40 @@ public class AddRoundKeyPG {
 	boolean setup() throws Exception {
 		long userId = 1; 
 		if (user != null){
-			UserName = (user.getName());
-			userId = user.getId();
+            try {
+				UserName = (user.getName());
+				userId = user.getId();
+			} catch (Exception e) {
+				user = null;
+				userId = 1;
+			}
 		}
 		else{ 
 			UserName = "";
 			userId = 1;
 		}
 		testValuesDao.reload(userId);
-		
 		if (SesionInit_Key == null)
 			SesionInit_Key = "";
-		
-		if ((SesionValueBeforeAddRoundKey == "") || (SesionValueBeforeAddRoundKey == null)) 
+		if ((persistValueBeforeAddRoundKey == "") || (persistValueBeforeAddRoundKey == null)) 
 		{
-	    	
 	    	int key_len;
-		
 			xml_p = new XmlParser("AddRoundKey"); 
 			String ValueBefore = xml_p.getResultString();
-			key_len = 128; // jer citamo iz beana
-
+			key_len = 128; // because we read from bean
 			xml_p2 = new XmlParser("TestKeyAddRoundKey"); 
 			String init_key = xml_p2.getResultString();
 			DoTransform(key_len, init_key, ValueBefore);
 		}
 		else
 		{
-
 			if (Init_KeyBeforeAddRoundKey.length() == 32) Key_LenBeforeAddRoundKey = 128;
 			else
 			if (Init_KeyBeforeAddRoundKey.length() == 48) Key_LenBeforeAddRoundKey = 192;
 			else
 			if (Init_KeyBeforeAddRoundKey.length() == 64) Key_LenBeforeAddRoundKey = 256;
-
-			DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, SesionValueBeforeAddRoundKey);
+			DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, persistValueBeforeAddRoundKey);
 		}
-
 		return true;
 	}
 	
@@ -124,7 +120,7 @@ public class AddRoundKeyPG {
 	private XmlParser xml_p, xml_p2;
 	
 	@Persist
-	private String SesionValueBeforeAddRoundKey;
+	private String persistValueBeforeAddRoundKey;
 	@Persist
 	private String ValueBeforeAddRoundKey;
 	
@@ -147,8 +143,6 @@ public class AddRoundKeyPG {
 		Init_KeyBeforeAddRoundKey = initKeyBeforeAddRoundKey;
 	}
 
-	//@SessionState
-	//private int SesionKey_Len;
 	private int Key_LenBeforeAddRoundKey;
 	public int getKey_LenBeforeAddRoundKey() {
 		return Key_LenBeforeAddRoundKey;
@@ -168,25 +162,19 @@ public class AddRoundKeyPG {
 	private String line3;
 
 
-	
 	/* DoTransform *****************************************************
      * */
     public void DoTransform(int key_len, String init_key, String ValueBefore){
     	ValueBeforeAddRoundKey = ValueBefore;
-    	SesionValueBeforeAddRoundKey = ValueBefore;
-    	
+    	persistValueBeforeAddRoundKey = ValueBefore;
     	SesionInit_Key = init_key;
     	Init_KeyBeforeAddRoundKey = init_key;
-    	
-    	//SesionKey_Len = key_len;
     	Key_LenBeforeAddRoundKey = key_len;
-
     	add_round_key = new AddRoundKey();
     	add_round_key.initialize_State(Key_LenBeforeAddRoundKey, Init_KeyBeforeAddRoundKey, ValueBeforeAddRoundKey);
 		
 		String s = "";
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE BEFORE SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -203,14 +191,10 @@ public class AddRoundKeyPG {
 			}
 			s = "";
 		}
-		
-		/* koristicemo 1 kao argument*/
 		/* we will use 1 as argument*/
 		add_round_key.transform_state(16);
 		s = "";
-		
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE After SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -245,44 +229,33 @@ public class AddRoundKeyPG {
     private AddRoundKeyPG addRoundKeyPG;
     
 	Object onActionFromView(Long id){
-
-		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		String s = tvrow.getAddRoundKey_TestValue();
 		ValueBeforeAddRoundKey = s;
-		SesionValueBeforeAddRoundKey = s;
+		persistValueBeforeAddRoundKey = s;
 		
 		String s2 = tvrow.getKeyExpansion_TestValue();
 		Init_KeyBeforeAddRoundKey = s2;
 		SesionInit_Key = s2;
-		
-
-		
 		if (Init_KeyBeforeAddRoundKey.length() == 32) Key_LenBeforeAddRoundKey = 128;
 		else
 		if (Init_KeyBeforeAddRoundKey.length() == 48) Key_LenBeforeAddRoundKey = 192;
 		else
 		if (Init_KeyBeforeAddRoundKey.length() == 64) Key_LenBeforeAddRoundKey = 256;
 		
-		DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, SesionValueBeforeAddRoundKey);
-		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
+		DoTransform(Key_LenBeforeAddRoundKey, SesionInit_Key, persistValueBeforeAddRoundKey);
+		return LinesOutDetails;   
 	}
-
 	
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
-
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
-
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-
-
 
     @InjectPage
     private Index index;
@@ -290,9 +263,6 @@ public class AddRoundKeyPG {
 		user = null;
 		return index;
 	}
-
-	
-	
 	
 	public String getBefore_Line0() 
 	{ 
@@ -328,8 +298,6 @@ public class AddRoundKeyPG {
 		return line3; 
 	}
 
-	
-	
 	/***************************************************************/
 
 

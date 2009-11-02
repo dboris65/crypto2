@@ -15,30 +15,57 @@ import org.apache.tapestry5.beaneditor.Validate;
 /***********************************************************************
  * 
  */
+
+/**
+ * class User<br>
+ * Holds registreted users.
+ */
 @Entity
 @Table(name="User") 
 public class User {
 	
 
     
+	/**
+	 * Long id<br>
+	 * Row identifier.
+	*/
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NonVisual
 	private Long id;
 
+	/**
+	 * String UserName<br>
+	 * Holds UserName. 
+	*/	
 	@Validate("required")
 	private String UserName;
 		
+	/**
+	 * String Password<br>
+	 * Holds Password.
+	*/	
 	@Validate("required")
 	private String Password;
 	
+	/**
+	 * String Name<br>
+	 * Holds Name. Name is real name of user.
+	*/	
 	@Validate("required")
 	private String Name;
 	
+
+	/**
+	 * String Email<br>
+	 * Holds Email.
+	*/	
 	@Validate("required")
 	private String Email;
 
 	/**
+	 * Id getter.
 	 * @return the id
 	 */
 	public Long getId() {
@@ -46,6 +73,7 @@ public class User {
 	}
 
 	/**
+	 * Id setter.
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
@@ -53,6 +81,7 @@ public class User {
 	}
 
 	/**
+	 * UserName getter.
 	 * @return the userName
 	 */
 	public String getUserName() {
@@ -60,6 +89,7 @@ public class User {
 	}
 
 	/**
+	 * UserName setter.
 	 * @param userName the userName to set
 	 */
 	public void setUserName(String userName) {
@@ -67,6 +97,7 @@ public class User {
 	}
 
 	/**
+	 * Password getter.
 	 * @return the password
 	 */
 	public String getPassword() {
@@ -74,6 +105,7 @@ public class User {
 	}
 
 	/**
+	 * Password setter.
 	 * @param password the password to set
 	 */
 	public void setPassword(String password) {
@@ -81,6 +113,7 @@ public class User {
 	}
 
 	/**
+	 * Name getter. Name is real name of user.
 	 * @return the name
 	 */
 	public String getName() {
@@ -88,6 +121,7 @@ public class User {
 	}
 
 	/**
+	 * Name setter. Name is real name of user.
 	 * @param name the name to set
 	 */
 	public void setName(String name) {
@@ -95,6 +129,7 @@ public class User {
 	}
 
 	/**
+	 * Email getter.
 	 * @return the email
 	 */
 	public String getEmail() {
@@ -102,6 +137,7 @@ public class User {
 	}
 
 	/**
+	 * Email setter.
 	 * @param email the email to set
 	 */
 	public void setEmail(String Email) {

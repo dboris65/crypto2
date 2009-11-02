@@ -3,24 +3,19 @@
  */
 package edu.crypto2.pages.values;
 
-import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.BeanEditForm;
-import org.apache.tapestry5.corelib.components.Form;
-import org.apache.tapestry5.corelib.components.PasswordField;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
 import org.apache.tapestry5.ioc.annotations.Inject;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 
 import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 import edu.crypto2.pages.Index;
-import edu.crypto2.pages.Login;
 import edu.crypto2.pages.SubBytesPG;
 import edu.crypto2.services.UserDao;
 
@@ -54,31 +49,20 @@ public class Register {
 	}
 	
 	public boolean isValid(String userName, String password){
-    	final Logger logger = Logger.getLogger(Register.class);
-    	logger.debug(userName + "--- isValid 1 --" + password);
-
 		userDao.reload();
 		User find_user;
 		find_user = userDao.findUserName(userName);
-		
 		if ((find_user != null) )
 		{
-			logger.debug(find_user.getUserName() + "-----" );
 			if ((find_user.getUserName().equals(userName)) )
-				//userName exists
 				return false;
 		}
-		
 		find_user = userDao.findPassword(password);
-		
-		if ((find_user != null) ) 
-		{
-			logger.debug(find_user.getPassword() + "-----" );
+		if ((find_user != null) ){
 			if ((find_user.getPassword().equals(password)) )
 				//password exists
 				return false;
 		}
-		
 		return true;
 	}
 
@@ -166,20 +150,8 @@ public class Register {
 		testValues4.setKeyExpansion_TestValue("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"); // init key
 		testValues4.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 		testValues4.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff"); // plain text
-
 		testValues4.setUserId((long)user.getId());
-		
-		/*
-		  testValues.setInvShiftRows_TestValue("7ad5fda789ef4e272bca100b3d9ff59f");
-		  testValues.setInvMixColumns_TestValue("e9f74eec023020f61bf2ccf2353c21c7");
-		  testValues.setInvSubBytes_TestValue("33");
-			testValues.setGMUL_TestValue("229");
-		*/
 		session.persist(testValues4);
-		//transaction.commit();
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("----before return index--------------");
-		
     	return index;
     }
 }

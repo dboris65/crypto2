@@ -43,9 +43,7 @@ public class TestValuesDaoImpl implements TestValuesDao{
 	public void reload(long userId){
 		UserDao userDao = new UserDaoImpl();
 		user = userDao.find(userId);
-
 		String qry = "from TestValues where USERID=" + user.getId();
-
 		
 		if (session.isOpen())
 			session.close();
@@ -150,14 +148,11 @@ public class TestValuesDaoImpl implements TestValuesDao{
 		String qry2 = "from TestValues where USERID=" + user.getId();
 		database = session.createQuery(qry2).list();
 		transaction.commit();
-
-	
 	}
 	
 	public TestValuesDaoImpl(){
 		session = HibernateUtil.getSessionFactory().openSession();
 		Transaction transaction = null;
-		
 		try {
 			//transaction = null;
 			transaction = session.beginTransaction();
@@ -254,7 +249,6 @@ public class TestValuesDaoImpl implements TestValuesDao{
 
 				CurrentId = testValues4.getId(); 
 			}
-			
 			transaction = null;
 			transaction = session.beginTransaction();
 			database = session.createQuery("from TestValues").list();
@@ -267,8 +261,6 @@ public class TestValuesDaoImpl implements TestValuesDao{
 		}
 	}
 		
-
-	
 	public List<TestValues> findAllTestValues() {
 		return database;
 	}
@@ -335,8 +327,6 @@ public class TestValuesDaoImpl implements TestValuesDao{
 		}
 		return found;
 	}
-
-
 
 
 }

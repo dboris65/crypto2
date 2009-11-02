@@ -32,7 +32,6 @@ public class MixColumnsPG {
 	
 	@Property
 	private String UserName = ""; 
-	
 
     public boolean getLoggedIn() {
         if (user != null)
@@ -40,7 +39,6 @@ public class MixColumnsPG {
         else
             return false;
     }
-
 	
     @Inject
     private TestValuesDao testValuesDao;
@@ -71,8 +69,13 @@ public class MixColumnsPG {
 	boolean setup() throws Exception {
 		long userId = 1; 
 		if (user != null){
-			UserName = (user.getName());
-			userId = user.getId();
+            try {
+				UserName = (user.getName());
+				userId = user.getId();
+			} catch (Exception e) {
+				user = null;
+				userId = 1;
+			}
 		}
 		else{
 			UserName = "";
@@ -80,7 +83,7 @@ public class MixColumnsPG {
 		}
 		testValuesDao.reload(userId);
 		
-		if ((SesionValueBeforeMixColumns == "") || (SesionValueBeforeMixColumns == null)) 
+		if ((persistValueBeforeMixColumns == "") || (persistValueBeforeMixColumns == null)) 
 		{
 			xml_p = new XmlParser("MixColumns"); 
 			String ValueBefore = xml_p.getResultString();
@@ -89,9 +92,8 @@ public class MixColumnsPG {
 		else
 		{
 			
-			DoTransform(SesionValueBeforeMixColumns);
+			DoTransform(persistValueBeforeMixColumns);
 		}
-
 		return true;
 	}
 		
@@ -126,18 +128,16 @@ public class MixColumnsPG {
 	private String line3;
 	
 	@Persist
-	private String SesionValueBeforeMixColumns;
+	private String persistValueBeforeMixColumns;
 	
 	
     public void DoTransform(String ValueBefore){
     	ValueBeforeMixColumns = ValueBefore;
-    	SesionValueBeforeMixColumns = ValueBefore;
+    	persistValueBeforeMixColumns = ValueBefore;
 		mix_columns = new MixColumns();
 		mix_columns.initialize_State(ValueBeforeMixColumns);
-		
 		String s = "";
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE BEFORE MixColumns
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -154,12 +154,9 @@ public class MixColumnsPG {
 			}
 			s = "";
 		}
-		
 		mix_columns.transform_state();
 		s = "";
-		
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE After MixColumns
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -176,11 +173,9 @@ public class MixColumnsPG {
 			}
 			s = "";
 		}
-		
 		LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
-   	
     }
 
 	public MixColumnsPG() throws Exception 
@@ -191,12 +186,10 @@ public class MixColumnsPG {
     @InjectPage
     private MixColumnsPG mixColumnsPG;
 	Object onActionFromView(Long id){
-		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeMixColumns = tvrow.getMixColumns_TestValue();
-		SesionValueBeforeMixColumns = ValueBeforeMixColumns;
-
-		DoTransform(SesionValueBeforeMixColumns);
+		persistValueBeforeMixColumns = ValueBeforeMixColumns;
+		DoTransform(persistValueBeforeMixColumns);
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 	
@@ -207,23 +200,15 @@ public class MixColumnsPG {
 		return index;
 	}
 
-
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
-
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
-
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-
-
-
-
 	public String getBefore_Line0() 
 	{ 
 		return before_line0; 
@@ -240,7 +225,6 @@ public class MixColumnsPG {
 	{ 
 		return before_line3; 
 	}
-
 	public String getLine0() 
 	{ 
 		return line0; 

@@ -5,7 +5,7 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
@@ -50,7 +50,14 @@ public class MetaTransformationPG {
         else
             return false;
     }
-	
+    
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
+
 	@Inject
     private Session session;
 /* ----- GRID 1 -------- */
@@ -124,47 +131,33 @@ public class MetaTransformationPG {
 	boolean setup() throws Exception {
 		long userId = 1; 
 		if (user != null){
-			UserName = (user.getName());
-			userId = user.getId();
+            try {
+				UserName = (user.getName());
+				userId = user.getId();
+			} catch (Exception e) {
+				user = null;
+				userId = 1;
+			}
 		}
 		else{
 			UserName = "";
 			userId = 1;
 		}
-
-		
-		
-    	final Logger logger = Logger.getLogger(MetaTransformationPG.class);
-		logger.debug("MetaTransformationPG setUp ---------------------------------");
-		logger.debug("---------------------------------");
-		logger.debug("---------------------------------");
-		logger.debug("User -------------" + user +  "--------------------");
-		logger.debug("---------------------------------");
-
 		sourceDao.reload(userId);
 		testValuesDao.reload(userId);
-		
-		
-		
-		if ((persistValueBeforeMetaTransformation == "") || (persistValueBeforeMetaTransformation == null)) 
-		{
+		if ((persistValueBeforeMetaTransformation == "") || (persistValueBeforeMetaTransformation == null)){
 			xml_p = new XmlParser("MetaTransformation"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
 		}
-		else
-		{
+		else{
 			DoTransform(persistValueBeforeMetaTransformation, 128, "2b7e151628aed2a6abf7158809cf4f3c", "TEST");
 		}
-		//source_code="";
-
 		return true;
 	}
 
 	private MetaTransformation meta_transformation;
 	private XmlParser xml_p;
-	
-	
 	private String ValueBeforeMetaTransformation;
 	
 	public String getValueBeforeMetaTransformation() {
@@ -184,8 +177,6 @@ public class MetaTransformationPG {
 	private String line1;
 	private String line2;
 	private String line3;
-	
-
 
 	
 	/**
@@ -195,16 +186,11 @@ public class MetaTransformationPG {
 	@Persist
 	private String persistValueBeforeMetaTransformation;
     
-	
-	
-	
-	
 	/***************************************************************/
 	/***************************************************************/
 	@Component
     private Form form;
     
-	//@Property
 	@Persist
     private String source_code;
 	
@@ -232,14 +218,9 @@ public class MetaTransformationPG {
     	ValueBeforeMetaTransformation = testVector;
     	persistValueBeforeMetaTransformation = testVector;
 		meta_transformation = new MetaTransformation();
-		
-		//String init_key = "2b7e151628aed2a6abf7158809cf4f3c";
-
 		meta_transformation.initialize_State(testVector, key_len, init_key);
-		
 		String s = "";
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE BEFORE SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -256,12 +237,9 @@ public class MetaTransformationPG {
 			}
 			s = "";
 		}
-		
 		meta_transformation.transform_state(testVector, key_len, init_key, MetaTr);
 		s = "";
-		
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE After SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -282,7 +260,6 @@ public class MetaTransformationPG {
 		LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
-   	
     }
 
     public MetaTransformationPG()throws Exception 
@@ -307,19 +284,14 @@ public class MetaTransformationPG {
     	int key_len = 0;
     	int pos = -1;
     	String substr;
-    	
     	if (In == null)
     		return 0;
-    	
     	In = In.toUpperCase();
     	pos = In.lastIndexOf("KEY_LEN");
-    	
     	if (pos != -1)
     		substr = In.substring(pos, pos+14); // max alowed "KEY_LEN = 128;"
     	else
     		return 0;
-    	
-
     	if (substr.contains("128"))
     		key_len = 128;
     	else
@@ -351,10 +323,8 @@ public class MetaTransformationPG {
     	
     	In = In.toUpperCase();
     	pos = In.lastIndexOf("INIT_KEY");
-    	
     	if (pos == -1)
     		return "";
-    	
     	// for 256 bit key
     	// max alowed 'init_key = "000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";'
     	for (int i = pos; i<pos+78; i++){
@@ -367,15 +337,12 @@ public class MetaTransformationPG {
         		break;
         	}
     	}
-    	
     	if ((first_apostroph==-1) || (second_apostroph==-1)){
     		init_key = "";
     		return init_key;
     	}
     		
     	init_key = In.substring(first_apostroph+1, second_apostroph);
-    	
-    	
     	return init_key;
     }
     
@@ -389,12 +356,9 @@ public class MetaTransformationPG {
 	Object onActionFromTransform(Long id){
 		int key_len = 0;
 		String init_key = "";
-		
-		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeMetaTransformation = tvrow.getMetaTransformation_TestValue();
 		persistValueBeforeMetaTransformation = ValueBeforeMetaTransformation;
-		
 		Source src = sourceDao.getCurrent();
 		if (src == null){
 			before_line0 = "You have to select at least one transformation - click on Edit-Fill!";
@@ -405,7 +369,6 @@ public class MetaTransformationPG {
 			line1 = "";
 			line2 = "";
 			line3 = "";
-			
 			LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 					  line0, line1,	line2, line3); 
 			detailLinesOut = lines;
@@ -414,7 +377,6 @@ public class MetaTransformationPG {
 		
 	
 		String strToParse = src.getSourceCode();
-		
 		key_len = parseKey_len(strToParse);
 		if (key_len == 0){
 			before_line0 = "You must set key_len in a following way:";
@@ -425,13 +387,11 @@ public class MetaTransformationPG {
 			line1 = "";
 			line2 = "";
 			line3 = "";
-			
 			LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 					  line0, line1,	line2, line3); 
 			detailLinesOut = lines;
 			return LinesOutDetails;
 		}
-		
 		
 		init_key = parseInit_key(strToParse);
 		if (init_key == ""){
@@ -443,7 +403,6 @@ public class MetaTransformationPG {
 			line1 = "";
 			line2 = "";
 			line3 = "";
-			
 			LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 					  line0, line1,	line2, line3); 
 			detailLinesOut = lines;
@@ -465,7 +424,6 @@ public class MetaTransformationPG {
 			if (init_key.length()!=64)
 				greska=true;
 		}
-			
 		if (greska){
 			before_line0 = "You must set apropriate init_key lenghts. Examples:";
 			before_line1 = "For 128 bit key, 32 hex letters.";
@@ -475,19 +433,15 @@ public class MetaTransformationPG {
 			line1 = "";
 			line2 = "";
 			line3 = "";
-			
 			LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 					  line0, line1,	line2, line3); 
 			detailLinesOut = lines;
 			return LinesOutDetails;
 		}
-
-		
 		if ((0!=key_len) && (""!=init_key) && (""!=strToParse))
 			DoTransform(persistValueBeforeMetaTransformation, key_len, init_key, strToParse);
 		
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
-		
 	}
 	
 	/**
@@ -501,7 +455,6 @@ public class MetaTransformationPG {
 		//source_code=source.getSourceCode();
 		String s = source.getSourceCode();
 		setSource_code(s);
-
 		return metaTransformationPG;
 	}
 
@@ -514,7 +467,6 @@ public class MetaTransformationPG {
 	 */
 	Object onActionFromDelete(Long id){
 		String s = getSource_code();
-		
 		Source srce = sourceDao.find(id);
 		sourceDao.delete(srce);
 		return metaTransformationPG;
@@ -585,7 +537,6 @@ public class MetaTransformationPG {
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-
 
 	/**
 	 * getter for before_line0

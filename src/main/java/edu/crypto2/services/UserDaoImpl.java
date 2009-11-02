@@ -44,7 +44,6 @@ private static int CurrentId = 0;
 		Transaction transaction = null;
 		
 		try {
-			//transaction = null;
 			transaction = session.beginTransaction();
 			database = session.createQuery("from User").list();
 			transaction.commit();
@@ -107,9 +106,6 @@ private static int CurrentId = 0;
 	}
 	
 	public User findUserName(String userName){
-		
-		
-		
 		for (User user: database){
 			if(user.getUserName().equals(userName)){
 				CurrentId = user.getId().intValue();
@@ -150,8 +146,6 @@ private static int CurrentId = 0;
 			
 			Query query = session.createQuery(hql);
 			int row = query.executeUpdate();
-			// TODO
-			// ako je row = 0, onda error
 			transaction.commit();
 		}
 		CurrentId = user.getId().intValue();

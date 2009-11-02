@@ -19,6 +19,7 @@ import org.apache.tapestry5.corelib.components.BeanEditForm;
 import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 
+import edu.crypto2.pages.Index;
 import edu.crypto2.pages.SubBytesPG;
 import edu.crypto2.pages.values.CreateTestValues;
 
@@ -44,6 +45,13 @@ public class CreateTestValues {
         else
             return false;
     }
+	
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
 
 	
     @Inject
@@ -67,12 +75,10 @@ public class CreateTestValues {
 		}
 		
 		testValuesDao.reload(userId);
-		//List<TestValues> result = session.createCriteria(TestValues.class).list();
 		return true;
 	}
 
     /**********************************************************/
-    /*  link za prelazak na umetanje test vrijednosti         */
     @InjectPage
     private CreateTestValues createTestValues;
 
@@ -85,12 +91,6 @@ public class CreateTestValues {
     	for (int i = 0; i < hexDigitLength; i++) {
     		isNotHex = Character.digit(hexDigitArray[i], 16) == -1;
     		if (isNotHex) {
-    			final Logger logger = Logger.getLogger(SubBytesPG.class);
-    			logger.debug("-----------------------------------");
-    			logger.debug("I =" + i);
-    			logger.debug("hexDigitArray[i] =" + hexDigitArray[i]);
-    			logger.debug("-----------------------------------");
-
     			return false;
     		}
     	}
@@ -130,7 +130,6 @@ public class CreateTestValues {
 			form.recordError("Invalid MetaTransformation test vector value.");
 		if (!isHexDigit(testValues.getKeyExpansion_TestValue()))
 			form.recordError("Invalid KeyExpansion test vector value.");
-				
 	}
 
     @CommitAfter
@@ -139,17 +138,13 @@ public class CreateTestValues {
     	testValues.setUserId(user.getId());
         session.persist(testValues);
    	    List<TestValues> result = session.createCriteria(TestValues.class).list();
-	    System.out.println(result);
-	    System.out.println("----");
         return createTestValues;
     }
-     /*  KRAJ link za prelazak na umetanje test vrijednosti         */
      /**********************************************************/
      
      @OnEvent(value="submit", component="testValues")
      public List<TestValues>  onFormSubmit(){
     	 List<TestValues> result = session.createCriteria(TestValues.class).list();
-    	 System.out.println(result);
     	 return result;
      }
      
@@ -176,48 +171,23 @@ public class CreateTestValues {
 	
     public List<TestValues> getGrid_testValues()
     {
-    	
-    	
     	List<TestValues> database;
     	database = session.createCriteria(TestValues.class).list();
     	Grid_testValues = database; 
-    	 
     	return Grid_testValues;
-        
-    	
     }
-
 
     @CommitAfter
 	Object onActionFromDelete(Long id){
-
-		
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("-----------------------------------");
-		logger.debug("Id to delete =" + id);
-		logger.debug("-----------------------------------");
-		
 		List<TestValues> GtestValues = session.createCriteria(TestValues.class).list();
     	long GetId;
 		for (TestValues testValues: GtestValues) {
-
-			GetId = testValues.getId().longValue();
-
+			GetId = testValues.getId();
 			if( GetId==id ){
-				
-				logger.debug("-----------------------------------");
-				logger.debug("Id=" + id);
-				logger.debug("-----------------------------------");
-				
-				session.delete(testValues);    //createSQLQuery("delete from TestValueRow where id =" + id);
+				session.delete(testValues);
 			}
-				//if(testValueRow!=null)
-				//	testValueRowDao.delete(testValueRow);
 		}
-		
-		//session.flush();
 		return Grid_testValues;
-  
 	}
 
 

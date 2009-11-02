@@ -38,17 +38,17 @@
     </classes>
  	</test>
   	
-<!-- 
-    <test name="integration-test"  verbose="2">
-	<parameter name="SeleniumBrowser" value="*googlechrome"/>
+
+    <test name="SeleniumIntegrationTest"  verbose="2">
+	<parameter name="SeleniumBrowser" value="*chrome"/>
     <packages>
-    	<package name="edu.crypto2.selenium.*"/>
+    	<package name="edu.crypto2.integration.*"/>
     </packages>
     <classes>
-    	<class name="edu.crypto2.selenium.SeleniumTest"/>   
+    	<class name="edu.crypto2.integration.SeleniumIntegrationTest"/>   
     </classes>
   </test>
- -->
+
  
 </suite>
 

@@ -33,7 +33,6 @@ public class ShiftRowsPG {
 	@Property
 	private String UserName = "";
 	
-
     public boolean getLoggedIn() {
         if (user != null)
             return true;
@@ -69,47 +68,33 @@ public class ShiftRowsPG {
 	boolean setup() throws Exception {
 		long userId = 1; 
 		if (user != null){
-			UserName = (user.getName());
-			userId = user.getId();
+            try {
+				UserName = (user.getName());
+				userId = user.getId();
+			} catch (Exception e) {
+				user = null;
+				userId = 1;
+			}
 		}
 		else{
 			UserName = "";
 			userId = 1;
 		}
-	
 		testValuesDao.reload(userId);
-		
 		if (user != null){
 			UserName = (user.getName());
 		}
 		else{
 			UserName = "";
 		}
-		
-		if ((SesionValueBeforeShiftRows == "") || (SesionValueBeforeShiftRows == null)) 
-		{
-			final Logger logger = Logger.getLogger(SubBytesPG.class);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeShiftRows);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 1");
-			logger.debug("--------------------------------------------------------------");
-			
+		if ((persistValueBeforeShiftRows == "") || (persistValueBeforeShiftRows == null)) {
 			xml_p = new XmlParser("SubBytes"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
 		}
-		else
-		{
-			final Logger logger = Logger.getLogger(SubBytesPG.class);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug(SesionValueBeforeShiftRows);
-			logger.debug("--------------------------------------------------------------");
-			logger.debug("ulaz u 2");
-			logger.debug("--------------------------------------------------------------");
-			DoTransform(SesionValueBeforeShiftRows);
+		else{
+			DoTransform(persistValueBeforeShiftRows);
 		}
-
 		return true;
 	}
 	
@@ -125,7 +110,6 @@ public class ShiftRowsPG {
 	private XmlParser xml_p;
 	
 	private String ValueBeforeShiftRows;
-
 
 	public String getValueBeforeShiftRows() {
 		return ValueBeforeShiftRows;
@@ -147,19 +131,16 @@ public class ShiftRowsPG {
 	private String line3;
 
 	@Persist
-	private String SesionValueBeforeShiftRows;
-	
-
+	private String persistValueBeforeShiftRows;
 	
     public void DoTransform(String ValueBefore){
     	ValueBeforeShiftRows = ValueBefore;
-    	SesionValueBeforeShiftRows = ValueBefore;
+    	persistValueBeforeShiftRows = ValueBefore;
 		shift_rows = new ShiftRows();
 		shift_rows.initialize_State(ValueBeforeShiftRows);
 		
 		String s = "";
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE BEFORE SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -176,12 +157,9 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		
 		shift_rows.transform_state();
 		s = "";
-		
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE After SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -198,17 +176,13 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		
 		LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
-   	
     }
     
 	public ShiftRowsPG() throws Exception 
 	{
-		
-
 		
 	}
 
@@ -216,18 +190,10 @@ public class ShiftRowsPG {
     @InjectPage
     private SubBytesPG subBytesPG;
 	Object onActionFromView(Long id){
-		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeShiftRows = tvrow.getShiftRows_TestValue();
-		SesionValueBeforeShiftRows = ValueBeforeShiftRows;
-		
-		final Logger logger = Logger.getLogger(SubBytesPG.class);
-		logger.debug("--------------------------------------------------------------");
-		logger.debug(SesionValueBeforeShiftRows);
-		logger.debug("--------------------------------------------------------------");
-
-		DoTransform(SesionValueBeforeShiftRows);
-		logger.debug(line0);		
+		persistValueBeforeShiftRows = ValueBeforeShiftRows;
+		DoTransform(persistValueBeforeShiftRows);
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 
@@ -238,7 +204,6 @@ public class ShiftRowsPG {
 		return index;
 	}
 
-
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
@@ -247,12 +212,9 @@ public class ShiftRowsPG {
 		this.LinesOut = LinesOut;
 	}
 
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-
-
 	
 	public String getBefore_Line0() 
 	{ 
@@ -289,9 +251,6 @@ public class ShiftRowsPG {
 	}
 
 	
-	
 	/***************************************************************/
-
-
 
 }

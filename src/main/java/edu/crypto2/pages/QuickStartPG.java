@@ -3,6 +3,7 @@
  */
 package edu.crypto2.pages;
 
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
@@ -13,7 +14,7 @@ import edu.crypto2.entities.User;
  * 
  */
 public class QuickStartPG {
-	@SessionState(create=false) 
+	@SessionState(create=false)
 	private User user;
 	
 	@Property
@@ -26,11 +27,22 @@ public class QuickStartPG {
         else
             return false;
     }
+    @InjectPage
+    private Index index;
+	Object onActionFromLogOut(){
+		user = null;
+		return index;
+	}
 
 	@SetupRender
 	boolean setup() throws Exception {
 		if (user != null){
-			UserName = (user.getName());
+            try {
+				UserName = (user.getName());
+			} catch (Exception e) {
+				user = null;
+				UserName = "";
+			}
 		}
 		else{
 			UserName = "";

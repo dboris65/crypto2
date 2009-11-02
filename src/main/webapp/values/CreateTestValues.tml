@@ -2,6 +2,15 @@
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
         <!-- Most of the page content, including <head>, <body>, etc. tags, comes from Layout.tml -->
+        <t:if test="loggedIn">
+            You are logged as: ${UserName}. | <t:actionlink t:id="logOut" >Log out</t:actionlink>
+            <p:else>
+                Please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>.
+ 				If you register, you will be able to change test vectors and meta transformations.
+            </p:else>
+        </t:if>  
+    <br></br>  
     <p>${message:greeting}</p>
   <head>
     <title>Create New Test Values</title>

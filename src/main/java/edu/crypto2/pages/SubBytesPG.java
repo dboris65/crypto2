@@ -5,7 +5,7 @@ package edu.crypto2.pages;
 
 import java.util.List;
 
-//import org.apache.log4j.Logger;
+import org.apache.log4j.Logger;
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -70,29 +70,27 @@ public class SubBytesPG {
 	boolean setup() throws Exception {
 		long userId = 1; 
 		if (user != null){
-			UserName = (user.getName());
-			userId = user.getId();
+            try {
+				UserName = (user.getName());
+				userId = user.getId();
+			} catch (Exception e) {
+				user = null;
+				userId = 1;
+			}
 		}
 		else{
 			UserName = "";
 			userId = 1;
 		}
-		
 		testValuesDao.reload(userId);
-		
-		if ((SesionValueBeforeSubBytes == "") || (SesionValueBeforeSubBytes ==null))
-		{
-			
+		if ((persistValueBeforeSubBytes == "") || (persistValueBeforeSubBytes ==null)){
 			xml_p = new XmlParser("SubBytes"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
 		}
-		else
-		{
-
-			DoTransform(SesionValueBeforeSubBytes);
+		else{
+			DoTransform(persistValueBeforeSubBytes);
 		}
-		
 		return true;
 	}
 
@@ -128,21 +126,16 @@ public class SubBytesPG {
 	private String line3;
 	
 	@Persist
-	private String SesionValueBeforeSubBytes;
+	private String persistValueBeforeSubBytes;
 
-	
-
-    
-	
     public void DoTransform(String ValueBefore){
     	ValueBeforeSubBytes = ValueBefore;
-    	SesionValueBeforeSubBytes = ValueBefore;
+    	persistValueBeforeSubBytes = ValueBefore;
 		sub_bytes = new SubBytes();
 		sub_bytes.initialize_State(ValueBeforeSubBytes);
 		
 		String s = "";
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE BEFORE SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -159,12 +152,9 @@ public class SubBytesPG {
 			}
 			s = "";
 		}
-		
 		sub_bytes.transform_state();
 		s = "";
-		
 		/**********************************************
-		* da bi ga ispravno prikazao, mijenjamo j i i 
 		* STATE After SubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
@@ -181,18 +171,14 @@ public class SubBytesPG {
 			}
 			s = "";
 		}
-		
 		LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
-   	
     }
 
     
 	public SubBytesPG() throws Exception 
 	{
-		
-
 		
 	}
 
@@ -201,14 +187,10 @@ public class SubBytesPG {
     @InjectPage
     private SubBytesPG subBytesPG;
 	Object onActionFromView(Long id){
-		// ovo je u stvari konstruktor
 		TestValues tvrow = testValuesDao.find(id);
 		ValueBeforeSubBytes = tvrow.getSubBytes_TestValue();
-		SesionValueBeforeSubBytes = ValueBeforeSubBytes;
-		
-
-		DoTransform(SesionValueBeforeSubBytes);;		
-		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
+		persistValueBeforeSubBytes = ValueBeforeSubBytes;
+		DoTransform(persistValueBeforeSubBytes);		return LinesOutDetails;   
 	}
 
     @InjectPage
@@ -221,18 +203,12 @@ public class SubBytesPG {
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
-
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
-
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-
-	
-	
 	public String getBefore_Line0() 
 	{ 
 		return before_line0; 
@@ -267,7 +243,6 @@ public class SubBytesPG {
 		return line3; 
 	}
 
-	
 	
 	/***************************************************************/
 

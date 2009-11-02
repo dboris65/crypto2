@@ -1,32 +1,104 @@
 /**
  * Boris Damjanovic, 230/08, FON, Belgrade - crypto2 - 2009
  */
-package edu.crypto2.selenium;
+package edu.crypto2.integration;
 
 
 import junit.framework.TestCase;
 
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+import org.testng.Assert;
+import org.testng.AssertJUnit;
+
 
 import edu.crypto2.services.SourceDao;
 import edu.crypto2.services.TestValuesDao;
 
 
+
 import org.openqa.selenium.server.SeleniumServer;
 
-import com.thoughtworks.selenium.*;
-//This is the driver's import. You'll use this for instantiating a
-//browser and making it do what you need.
+import com.thoughtworks.selenium.DefaultSelenium;
+import com.thoughtworks.selenium.Selenium;
+
 
 
 /***********************************************************************
  * 
  */
-public class SeleniumTest extends SeleneseTestCase{
+public class SeleniumIntegrationTest {
+	protected Selenium selenium;
+	
+	//*iexplore -ok
+	//*iehta -ok
+	//*chrome - fails
+	//*googlechrome - fails
+	//*firefox3 - fails
+    @BeforeClass
+    @Parameters(value = "SeleniumBrowser")
+    public void setUp(@Optional("*iehta") String browser_name) {
+    	System.out.println("setUp port----------------------- " + SeleniumServer.getDefaultPort());
+    	System.out.println("setUp ----------------------- " + browser_name);
+		//super.setUp();
+        selenium = new DefaultSelenium(
+        		"localhost", 
+        		SeleniumServer.getDefaultPort(), 
+        		browser_name, 
+        		"http://localhost:8080");
+        selenium.start();
+        System.out.println("SetUp before speed ----------------------- ");
+        selenium.setSpeed("1000");
+        System.out.println("SetUp after speed ----------------------- ");
+	}
+	
+    @Test
+    public void testMetaTransformationPG() {
+    	System.out.println("test 1----------------------- ");
+    	selenium.open("http://localhost:8080/crypto2/");
+    	System.out.println("test 2----------------------- ");
+    	selenium.waitForPageToLoad("2000");
+    	selenium.click("link=login");
+    	System.out.println("test ----------------------- ");
+    	selenium.waitForPageToLoad("1000");
+    	selenium.type("userName", "dboris");
+    	selenium.type("password", "damjanovic");
+    	
+    	selenium.click("//input[@value='Login']");
+    	selenium.waitForPageToLoad("1000");
+    	selenium.click("link=Meta Transformations");
+    	selenium.click("link=Edit-Fill");
+    	selenium.click("transform");
+
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("39 02 dc 19"));
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("25 dc 11 6a"));
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("84 09 85 0b"));
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("1d fb 97 32"));
+        selenium.click("link=Index");
+        selenium.waitForPageToLoad("1000");
+        selenium.click("link=Log out");
+    }
+
+	
+    @AfterClass
+    public void tearDown() throws Exception {
+    	System.out.println("tearDown ----------------------- ");
+    	selenium.stop();
+    	
+    }
+
+	
+	
+	
+	
+	
+	
+	
 /*	
 	private TestValuesDao testValuesDao;
 	private SourceDao sourceDao;
@@ -49,6 +121,7 @@ public class SeleniumTest extends SeleneseTestCase{
     @BeforeClass
     @Parameters(value = "SeleniumBrowser")
     public void setUp(@Optional("*iexplore") String br) {
+    /*
         try {
           sourceDao.reload();
           testValuesDao.reload();

@@ -21,21 +21,39 @@ import javax.persistence.Table;
 /***********************************************************************
  * 
  */
+
+
+/**
+ * class Source<br>	
+ * Holds informations about AES source (or modified AES, i.e meta transformation) code, and
+ * users that made it.
+ */
 @Entity
 @Table(name="source")
 public class Source {
 	@Inject
 	private Session session;
 
+    /**
+     * List of Sources getter.
+     * @return List<Source>
+     */
     public List<Source> getSource()
     {
         return session.createCriteria(Source.class).list();
     }
     
+    /**
+     * Class constructor.
+     */
     public Source(){
     	super();
     }
 	
+    /**
+     * Class constructor.
+     * @param sourceCode
+     */
     public Source(String sourceCode){
     	this();
     	this.SourceCode = sourceCode;
@@ -43,32 +61,61 @@ public class Source {
     
     
     
+	/**
+	 * long id<br>
+	 * Row identifier.
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	//@NonVisual
-	private Long id;
+	@NonVisual
+	private long id;
  
+	/**
+	 * String SourceCode<br>
+	 * Holds part of AES (or modified AES, i.e meta transformation) source code.
+	 */
 	@Validate("required")
 	private String SourceCode;
-	//@NonVisual
-	private Long UserId; 
+	
+	/**
+	 * long UserID<br>
+	 * Used to show rows that belong to logged User.
+	 */
+	@NonVisual
+	private long UserId; 
 
 	
 
 	
 
+	/**
+	 * Id getter.
+	 * @return long Id
+	 */
 	public Long getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	/**
+	 * Id setter.
+	 * @param id
+	 */
+	public void setId(long id) {
 		this.id = id;
 	}
 	
+	/**
+	 * SourceCode getter.
+	 * @return SourceCode
+	 */
 	@Validate("required")
 	public String getSourceCode() {
 		return SourceCode;
 	}
+	/**
+	 * sourceCode setter.
+	 * @param sourceCode
+	 */
 	public void setSourceCode(String sourceCode) {
 		SourceCode = sourceCode;
 	}
@@ -81,7 +128,7 @@ public class Source {
 	/**
 	 * @param userId the userId to set
 	 */
-	public void setUserId(Long userId) {
+	public void setUserId(long userId) {
 		UserId = userId;
 	}
 

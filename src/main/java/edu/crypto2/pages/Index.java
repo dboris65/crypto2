@@ -55,19 +55,13 @@ public class Index
     boolean setup() throws Exception {
             long userId = 1; 
             if (user != null){
-            	
                     try {
 						UserName = (user.getName());
 						userId = user.getId();
 					} catch (Exception e) {
-						//UserDao userDao = new UserDaoImpl();
-						//user = userDao.find(1);
-	                    //UserName = (user.getName());
-	                    //userId = user.getId();
 						user = null;
 						userId = 1;
 					}
-                    
             }
             else{
                     UserName = "";

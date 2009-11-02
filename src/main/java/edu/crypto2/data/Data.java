@@ -335,6 +335,10 @@ public void setOutput(int[][] output) {
 	 */
 	public static int [][] Output = new int[4][4];
 	
+	/**
+	 * source_code_template_0:<br>
+	 * "Real" AES source code to be supplied to every registered user.<br>
+	 */
 	public static String source_code_template_0 = 
 		"// AES128 from FIPS197 pg.33-34\n"+
 		"// First try test vector no.1\n"+
@@ -361,6 +365,10 @@ public void setOutput(int[][] output) {
 		"addRoundKey.transform_state( 4*runda2*Nb );";
 	
 	
+	/**
+	 * source_code_template_1:<br>
+	 * "Real" AES source code to be supplied to every registered user.<br>
+	 */
 	public static String source_code_template_1 = 
 		"// AES128 from FIPS197 pg.35-36\n"+
 		"// First try test vector no.2\n"+
@@ -386,6 +394,10 @@ public void setOutput(int[][] output) {
 		"shiftRows.transform_state();\n"+
 		"addRoundKey.transform_state( 4*runda2*Nb );";
 	
+	/**
+	 * source_code_template_2:<br>
+	 * "Real" AES source code to be supplied to every registered user.<br>
+	 */
 	public static String source_code_template_2 =
 		"// AES192 from FIPS197 pg.38-39\n"+
 		"// First, try test vector no.3\n"+
@@ -411,6 +423,10 @@ public void setOutput(int[][] output) {
 		"shiftRows.transform_state();\n"+
 		"addRoundKey.transform_state( 4*runda2*Nb );";
 
+	/**
+	 * source_code_template_3:<br>
+	 * "Real" AES source code to be supplied to every registered user.<br>
+	 */
 	public static String source_code_template_3 =
 		"// AES256 from FIPS197 pg.42\n"+
 		"// First, try test vector no.4\n"+

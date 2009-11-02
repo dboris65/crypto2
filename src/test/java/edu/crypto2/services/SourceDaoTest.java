@@ -31,10 +31,15 @@ public class SourceDaoTest {
     }
     @BeforeMethod
     public void setUp() throws Exception {
+    	System.out.println("SourceDao setUp1 ----------------------- ");
     	sourceDao = createTestedObject();
+    	System.out.println("SourceDao setUp2 ----------------------- ");
         session = createStrictMock(Session.class);
+    	System.out.println("SourceDao setUp3 ----------------------- ");
         sessionFactory = createStrictMock(SessionFactory.class);
+    	System.out.println("SourceDao setUp4 ----------------------- ");
         criteria = createStrictMock(Criteria.class);
+    	System.out.println("SourceDao setUp5 ----------------------- ");
     }
     @Test()
     public void testGetByType(){
