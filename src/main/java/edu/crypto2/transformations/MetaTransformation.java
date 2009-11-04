@@ -4,7 +4,12 @@
 package edu.crypto2.transformations;
 
 
+import org.apache.log4j.Logger;
+
+import bsh.EvalError;
 import bsh.Interpreter;
+import bsh.ParseException;
+import bsh.TargetError;
 import edu.crypto2.data.*;
 import edu.crypto2.transformations.KeyExpansion;
 
@@ -120,13 +125,15 @@ public class MetaTransformation implements Transformation{
 	 * key_len=192 => length(init_key)=24 bytes<br>
 	 * key_len=256 => length(init_key)=32 bytes<br>
 	 */
-	public void transform_state(String testVector, int key_len, String init_key, String MetaTr) {
+	public String transform_state(String testVector, int key_len, String init_key, String MetaTr) {
 		Interpreter i = new Interpreter();
 		String str_to_interpret, hex_key;
+		String result_str = "";
+		
 		str_to_interpret = "";
-
 		
     	try {
+    		
 			if (MetaTr == "TEST"){
     		/* We will hide some parts of algorithm, and give
     		 * users a chance to concentrate to algorithm core
@@ -259,13 +266,25 @@ public class MetaTransformation implements Transformation{
 				"Data.byte_counter += 16;\n";
 				}
 
+			//try {
+				i.eval(str_to_interpret);
+    	} catch ( TargetError e ) {
+			
+    	    Throwable t = e.getTarget();
+    	    result_str = t.getMessage();
 
-			i.eval(str_to_interpret);
+    	} catch ( ParseException e ) {
+			
+			result_str = e.getMessage();
+			
+    	} catch ( EvalError e ) {
+			    String ev_err = e.getErrorText();
+
+				result_str = ev_err;
+				
+			}
+    	return result_str;
 		
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
 
 	}

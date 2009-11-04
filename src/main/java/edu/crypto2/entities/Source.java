@@ -84,6 +84,13 @@ public class Source {
 	@NonVisual
 	private long UserId; 
 
+	/**
+	 * Kind indicate that selected transformation is:<br>
+	 * 0 - Cipher
+	 * 1 - InvCipher
+	 */
+	//@NonVisual
+	private long Kind; 
 	
 
 	
@@ -132,4 +139,22 @@ public class Source {
 		UserId = userId;
 	}
 
+	/**
+	 * Kind indicate that selected transformation is:<br>
+	 * 0 - Cipher
+	 * 1 - InvCipher
+	 * @return the Kind
+	 */
+	public Long getKind() {
+		return Kind;
+	}
+	/**
+	 * Kind indicate that selected transformation is:<br>
+	 * 0 - Cipher
+	 * 1 - InvCipher
+	 */
+	public void setKind(long kind) {
+		Kind = kind;
+	}
+	
 }

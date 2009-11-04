@@ -11,6 +11,8 @@
 			not-null="true" />
 		<property name="userId" type="long" column="UserId"
 			not-null="true" />	
+		<property name="kind" type="long" column="Kind"
+			not-null="true" />	
 
 	</class> 
 </hibernate-mapping>

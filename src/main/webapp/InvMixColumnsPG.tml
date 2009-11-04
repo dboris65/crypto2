@@ -1,8 +1,8 @@
-<html t:type="layout" case="preserve" title="AddRoundKey transformation"
+<html t:type="layout" title="InvMixColumns transformation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
       
-          <t:if test="loggedIn">
+        <t:if test="loggedIn">
             You are logged as: ${UserName}. | <t:actionlink t:id="logOut" >Log out</t:actionlink>
             <p:else>
                 Please, <t:pagelink page="Login">login</t:pagelink> or 
@@ -10,12 +10,14 @@
  				If you register, you will be able to change test vectors and meta transformations.
             </p:else>
         </t:if>  
-      
-	<div id="section" float="left" width="600">			
+    <br></br>  
 	${message:greeting}
+	<div id="section">			
+
 		<t:zone t:id="viewZone"/>
-		<p>		
+	
 		<t:block id="LinesOutDetails">
+		
 
 		<table border="0" width="80%" id="table1" align="left" style="font-family: courier, monospace; font-size:12px">
 		<tr>
@@ -23,8 +25,8 @@
 			<td width="40%"></td>
 		</tr>
 		<tr>
-			<td width="60%">before AddRoundKey:</td>
-			<td width="40%">After AddRoundKey:</td>
+			<td width="60%">before SubBytes:</td>
+			<td width="40%">After SubBytes:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
@@ -52,10 +54,12 @@
 		</tr>
 		</table>
 
-		<br></br>
+		
 		</t:block>
 
-		</p>
+
+		
+		
 		
 		<br></br>
 		<br></br>
@@ -65,9 +69,10 @@
 		<br></br>
 		<br></br>
 		<br></br>
-		
+		<br></br>
+		<br></br>
 		<t:grid t:id="grid" source="TestValuesList" 
-			include="AddRoundKey_TestValue, KeyExpansion_TestValue" 
+			include="InvMixColumns_TestValue" 
 			t:add="view" rowsPerPage="3"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="viewCell">
@@ -81,21 +86,23 @@
 
 
 	</div>
-	
+    <p:sidebar>
         <p>
         
-    This transformation takes two input vectors as parameters. One of them is fragment of AES key, 
-    which will be mixed with second parameter - which is basically State buffer that holds sub-results 
-    from other transformations.<p></p>
-    AES algorithm is cyclic algorithm, and it is composed from (10+1), (12+1) or (14+1) rounds, depending on the key size.
-    In each round, State buffer goes through specific transformations, and in each round we mix State buffer 
-    with 16 bytes of expanded key.<p></p>
-    So, AddRoundKey just adds, using XOR operation, current key fragment to the State, as follows:<p></p>
-    State[i][j] = State[i][j] ^ key[key_index + 4*i + j];<p></p>
-       
-	And as before, just click on View transformation link in any grid row to see this transformation in action.
-	Transformation will take test vectors from grid, and give you results on the top of page.<p></p> 
-
+    <br></br>   
+	To reverse MixColumns transformation, InvMixColumns takes column by column from 
+	AES State and performs matrix multiplication within Galois field, but with different matrix, 
+	as follows:
+	<br></br>
+	<p style="font-family: courier, monospace; white-space:pre; font-size:12px">
+. . . | 0e 0b 0d 09 |
+new = | 09 0e 0b 0d | * old_column
+. . . | 0d 09 0e 0b |
+. . . | 0b 0d 09 0e |
+	</p>
+	And, as described before, just click on View transformation link in any grid row to see results of 
+	this transformation.
+	<p></p>
 	If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
 	Or, you can go further, to create your own
 	 
@@ -123,6 +130,6 @@
             </t:if>.
    
         </p>
-
+    </p:sidebar>
 
 </html>

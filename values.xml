@@ -8,5 +8,10 @@
 <TestKeyAddRoundKey>2b7e151628aed2a6abf7158809cf4f3c</TestKeyAddRoundKey>
 <MetaTransformation>3243f6a8885a308d313198a2e0370734</MetaTransformation>
 <InputVector>2b7e151628aed2a6abf7158809cf4f3c</InputVector>
+
+<InvSubBytes>E254940441570B6AD0B40F92560E1500</InvSubBytes>
+<InvShiftRows>E2570F0041B41504D00E946A56540B92</InvShiftRows>
+<InvMixColumns>978A81C3E12042794817D235EE8B2F3C</InvMixColumns>
+
 </input_for_transformation>
 

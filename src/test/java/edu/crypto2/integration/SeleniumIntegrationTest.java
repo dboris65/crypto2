@@ -53,7 +53,7 @@ public class SeleniumIntegrationTest {
         		"http://localhost:8080");
         selenium.start();
         System.out.println("SetUp before speed ----------------------- ");
-        selenium.setSpeed("1000");
+        selenium.setSpeed("1500");
         System.out.println("SetUp after speed ----------------------- ");
 	}
 	
@@ -70,7 +70,7 @@ public class SeleniumIntegrationTest {
     	selenium.type("password", "damjanovic");
     	
     	selenium.click("//input[@value='Login']");
-    	selenium.waitForPageToLoad("1000");
+    	selenium.waitForPageToLoad("1500");
     	selenium.click("link=Meta Transformations");
     	selenium.click("link=Edit-Fill");
     	selenium.click("transform");

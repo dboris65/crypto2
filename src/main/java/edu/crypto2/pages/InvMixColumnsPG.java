@@ -2,10 +2,9 @@
  * Boris Damjanovic, 230/08, FON, Belgrade - crypto2 - 2009
  */
 package edu.crypto2.pages;
-
 import java.util.List;
 
-import org.apache.log4j.Logger;
+
 import org.apache.tapestry5.Block;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Parameter;
@@ -19,27 +18,28 @@ import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
-import edu.crypto2.transformations.ShiftRows;
+import edu.crypto2.transformations.InvMixColumns;
 import edu.crypto2.rest.XmlParser;
 import edu.crypto2.components.LinesOut;
 import edu.crypto2.data.*;
+
 /***********************************************************************
  * 
  */
-public class ShiftRowsPG { 
+public class InvMixColumnsPG {
 	@SessionState(create=false)
 	private User user;
 	
 	@Property
-	private String UserName = "";
-	
+	private String UserName = ""; 
+
     public boolean getLoggedIn() {
         if (user != null)
             return true;
         else
             return false;
     }
-
+	
     @Inject
     private TestValuesDao testValuesDao;
 	@Parameter
@@ -56,6 +56,7 @@ public class ShiftRowsPG {
 	public List<TestValues> getTestValuesList(){
 		return testValuesDao.findAllTestValues();
 	}
+
 	public TestValues getTestValues() {
 		return testValues;
 	}
@@ -81,45 +82,41 @@ public class ShiftRowsPG {
 			userId = 1;
 		}
 		testValuesDao.reload(userId);
-		if (user != null){
-			UserName = (user.getName());
-		}
-		else{
-			UserName = "";
-		}
-		if ((persistValueBeforeShiftRows == "") || (persistValueBeforeShiftRows == null)) {
-			xml_p = new XmlParser("ShiftRows"); 
+		
+		if ((persistValueBeforeInvMixColumns == "") || (persistValueBeforeInvMixColumns == null)) 
+		{
+			xml_p = new XmlParser("InvMixColumns"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
 		}
-		else{
-			DoTransform(persistValueBeforeShiftRows);
+		else
+		{
+			
+			DoTransform(persistValueBeforeInvMixColumns);
 		}
 		return true;
 	}
-	
+		
 	@Inject
 	private Block LinesOutDetails;
 	private LinesOut LinesOut;
 	private LinesOut detailLinesOut;
 
 	//***********************************************************************
-		
 	
-	private ShiftRows shift_rows;
+	private InvMixColumns invMix_columns;
 	private XmlParser xml_p;
 	
-	private String ValueBeforeShiftRows;
+	private String ValueBeforeInvMixColumns;
 
-	public String getValueBeforeShiftRows() {
-		return ValueBeforeShiftRows;
+	public String getValueBeforeMixColumns() {
+		return ValueBeforeInvMixColumns;
 	}
 
-
-	public void setValueBeforeShiftRows(String valueBeforeShiftRows) {
-		ValueBeforeShiftRows = valueBeforeShiftRows;
+	public void setValueBeforeMixColumns(String valueBeforeInvMixColumns) {
+		ValueBeforeInvMixColumns = valueBeforeInvMixColumns;
 	}
-	
+
 	private String before_line0;
 	private String before_line1;
 	private String before_line2;
@@ -129,19 +126,19 @@ public class ShiftRowsPG {
 	private String line1;
 	private String line2;
 	private String line3;
-
+	
 	@Persist
-	private String persistValueBeforeShiftRows;
+	private String persistValueBeforeInvMixColumns;
+	
 	
     public void DoTransform(String ValueBefore){
-    	ValueBeforeShiftRows = ValueBefore;
-    	persistValueBeforeShiftRows = ValueBefore;
-		shift_rows = new ShiftRows();
-		shift_rows.initialize_State(ValueBeforeShiftRows);
-		
+    	ValueBeforeInvMixColumns = ValueBefore;
+    	persistValueBeforeInvMixColumns = ValueBefore;
+		invMix_columns = new InvMixColumns();
+		invMix_columns.initialize_State(ValueBeforeInvMixColumns);
 		String s = "";
 		/**********************************************
-		* STATE BEFORE SubBytes
+		* STATE BEFORE MixColumns
 		* */
 		for (int j = 0; j <= 3; j++) {
 			for (int i = 0; i <= 3; i++) {
@@ -157,10 +154,10 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		shift_rows.transform_state();
+		invMix_columns.transform_state();
 		s = "";
 		/**********************************************
-		* STATE After SubBytes
+		* STATE After MixColumns
 		* */
 		for (int j = 0; j <= 3; j++) {
 			for (int i = 0; i <= 3; i++) {
@@ -180,23 +177,22 @@ public class ShiftRowsPG {
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
     }
-    
-	public ShiftRowsPG() throws Exception 
+
+	public InvMixColumnsPG() throws Exception 
 	{
 		
 	}
-
-	
+    
     @InjectPage
-    private SubBytesPG subBytesPG;
+    private InvMixColumnsPG mixColumnsPG;
 	Object onActionFromView(Long id){
 		TestValues tvrow = testValuesDao.find(id);
-		ValueBeforeShiftRows = tvrow.getShiftRows_TestValue();
-		persistValueBeforeShiftRows = ValueBeforeShiftRows;
-		DoTransform(persistValueBeforeShiftRows);
+		ValueBeforeInvMixColumns = tvrow.getMixColumns_TestValue();
+		persistValueBeforeInvMixColumns = ValueBeforeInvMixColumns;
+		DoTransform(persistValueBeforeInvMixColumns);
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
-
+	
     @InjectPage
     private Index index;
 	Object onActionFromLogOut(){
@@ -207,15 +203,12 @@ public class ShiftRowsPG {
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
-
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-	
 	public String getBefore_Line0() 
 	{ 
 		return before_line0; 
@@ -232,7 +225,6 @@ public class ShiftRowsPG {
 	{ 
 		return before_line3; 
 	}
-
 	public String getLine0() 
 	{ 
 		return line0; 
@@ -251,6 +243,8 @@ public class ShiftRowsPG {
 	}
 
 	
+	
 	/***************************************************************/
+
 
 }

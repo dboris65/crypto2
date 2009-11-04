@@ -237,25 +237,41 @@ public class MetaTransformationPG {
 			}
 			s = "";
 		}
-		meta_transformation.transform_state(testVector, key_len, init_key, MetaTr);
-		s = "";
-		/**********************************************
-		* STATE After SubBytes
-		* */
-		for (int j = 0; j <= 3; j++) {
-			for (int i = 0; i <= 3; i++) {
-				s = s + Integer.toString((Data.State[i][j] & 0xff) + 0x100,
-								16 /* radix */).substring(1) + " "; 
-			}
-			s = "| " + s.trim() + " |";
-			switch (j){
-				case 0 : line0 = s; break;
-				case 1 : line1 = s; break;
-				case 2 : line2 = s; break;
-				case 3 : line3 = s; break;
-			}
+		
+		String err_str = "";
+		err_str = meta_transformation.transform_state(testVector, key_len, init_key, MetaTr);
+		
+		if (err_str.length() == 0){
 			s = "";
+			/**********************************************
+			 * STATE After SubBytes
+			 * */
+			for (int j = 0; j <= 3; j++) {
+				for (int i = 0; i <= 3; i++) {
+					s = s + Integer.toString((Data.State[i][j] & 0xff) + 0x100,
+											16 /* radix */).substring(1) + " "; 
+				}
+				s = "| " + s.trim() + " |";
+				switch (j){
+					case 0 : line0 = s; break;
+					case 1 : line1 = s; break;
+					case 2 : line2 = s; break;
+					case 3 : line3 = s; break;
+				}
+				s = "";
+			}
 		}
+		else{
+			before_line0 = "PARSING ERROR";
+			before_line1 = "";
+			before_line2 = "";
+			before_line3 = "";
+			line0 = "";
+			line1 = "";
+			line2 = "";
+			line3 =  "";
+		}
+			
 		
 		LinesOut lines = new LinesOut(before_line0, before_line1, before_line2, before_line3,
 									  line0, line1,	line2, line3); 

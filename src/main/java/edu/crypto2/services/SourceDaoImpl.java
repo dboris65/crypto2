@@ -56,6 +56,7 @@ public class SourceDaoImpl implements SourceDao{
 			transaction = session.beginTransaction();
 			Source source = new Source();
 			source.setSourceCode(Data.source_code_template_0);
+			source.setKind(0);
 			// Here, UserId is always 1
 			source.setUserId(userId);
 
@@ -64,6 +65,7 @@ public class SourceDaoImpl implements SourceDao{
 			transaction = session.beginTransaction();
 			source = new Source();
 			source.setSourceCode(Data.source_code_template_1);
+			source.setKind(0);
 			// Here, UserId is always 1
 			source.setUserId(userId);
 
@@ -73,7 +75,7 @@ public class SourceDaoImpl implements SourceDao{
 			transaction = session.beginTransaction();
 			source = new Source();
 			source.setSourceCode(Data.source_code_template_2);
-			
+			source.setKind(0);
 			// Here, UserId is always 1
 			source.setUserId(userId);
 
@@ -83,7 +85,7 @@ public class SourceDaoImpl implements SourceDao{
 			transaction = session.beginTransaction();
 			source = new Source();
 			source.setSourceCode(Data.source_code_template_3);
-			
+			source.setKind(0);
 			// Here, UserId is always 1
 			source.setUserId(userId);
 
@@ -112,6 +114,7 @@ public class SourceDaoImpl implements SourceDao{
 				transaction = session.beginTransaction();
 				Source source = new Source();
 				source.setSourceCode(Data.source_code_template_0);
+				source.setKind(0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
 
@@ -120,6 +123,7 @@ public class SourceDaoImpl implements SourceDao{
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_1);
+				source.setKind(0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
 
@@ -129,6 +133,7 @@ public class SourceDaoImpl implements SourceDao{
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_2);
+				source.setKind(0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);
 				session.persist(source);
@@ -136,6 +141,7 @@ public class SourceDaoImpl implements SourceDao{
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_3);
+				source.setKind(0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);  
 

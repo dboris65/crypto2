@@ -19,14 +19,14 @@ import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
-import edu.crypto2.transformations.ShiftRows;
+import edu.crypto2.transformations.InvShiftRows;
 import edu.crypto2.rest.XmlParser;
 import edu.crypto2.components.LinesOut;
 import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-public class ShiftRowsPG { 
+public class InvShiftRowsPG { 
 	@SessionState(create=false)
 	private User user;
 	
@@ -87,13 +87,13 @@ public class ShiftRowsPG {
 		else{
 			UserName = "";
 		}
-		if ((persistValueBeforeShiftRows == "") || (persistValueBeforeShiftRows == null)) {
-			xml_p = new XmlParser("ShiftRows"); 
+		if ((persistValueBeforeInvShiftRows == "") || (persistValueBeforeInvShiftRows == null)) {
+			xml_p = new XmlParser("InvShiftRows"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
 		}
 		else{
-			DoTransform(persistValueBeforeShiftRows);
+			DoTransform(persistValueBeforeInvShiftRows);
 		}
 		return true;
 	}
@@ -106,18 +106,18 @@ public class ShiftRowsPG {
 	//***********************************************************************
 		
 	
-	private ShiftRows shift_rows;
+	private InvShiftRows invShift_rows;
 	private XmlParser xml_p;
 	
-	private String ValueBeforeShiftRows;
+	private String ValueBeforeInvShiftRows;
 
-	public String getValueBeforeShiftRows() {
-		return ValueBeforeShiftRows;
+	public String getValueBeforeInvShiftRows() {
+		return ValueBeforeInvShiftRows;
 	}
 
 
-	public void setValueBeforeShiftRows(String valueBeforeShiftRows) {
-		ValueBeforeShiftRows = valueBeforeShiftRows;
+	public void setValueBeforeInvShiftRows(String valueBeforeInvShiftRows) {
+		ValueBeforeInvShiftRows = valueBeforeInvShiftRows;
 	}
 	
 	private String before_line0;
@@ -131,13 +131,13 @@ public class ShiftRowsPG {
 	private String line3;
 
 	@Persist
-	private String persistValueBeforeShiftRows;
+	private String persistValueBeforeInvShiftRows;
 	
     public void DoTransform(String ValueBefore){
-    	ValueBeforeShiftRows = ValueBefore;
-    	persistValueBeforeShiftRows = ValueBefore;
-		shift_rows = new ShiftRows();
-		shift_rows.initialize_State(ValueBeforeShiftRows);
+    	ValueBeforeInvShiftRows = ValueBefore;
+    	persistValueBeforeInvShiftRows = ValueBefore;
+		invShift_rows = new InvShiftRows();
+		invShift_rows.initialize_State(ValueBeforeInvShiftRows);
 		
 		String s = "";
 		/**********************************************
@@ -157,7 +157,7 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		shift_rows.transform_state();
+		invShift_rows.transform_state();
 		s = "";
 		/**********************************************
 		* STATE After SubBytes
@@ -181,7 +181,7 @@ public class ShiftRowsPG {
 		detailLinesOut = lines;
     }
     
-	public ShiftRowsPG() throws Exception 
+	public InvShiftRowsPG() throws Exception 
 	{
 		
 	}
@@ -191,9 +191,9 @@ public class ShiftRowsPG {
     private SubBytesPG subBytesPG;
 	Object onActionFromView(Long id){
 		TestValues tvrow = testValuesDao.find(id);
-		ValueBeforeShiftRows = tvrow.getShiftRows_TestValue();
-		persistValueBeforeShiftRows = ValueBeforeShiftRows;
-		DoTransform(persistValueBeforeShiftRows);
+		ValueBeforeInvShiftRows = tvrow.getShiftRows_TestValue();
+		persistValueBeforeInvShiftRows = ValueBeforeInvShiftRows;
+		DoTransform(persistValueBeforeInvShiftRows);
 		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
 	}
 

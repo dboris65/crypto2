@@ -22,13 +22,14 @@
 		<property name="userId" type="long" column="UserId"
 			not-null="true" />
 			
-<!-- 			
+			
 		<property name="invSubBytes_TestValue" type="string" column="InvSubBytes_TestValue"
 			not-null="true" />
 		<property name="invMixColumns_TestValue" type="string" column="InvMixColumns_TestValue"
 			not-null="true" />
 		<property name="invShiftRows_TestValue" type="string" column="InvShiftRows_TestValue"
 			not-null="true" />
+<!-- 
 		<property name="GMUL_TestValue" type="string" column="GMUL_TestValue"
 			not-null="true" />
  --> 

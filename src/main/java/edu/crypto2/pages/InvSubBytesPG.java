@@ -19,26 +19,28 @@ import edu.crypto2.entities.TestValues;
 import edu.crypto2.entities.User;
 import edu.crypto2.services.TestValuesDao;
 
-import edu.crypto2.transformations.ShiftRows;
+import edu.crypto2.transformations.InvSubBytes;
 import edu.crypto2.rest.XmlParser;
 import edu.crypto2.components.LinesOut;
 import edu.crypto2.data.*;
 /***********************************************************************
  * 
  */
-public class ShiftRowsPG { 
+public class InvSubBytesPG {
 	@SessionState(create=false)
-	private User user;
+	private User user; 
 	
 	@Property
 	private String UserName = "";
 	
+
     public boolean getLoggedIn() {
         if (user != null)
             return true;
         else
             return false;
     }
+    
 
     @Inject
     private TestValuesDao testValuesDao;
@@ -48,7 +50,6 @@ public class ShiftRowsPG {
 	public TestValuesDao getTestValuesDao() {
 		return testValuesDao;
 	}
-
 	public void setTestValuesDao(TestValuesDao testValuesDao) {
 		this.testValuesDao = testValuesDao;
 	}
@@ -63,6 +64,7 @@ public class ShiftRowsPG {
 	public void setTestValues(TestValues testValues) {
 		this.testValues = testValues;
 	}
+	
 	
 	@SetupRender
 	boolean setup() throws Exception {
@@ -81,43 +83,36 @@ public class ShiftRowsPG {
 			userId = 1;
 		}
 		testValuesDao.reload(userId);
-		if (user != null){
-			UserName = (user.getName());
-		}
-		else{
-			UserName = "";
-		}
-		if ((persistValueBeforeShiftRows == "") || (persistValueBeforeShiftRows == null)) {
-			xml_p = new XmlParser("ShiftRows"); 
+		if ((persistValueBeforeInvSubBytes == "") || (persistValueBeforeInvSubBytes ==null)){
+			xml_p = new XmlParser("InvSubBytes"); 
 			String ValueBefore = xml_p.getResultString();
 			DoTransform(ValueBefore);
 		}
 		else{
-			DoTransform(persistValueBeforeShiftRows);
+			DoTransform(persistValueBeforeInvSubBytes);
 		}
 		return true;
 	}
-	
+
 	@Inject
 	private Block LinesOutDetails;
 	private LinesOut LinesOut;
 	private LinesOut detailLinesOut;
-
-	//***********************************************************************
-		
 	
-	private ShiftRows shift_rows;
+	//***********************************************************************
+	
+	
+	private InvSubBytes invSub_bytes;
 	private XmlParser xml_p;
 	
-	private String ValueBeforeShiftRows;
-
-	public String getValueBeforeShiftRows() {
-		return ValueBeforeShiftRows;
+	private String ValueBeforeInvSubBytes;
+	
+	public String getValueBeforeSubBytes() {
+		return ValueBeforeInvSubBytes;
 	}
 
-
-	public void setValueBeforeShiftRows(String valueBeforeShiftRows) {
-		ValueBeforeShiftRows = valueBeforeShiftRows;
+	public void setValueBeforeInvSubBytes(String valueBeforeInvSubBytes) {
+		ValueBeforeInvSubBytes = valueBeforeInvSubBytes;
 	}
 	
 	private String before_line0;
@@ -129,19 +124,19 @@ public class ShiftRowsPG {
 	private String line1;
 	private String line2;
 	private String line3;
-
-	@Persist
-	private String persistValueBeforeShiftRows;
 	
+	@Persist
+	private String persistValueBeforeInvSubBytes;
+
     public void DoTransform(String ValueBefore){
-    	ValueBeforeShiftRows = ValueBefore;
-    	persistValueBeforeShiftRows = ValueBefore;
-		shift_rows = new ShiftRows();
-		shift_rows.initialize_State(ValueBeforeShiftRows);
+    	ValueBeforeInvSubBytes = ValueBefore;
+    	persistValueBeforeInvSubBytes = ValueBefore;
+		invSub_bytes = new InvSubBytes();
+		invSub_bytes.initialize_State(ValueBeforeInvSubBytes);
 		
 		String s = "";
 		/**********************************************
-		* STATE BEFORE SubBytes
+		* STATE BEFORE InvSubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
 			for (int i = 0; i <= 3; i++) {
@@ -157,10 +152,10 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		shift_rows.transform_state();
+		invSub_bytes.transform_state();
 		s = "";
 		/**********************************************
-		* STATE After SubBytes
+		* STATE After InvSubBytes
 		* */
 		for (int j = 0; j <= 3; j++) {
 			for (int i = 0; i <= 3; i++) {
@@ -180,21 +175,22 @@ public class ShiftRowsPG {
 									  line0, line1,	line2, line3); 
 		detailLinesOut = lines;
     }
+
     
-	public ShiftRowsPG() throws Exception 
+	public InvSubBytesPG() throws Exception 
 	{
 		
 	}
 
 	
+	
     @InjectPage
-    private SubBytesPG subBytesPG;
+    private InvSubBytesPG subInvBytesPG;
 	Object onActionFromView(Long id){
 		TestValues tvrow = testValuesDao.find(id);
-		ValueBeforeShiftRows = tvrow.getShiftRows_TestValue();
-		persistValueBeforeShiftRows = ValueBeforeShiftRows;
-		DoTransform(persistValueBeforeShiftRows);
-		return LinesOutDetails;   //TestValueRowDetails; odustao 17.09
+		ValueBeforeInvSubBytes = tvrow.getInvSubBytes_TestValue();
+		persistValueBeforeInvSubBytes = ValueBeforeInvSubBytes;
+		DoTransform(persistValueBeforeInvSubBytes);		return LinesOutDetails;   
 	}
 
     @InjectPage
@@ -207,15 +203,12 @@ public class ShiftRowsPG {
 	public LinesOut getLinesOut() {
 		return LinesOut;
 	}
-
 	public void setLinesOut(LinesOut LinesOut) {
 		this.LinesOut = LinesOut;
 	}
-
 	public LinesOut getDetailLinesOut() {
 		return detailLinesOut;
 	}	
-	
 	public String getBefore_Line0() 
 	{ 
 		return before_line0; 

@@ -84,15 +84,27 @@ public class TestValues {
 	 */
 	@NonVisual
 	private Long UserId;
-
-
-
-	/*
+	
+	/**
+	 * String InvSubBytes_TestValue<br>
+	 * Holds InvSubBytes test vector.
+	 */
 	@Validate("required")
 	private String InvSubBytes_TestValue;
+	/**
+	 * String InvMixColumns_TestValue<br>
+	 * Holds InvMixColumns test vector.
+	 */
+	@Validate("required")
 	private String InvMixColumns_TestValue;
+
+	/**
+	 * String InvShiftRows_TestValue<br>
+	 * Holds InvShiftRows test vector.
+	 */
+	@Validate("required")
 	private String InvShiftRows_TestValue;
-	private String GMUL_TestValue;
+/*	private String GMUL_TestValue;
 */
 	
 	/**
@@ -171,27 +183,30 @@ public class TestValues {
 		return UserId;
 	}
 	
-/*	
-	@Validate("required")
+	
+	/**
+	 * InvSubBytes getter.
+	 * @return String InvSubBytes_TestValue
+	*/
 	public String getInvSubBytes_TestValue() {
 		return InvSubBytes_TestValue;
 	}
-	@Validate("required")
+	/**
+	 * InvShiftRows getter.
+	 * @return String InvShiftRows_TestValue
+	*/
 	public String getInvShiftRows_TestValue() {
 		return InvShiftRows_TestValue;
 	}
 
-	@Validate("required")
+	/**
+	 * InvMixColumns getter.
+	 * @return String InvMixColumns_TestValue
+	*/
 	public String getInvMixColumns_TestValue() {
 		return InvMixColumns_TestValue;
 	}
 	
-	// ovo izbacujem
-	public String getGMUL_TestValue() {
-		return GMUL_TestValue;
-	}
-
-*/
 	/****************************************************************************
 	 * setters
 	 */
@@ -248,27 +263,34 @@ public class TestValues {
 	 * userId setter.
 	 * @param userId
 	 */
-	public void setUserId(Long userId) {
+	public void setUserId(long userId) {
 		UserId = userId;
 	} 
 	
-/*	
-	public void setInvSubBytes_TestValue(String invSubBytesTestValue) {
-		InvSubBytes_TestValue = invSubBytesTestValue;
+	
+	/**
+	 * InvSubBytes setter.
+	 * @param String InvSubBytes_TestValue
+	*/
+	public void setInvSubBytes_TestValue(String InvSubBytes_TestValue) {
+		this.InvSubBytes_TestValue = InvSubBytes_TestValue;
 	}
-		public void setInvShiftRows_TestValue(String InvShiftRows_TestValue) {
+
+	/**
+	 * InvShiftRows setter.
+	 * @param String InvShiftRows_TestValue
+	*/
+	public void setInvShiftRows_TestValue(String InvShiftRows_TestValue) {
 		this.InvShiftRows_TestValue = InvShiftRows_TestValue;
 	}
 
+	/**
+	 * InvMixColumns setter.
+	 * @param String InvMixColumns_TestValue
+	*/
 	public void setInvMixColumns_TestValue(String InvMixColumns_TestValue) {
 		this.InvMixColumns_TestValue = InvMixColumns_TestValue;
 	}
 	
-	
-	//izbaciti
-	public void setGMUL_TestValue(String gMULTestValue) {
-		GMUL_TestValue = gMULTestValue;
-	}
 
-*/
 }

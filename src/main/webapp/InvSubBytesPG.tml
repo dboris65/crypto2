@@ -1,4 +1,4 @@
-<html t:type="layout" title="SubBytes transformation"
+<html t:type="layout" title="InvSubBytes transformation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 
@@ -25,8 +25,8 @@
 			<td width="40%"></td>
 		</tr>
 		<tr>
-			<td width="60%">before SubBytes:</td>
-			<td width="40%">After SubBytes:</td>
+			<td width="60%">before InvSubBytes:</td>
+			<td width="40%">After InvSubBytes:</td>
 		</tr>
 		<tr>
 			<td>---------------</td>
@@ -67,8 +67,9 @@
 		<br></br>
 		<br></br>
 		<br></br>
+		
 		<t:grid t:id="grid" source="TestValuesList" 
-			include="SubBytes_TestValue" 
+			include="InvSubBytes_TestValue" 
 			t:add="view" rowsPerPage="3"
 			empty="block:valueNotFound" row="TestValues">
         	<t:parameter name="viewCell">
@@ -89,9 +90,10 @@
     Two basic components of many cryptographic algorithms are substitution box ( S-Box) 
     and permutation box ( P-Box).
     <p></p>
-    AES performs SBox explicitly (using this transformation and SBox array), while permutations are done implicitly.
-	This transformation will apply S-Box on every byte of State buffer:<br></br>
-	State[i][j] = SBox[State[i][j]];
+    AES performs InvSBox explicitly (using this transformation and InvSBox array).
+    This transformation has task to invert first S-Box results.
+	This transformation will apply inverse S-Box on every byte of State buffer:<br></br>
+	State[i][j] = InvSBox[State[i][j]];
 	<p></p>
 	At a bottom of page, you can find grid with some predefined test vectors that are 
 	taken from FIPS 197 publication, defining the AES algorithm.
@@ -103,7 +105,7 @@
 	<p></p>
 	If you are still confused, go to <t:pagelink page="QuickStartPG">Quick start page</t:pagelink><br></br>
 	Or, you can go further, to meet<br></br>
-	 <t:pagelink page="ShiftRowsPG">ShiftRows transformation</t:pagelink>
+	 <t:pagelink page="InvShiftRowsPG">InvShiftRows transformation</t:pagelink>
     <p>.</p>        
         </p>
     </p:sidebar>

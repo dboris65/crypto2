@@ -89,16 +89,16 @@ public class Register {
 		testValues1.setKeyExpansion_TestValue("2b7e151628aed2a6abf7158809cf4f3c");  // init key
 		testValues1.setAddRoundKey_TestValue("046681e5e0cb199a48f8d37a2806264c");
 		testValues1.setMetaTransformation_TestValue("3243f6a8885a308d313198a2e0370734");
-		testValues1.setUserId((long)user.getId());
-		/*
-		testValues.setInvShiftRows_TestValue("7ad5fda789ef4e272bca100b3d9ff59f");
-		testValues.setInvMixColumns_TestValue("e9f74eec023020f61bf2ccf2353c21c7");
-		testValues.setInvSubBytes_TestValue("33");
-		testValues.setGMUL_TestValue("229");
-		*/
+		
+		
+		testValues1.setInvSubBytes_TestValue("E254940441570B6AD0B40F92560E1500");
+		testValues1.setInvMixColumns_TestValue("978A81C3E12042794817D235EE8B2F3C");
+		testValues1.setInvShiftRows_TestValue("E2570F0041B41504D00E946A56540B92");
+		testValues1.setUserId(user.getId());
 		session.persist(testValues1);
-		//transaction.commit();
 
+		
+		
 		// AES 128 - 2, from FIPS197, pg.35-36
 		//transaction = session.beginTransaction();
 		TestValues testValues2 = new TestValues();
@@ -109,15 +109,12 @@ public class Register {
 		testValues2.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 		testValues2.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff");
 
-		testValues2.setUserId((long)user.getId());
-		/*
-		testValues.setInvShiftRows_TestValue("7ad5fda789ef4e272bca100b3d9ff59f");
-		testValues.setInvMixColumns_TestValue("e9f74eec023020f61bf2ccf2353c21c7");
-		testValues.setInvSubBytes_TestValue("33");
-		testValues.setGMUL_TestValue("229");
-		*/
+		// pg.36/37
+		testValues2.setInvSubBytes_TestValue("7A9F102789D5F50B2BEFFD9F3DCA4EA7");
+		testValues2.setInvMixColumns_TestValue("E9F74EEC023020F61BF2CCF2353C21C7");
+		testValues2.setInvShiftRows_TestValue("7AD5FDA789EF4E272BCA100B3D9FF59F");
+		testValues2.setUserId(user.getId());
 		session.persist(testValues2);
-		//transaction.commit();
 
 
 		// AES 192, from FIPS197, pg.38-39
@@ -130,16 +127,13 @@ public class Register {
 		testValues3.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 		testValues3.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff");
 
-		testValues3.setUserId((long)user.getId());
-		
-		/*
-		testValues.setInvShiftRows_TestValue("7ad5fda789ef4e272bca100b3d9ff59f");
-		testValues.setInvMixColumns_TestValue("e9f74eec023020f61bf2ccf2353c21c7");
-		testValues.setInvSubBytes_TestValue("33");
-		testValues.setGMUL_TestValue("229");
-		*/
+		// pg.40
+		testValues3.setInvSubBytes_TestValue("79A9B2E99C3E6CD1AA3476CC0FB70397");
+		testValues3.setInvMixColumns_TestValue("71D720933B6D677DC00B8F28238E0FB7");
+		testValues3.setInvShiftRows_TestValue("793E76979C3403E9AAB7B2D10FA96CCC");
+		testValues3.setUserId(user.getId());
 		session.persist(testValues3);
-		//transaction.commit();
+
 		
 		// AES 256, from FIPS197, pg.38-39
 		//transaction = session.beginTransaction();
@@ -150,7 +144,11 @@ public class Register {
 		testValues4.setKeyExpansion_TestValue("000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f"); // init key
 		testValues4.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 		testValues4.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff"); // plain text
-		testValues4.setUserId((long)user.getId());
+
+		testValues4.setInvMixColumns_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
+		testValues4.setInvMixColumns_TestValue("2C21A820306F154AB712C75EEE0DA04F");
+		testValues4.setInvShiftRows_TestValue("AA5ECE06EE6E3C56DDE68BAC2621BEBF");
+		testValues4.setUserId(user.getId());
 		session.persist(testValues4);
     	return index;
     }

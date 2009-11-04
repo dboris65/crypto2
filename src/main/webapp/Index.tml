@@ -6,7 +6,7 @@
     <p>${message:greeting}</p>
     
 
-
+Cipher transformations:
     <ul>
       <li><t:pagelink page="QuickStartPG">Quick start</t:pagelink></li>
     </ul>
@@ -27,7 +27,18 @@
       <li><t:pagelink page="AddRoundKeyPG">AddRoundKey</t:pagelink></li>
     </ul>
 
+Inverse Cipher transformations:
+    <ul>
+      <li><t:pagelink page="InvSubBytesPG">InvSubBytes</t:pagelink></li>
+    </ul>
 
+    <ul>
+      <li><t:pagelink page="InvShiftRowsPG">InvShiftRows</t:pagelink></li>
+    </ul>
+
+    <ul>
+      <li><t:pagelink page="InvMixColumnsPG">InvMixColumns</t:pagelink></li>
+    </ul>
 
     <ul>
     	<li>
