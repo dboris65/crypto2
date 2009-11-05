@@ -69,7 +69,7 @@ public class Index
             }
 
 
-            sourceDao.reload(userId);
+            sourceDao.reload(userId, 0);
             testValuesDao.reload(userId);
                             
             return true;

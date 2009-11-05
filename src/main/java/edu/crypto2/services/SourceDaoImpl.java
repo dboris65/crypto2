@@ -40,10 +40,10 @@ public class SourceDaoImpl implements SourceDao{
     
 	private List<Source> database; 
 	
-	public void reload(long userId){
+	public void reload(long userId, int kind){
 		UserDao userDao = new UserDaoImpl();
 		user = userDao.find(userId);
-		String qry = "from Source where USERID=" + user.getId();
+		String qry = "from Source where KIND=" + kind + " and USERID=" + user.getId();
 		if (session.isOpen())
 			session.close();
 		session = HibernateUtil.getSessionFactory().openSession();
@@ -96,7 +96,7 @@ public class SourceDaoImpl implements SourceDao{
 		
 		transaction = null;
 		transaction = session.beginTransaction();
-		String qry2 = "from Source where USERID=" + user.getId();
+		String qry2 = "from Source where KIND=" + kind + " and USERID=" + user.getId();
 		database = session.createQuery(qry2).list();
 		
 		transaction.commit();
@@ -138,15 +138,27 @@ public class SourceDaoImpl implements SourceDao{
 				source.setUserId((long)1);
 				session.persist(source);
 				transaction.commit();
+
 				transaction = session.beginTransaction();
 				source = new Source();
 				source.setSourceCode(Data.source_code_template_3);
 				source.setKind(0);
 				// Here, UserId is always 1
 				source.setUserId((long)1);  
-
 				session.persist(source);
 				transaction.commit();
+
+				// InverseCipher
+				transaction = session.beginTransaction();
+				source = new Source();
+				source.setSourceCode(Data.inverse_source_code_template_0);
+				source.setKind(1);
+				// Here, UserId is always 1
+				source.setUserId((long)1);  
+				session.persist(source);
+				transaction.commit();
+				
+				
 				CurrentId = source.getId().intValue();
 			}
 			transaction = null;

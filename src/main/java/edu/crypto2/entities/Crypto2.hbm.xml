@@ -29,6 +29,9 @@
 			not-null="true" />
 		<property name="invShiftRows_TestValue" type="string" column="InvShiftRows_TestValue"
 			not-null="true" />
+		<property name="invMetaTransformation_TestValue" type="string" column="InvMetaTransformation_TestValue"
+			not-null="true" />
+			
 <!-- 
 		<property name="GMUL_TestValue" type="string" column="GMUL_TestValue"
 			not-null="true" />

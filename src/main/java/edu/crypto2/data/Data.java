@@ -337,7 +337,7 @@ public void setOutput(int[][] output) {
 	
 	/**
 	 * source_code_template_0:<br>
-	 * "Real" AES source code to be supplied to every registered user.<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
 	 */
 	public static String source_code_template_0 = 
 		"// AES128 from FIPS197 pg.33-34\n"+
@@ -367,7 +367,7 @@ public void setOutput(int[][] output) {
 	
 	/**
 	 * source_code_template_1:<br>
-	 * "Real" AES source code to be supplied to every registered user.<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
 	 */
 	public static String source_code_template_1 = 
 		"// AES128 from FIPS197 pg.35-36\n"+
@@ -396,7 +396,7 @@ public void setOutput(int[][] output) {
 	
 	/**
 	 * source_code_template_2:<br>
-	 * "Real" AES source code to be supplied to every registered user.<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
 	 */
 	public static String source_code_template_2 =
 		"// AES192 from FIPS197 pg.38-39\n"+
@@ -425,7 +425,7 @@ public void setOutput(int[][] output) {
 
 	/**
 	 * source_code_template_3:<br>
-	 * "Real" AES source code to be supplied to every registered user.<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
 	 */
 	public static String source_code_template_3 =
 		"// AES256 from FIPS197 pg.42\n"+
@@ -452,5 +452,35 @@ public void setOutput(int[][] output) {
 		"shiftRows.transform_state();\n"+
 		"addRoundKey.transform_state( 4*runda2*Nb );";
 	
+
+	/**
+	 * inverse_source_code_template_0:<br>
+	 * "Real" AES inverse cipher source code to be supplied to every registered user.<br>
+	 */
+	public static String inverse_source_code_template_0 = 
+		"// AES128 from FIPS197 pg.33-34\n"+
+		"// First try test vector no.1\n"+
+		"// (3243f6a8885a308d313198a2e0370734)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 128;\n"+
+		"init_key = \"2b7e151628aed2a6abf7158809cf4f3c\";\n"+
+		"keyExpansion.KeyExpansion128();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 10; //br.rundi // number of rounds\n"+
+
+		"addRoundKey.transform_state(4*Nr*Nb);\n" +
+		"for (runda = Nr-1; runda >= 1; runda--)\n" +
+		"{\n" +
+		"	invShiftRows.transform_state();\n" +
+		"   invSubBytes.transform_state();\n" +
+		"	addRoundKey.transform_state(4*runda*Nb );\n" +
+		"	invMixColumns.transform_state();\n" +
+		"}\n" +
+		"\n" +
+
+		"invShiftRows.transform_state();\n" +
+		"invSubBytes.transform_state();\n" +
+		"// Final round\n" +
+		"addRoundKey.transform_state( 0 );\n";
 	
 }

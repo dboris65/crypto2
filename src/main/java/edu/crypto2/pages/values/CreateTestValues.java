@@ -116,6 +116,13 @@ public class CreateTestValues {
 			(testValues.getKeyExpansion_TestValue().length() != 48) &&
 			(testValues.getKeyExpansion_TestValue().length() != 64)	)
 			form.recordError("Invalid KeyExpansion test vector length.");
+
+		if (testValues.getInvSubBytes_TestValue().length() != 32)
+			form.recordError("Invalid InvSubBytes test vector length.");
+		if (testValues.getInvMixColumns_TestValue().length() != 32)
+			form.recordError("Invalid InvMixColumns test vector length.");
+		if (testValues.getInvShiftRows_TestValue().length() != 32)
+			form.recordError("Invalid InvShiftRows test vector length.");
 	
     	// SECOND round *********************************************
 		if (!isHexDigit(testValues.getSubBytes_TestValue()))
@@ -130,6 +137,14 @@ public class CreateTestValues {
 			form.recordError("Invalid MetaTransformation test vector value.");
 		if (!isHexDigit(testValues.getKeyExpansion_TestValue()))
 			form.recordError("Invalid KeyExpansion test vector value.");
+		
+		if (!isHexDigit(testValues.getInvSubBytes_TestValue()))
+			form.recordError("Invalid InvSubBytes test vector value.");
+		if (!isHexDigit(testValues.getInvMixColumns_TestValue()))
+			form.recordError("Invalid InvMixColumns test vector value.");
+		if (!isHexDigit(testValues.getInvShiftRows_TestValue()))
+			form.recordError("Invalid InvShiftRows test vector value.");
+
 	}
 
     @CommitAfter

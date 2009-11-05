@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.crypto2.aes</groupId>
 	<artifactId>crypto2</artifactId>
-	<version>0.9.0-SNAPSHOT</version>
+	<version>0.9.5-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>crypto2 Tapestry 5 Application</name>
 
@@ -206,6 +206,7 @@
         					<suiteXmlFile>src/test/resources/TestNG.xml</suiteXmlFile>
       					</suiteXmlFiles>
                 		</configuration>
+                    
                     	<skip>true</skip>
                 	</configuration>
 				
@@ -241,6 +242,15 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
+						
+						<systemProperties>
+        					<property>
+          					<name>SeleniumBrowser</name>
+          					<value>*iehta</value>
+        					</property>
+      					</systemProperties>
+						
+						
 							<excludes>
 								<exclude>**/components/*Test.java</exclude>
 								<exclude>**/cryptotest/*Test.java</exclude>

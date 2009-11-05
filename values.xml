@@ -12,6 +12,7 @@
 <InvSubBytes>E254940441570B6AD0B40F92560E1500</InvSubBytes>
 <InvShiftRows>E2570F0041B41504D00E946A56540B92</InvShiftRows>
 <InvMixColumns>978A81C3E12042794817D235EE8B2F3C</InvMixColumns>
+<InvMetaTransformation>3925841d02dc09fbdc118597196a0b32</InvMetaTransformation>
 
 </input_for_transformation>
 

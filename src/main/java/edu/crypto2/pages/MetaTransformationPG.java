@@ -143,7 +143,7 @@ public class MetaTransformationPG {
 			UserName = "";
 			userId = 1;
 		}
-		sourceDao.reload(userId);
+		sourceDao.reload(userId, 0);
 		testValuesDao.reload(userId);
 		if ((persistValueBeforeMetaTransformation == "") || (persistValueBeforeMetaTransformation == null)){
 			xml_p = new XmlParser("MetaTransformation"); 

@@ -1,3 +1,11 @@
+edu.crypto2.components
 edu.crypto2.cryptotest
 edu.crypto2.data
+edu.crypto2.entities
+edu.crypto2.exception
+edu.crypto2.integration
+edu.crypto2.pages
+edu.crypto2.pages.values
+edu.crypto2.rest
+edu.crypto2.services
 edu.crypto2.transformations

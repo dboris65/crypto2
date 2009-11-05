@@ -18,5 +18,5 @@ public interface SourceDao {
 
 	void delete(Source _source);
 	
-	public void reload(long userId);
+	public void reload(long userId, int kind);
 }

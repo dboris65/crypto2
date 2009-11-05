@@ -3,6 +3,7 @@
  */
 package edu.crypto2.pages.values;
 
+import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Property;
@@ -18,6 +19,7 @@ import edu.crypto2.entities.User;
 import edu.crypto2.pages.Index;
 import edu.crypto2.pages.SubBytesPG;
 import edu.crypto2.services.UserDao;
+import edu.crypto2.transformations.InvMetaTransformation;
 
 /***********************************************************************
  * 
@@ -76,7 +78,8 @@ public class Register {
 	  
     @CommitAfter
     Object onSuccess(){
-    	
+		final Logger logger = Logger.getLogger(InvMetaTransformation.class);
+
     	session.persist(user);
 		// Some test vectors, for beginners
 		// AES 128 - 1, from FIPS197 pg.33
@@ -94,9 +97,11 @@ public class Register {
 		testValues1.setInvSubBytes_TestValue("E254940441570B6AD0B40F92560E1500");
 		testValues1.setInvMixColumns_TestValue("978A81C3E12042794817D235EE8B2F3C");
 		testValues1.setInvShiftRows_TestValue("E2570F0041B41504D00E946A56540B92");
+		testValues1.setInvMetaTransformation_TestValue("3925841D02DC09FBDC118597196A0B32");
+		
 		testValues1.setUserId(user.getId());
 		session.persist(testValues1);
-
+		logger.debug("------    TestValues1  -----------");
 		
 		
 		// AES 128 - 2, from FIPS197, pg.35-36
@@ -113,8 +118,11 @@ public class Register {
 		testValues2.setInvSubBytes_TestValue("7A9F102789D5F50B2BEFFD9F3DCA4EA7");
 		testValues2.setInvMixColumns_TestValue("E9F74EEC023020F61BF2CCF2353C21C7");
 		testValues2.setInvShiftRows_TestValue("7AD5FDA789EF4E272BCA100B3D9FF59F");
+		testValues2.setInvMetaTransformation_TestValue("69C4E0D86A7B0430D8CDB78070B4C55A");
+		
 		testValues2.setUserId(user.getId());
 		session.persist(testValues2);
+		logger.debug("------    TestValues2  -----------");
 
 
 		// AES 192, from FIPS197, pg.38-39
@@ -131,8 +139,11 @@ public class Register {
 		testValues3.setInvSubBytes_TestValue("79A9B2E99C3E6CD1AA3476CC0FB70397");
 		testValues3.setInvMixColumns_TestValue("71D720933B6D677DC00B8F28238E0FB7");
 		testValues3.setInvShiftRows_TestValue("793E76979C3403E9AAB7B2D10FA96CCC");
+		testValues3.setInvMetaTransformation_TestValue("DDA97CA4864CDFE06EAF70A0EC0D7191");
+		
 		testValues3.setUserId(user.getId());
 		session.persist(testValues3);
+		logger.debug("------    TestValues3  -----------");
 
 		
 		// AES 256, from FIPS197, pg.38-39
@@ -145,11 +156,15 @@ public class Register {
 		testValues4.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 		testValues4.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff"); // plain text
 
-		testValues4.setInvMixColumns_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
+		testValues4.setInvSubBytes_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
 		testValues4.setInvMixColumns_TestValue("2C21A820306F154AB712C75EEE0DA04F");
 		testValues4.setInvShiftRows_TestValue("AA5ECE06EE6E3C56DDE68BAC2621BEBF");
+		testValues4.setInvMetaTransformation_TestValue("8EA2B7CA516745BFEAFC49904B496089");
+		
 		testValues4.setUserId(user.getId());
 		session.persist(testValues4);
+		logger.debug("------    TestValues4  -----------");
+
     	return index;
     }
 }

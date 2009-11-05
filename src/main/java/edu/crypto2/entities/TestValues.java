@@ -104,6 +104,14 @@ public class TestValues {
 	 */
 	@Validate("required")
 	private String InvShiftRows_TestValue;
+	
+	/**
+	 * String InvMetaTransformation_TestValue<br>
+	 * Holds Inverse MetaTransformation test vector.
+	 */
+	@Validate("required")
+	private String InvMetaTransformation_TestValue;
+
 /*	private String GMUL_TestValue;
 */
 	
@@ -206,6 +214,14 @@ public class TestValues {
 	public String getInvMixColumns_TestValue() {
 		return InvMixColumns_TestValue;
 	}
+
+	/**
+	 * InvMetaTransformation getter.
+	 * @return String InvMetaTransformation_TestValue
+	*/
+	public String getInvMetaTransformation_TestValue() {
+		return InvMetaTransformation_TestValue;
+	}
 	
 	/****************************************************************************
 	 * setters
@@ -292,5 +308,12 @@ public class TestValues {
 		this.InvMixColumns_TestValue = InvMixColumns_TestValue;
 	}
 	
+	/**
+	 * InvMetaTransformation setter.
+	 * @param String InvMetaTransformation_TestValue
+	*/
+	public void setInvMetaTransformation_TestValue(String invMetaTransformation_TestValue) {
+		InvMetaTransformation_TestValue = invMetaTransformation_TestValue;
+	}
 
 }

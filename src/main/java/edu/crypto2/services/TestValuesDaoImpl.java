@@ -69,6 +69,9 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			testValues1.setInvSubBytes_TestValue("E254940441570B6AD0B40F92560E1500");
 			testValues1.setInvMixColumns_TestValue("978A81C3E12042794817D235EE8B2F3C");
 			testValues1.setInvShiftRows_TestValue("E2570F0041B41504D00E946A56540B92");
+			testValues1.setInvMetaTransformation_TestValue("3925841d02dc09fbdc118597196a0b32");
+			
+			
 			// Here, UserId is always 1
 			testValues1.setUserId(userId);
 			session.persist(testValues1);
@@ -90,6 +93,8 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			testValues2.setInvSubBytes_TestValue("7A9F102789D5F50B2BEFFD9F3DCA4EA7");
 			testValues2.setInvMixColumns_TestValue("E9F74EEC023020F61BF2CCF2353C21C7");
 			testValues2.setInvShiftRows_TestValue("7AD5FDA789EF4E272BCA100B3D9FF59F");
+			testValues2.setInvMetaTransformation_TestValue("69C4E0D86A7B0430D8CDB78070B4C55A");
+
 			// Here, UserId is always 1
 			testValues2.setUserId(userId);
 			session.persist(testValues2);
@@ -111,6 +116,8 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			testValues3.setInvSubBytes_TestValue("79A9B2E99C3E6CD1AA3476CC0FB70397");
 			testValues3.setInvMixColumns_TestValue("71D720933B6D677DC00B8F28238E0FB7");
 			testValues3.setInvShiftRows_TestValue("793E76979C3403E9AAB7B2D10FA96CCC");
+			testValues3.setInvMetaTransformation_TestValue("DDA97CA4864CDFE06EAF70A0EC0D7191");
+
 			// Here, UserId is always 1
 			testValues3.setUserId(userId);
 			
@@ -128,9 +135,11 @@ public class TestValuesDaoImpl implements TestValuesDao{
 			testValues4.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 			testValues4.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff"); // plain text
 
-			testValues4.setInvMixColumns_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
+			testValues4.setInvSubBytes_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
 			testValues4.setInvMixColumns_TestValue("2C21A820306F154AB712C75EEE0DA04F");
 			testValues4.setInvShiftRows_TestValue("AA5ECE06EE6E3C56DDE68BAC2621BEBF");
+			testValues4.setInvMetaTransformation_TestValue("8EA2B7CA516745BFEAFC49904B496089");
+
 			// Here, UserId is always 1
 			testValues4.setUserId(userId);
 			
@@ -172,6 +181,8 @@ public class TestValuesDaoImpl implements TestValuesDao{
 				testValues1.setInvSubBytes_TestValue("E254940441570B6AD0B40F92560E1500");
 				testValues1.setInvMixColumns_TestValue("978A81C3E12042794817D235EE8B2F3C");
 				testValues1.setInvShiftRows_TestValue("E2570F0041B41504D00E946A56540B92");
+				testValues1.setInvMetaTransformation_TestValue("3925841D02DC09FBDC118597196A0B32");
+				
 				// Here, UserId is always 1
 				testValues1.setUserId((long)1);
 				session.persist(testValues1);
@@ -192,6 +203,8 @@ public class TestValuesDaoImpl implements TestValuesDao{
 				testValues2.setInvSubBytes_TestValue("7A9F102789D5F50B2BEFFD9F3DCA4EA7");
 				testValues2.setInvMixColumns_TestValue("E9F74EEC023020F61BF2CCF2353C21C7");
 				testValues2.setInvShiftRows_TestValue("7AD5FDA789EF4E272BCA100B3D9FF59F");
+				testValues2.setInvMetaTransformation_TestValue("69C4E0D86A7B0430D8CDB78070B4C55A");
+
 				// Here, UserId is always 1
 				testValues2.setUserId((long)1);
 				session.persist(testValues2);
@@ -212,6 +225,8 @@ public class TestValuesDaoImpl implements TestValuesDao{
 				testValues3.setInvSubBytes_TestValue("79A9B2E99C3E6CD1AA3476CC0FB70397");
 				testValues3.setInvMixColumns_TestValue("71D720933B6D677DC00B8F28238E0FB7 ");
 				testValues3.setInvShiftRows_TestValue("793E76979C3403E9AAB7B2D10FA96CCC");
+				testValues3.setInvMetaTransformation_TestValue("DDA97CA4864CDFE06EAF70A0EC0D7191");
+
 				// Here, UserId is always 1
 				testValues3.setUserId((long)1);
 				session.persist(testValues3);
@@ -228,9 +243,11 @@ public class TestValuesDaoImpl implements TestValuesDao{
 				testValues4.setAddRoundKey_TestValue("5F72641557F5BC92F7BE3B291DB9F91A");
 				testValues4.setMetaTransformation_TestValue("00112233445566778899aabbccddeeff"); // plain text
 
-				testValues4.setInvMixColumns_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
+				testValues4.setInvSubBytes_TestValue("AA218B56EE5EBEACDD6ECEBF26E63C06");
 				testValues4.setInvMixColumns_TestValue("2C21A820306F154AB712C75EEE0DA04F ");
 				testValues4.setInvShiftRows_TestValue("AA5ECE06EE6E3C56DDE68BAC2621BEBF");
+				testValues4.setInvMetaTransformation_TestValue("8EA2B7CA516745BFEAFC49904B496089");
+
 				// Here, UserId is always 1
 				testValues4.setUserId((long)1);
 				session.persist(testValues4);

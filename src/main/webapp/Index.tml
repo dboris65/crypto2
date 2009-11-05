@@ -40,6 +40,7 @@ Inverse Cipher transformations:
       <li><t:pagelink page="InvMixColumnsPG">InvMixColumns</t:pagelink></li>
     </ul>
 
+Test vectors:
     <ul>
     	<li>
         <t:if test="loggedIn">
@@ -54,13 +55,13 @@ Inverse Cipher transformations:
               
     </ul>
 
-
+Meta transformations (Cipher and InvCipher):
     <ul>
         <li>
         <t:if test="loggedIn">
-            <t:pagelink page="MetaTransformationPG">Meta Transformations</t:pagelink>
+            <t:pagelink page="MetaTransformationPG">Cipher - Meta Transformations</t:pagelink>
             <p:else>
-                <b>Meta Transformations</b> (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <b>Cipher - Meta Transformations</b> (please, <t:pagelink page="Login">login</t:pagelink> or 
                 <t:pagelink page="values/Register">register</t:pagelink>
                 to see link).
             </p:else>
@@ -69,6 +70,19 @@ Inverse Cipher transformations:
       
     </ul>
 
+    <ul>
+        <li>
+        <t:if test="loggedIn">
+            <t:pagelink page="InvMetaTransformationPG">Inverse Cipher - Inverse Meta Transformations</t:pagelink>
+            <p:else>
+                <b>Inverse Cipher - Inverse Meta Transformations</b> (please, <t:pagelink page="Login">login</t:pagelink> or 
+                <t:pagelink page="values/Register">register</t:pagelink>
+                to see link).
+            </p:else>
+        </t:if>  
+        </li>
+      
+    </ul>
 
 
 

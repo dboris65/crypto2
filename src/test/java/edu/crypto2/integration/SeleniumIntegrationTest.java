@@ -50,7 +50,7 @@ public class SeleniumIntegrationTest {
         		"localhost", 
         		SeleniumServer.getDefaultPort(), 
         		browser_name, 
-        		"http://localhost:8080");
+        		"http://localhost:8080/crypto2/");
         selenium.start();
         System.out.println("SetUp before speed ----------------------- ");
         selenium.setSpeed("1500");
@@ -60,7 +60,15 @@ public class SeleniumIntegrationTest {
     @Test
     public void testMetaTransformationPG() {
     	System.out.println("test 1----------------------- ");
-    	selenium.open("http://localhost:8080/crypto2/");
+    	
+    	try {
+			selenium.open("http://localhost:8080/crypto2/");
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+    	
+    	
     	System.out.println("test 2----------------------- ");
     	selenium.waitForPageToLoad("2000");
     	selenium.click("link=login");
