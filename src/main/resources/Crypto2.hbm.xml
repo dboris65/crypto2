@@ -6,7 +6,7 @@
 	<class name="edu.crypto2.entities.TestValues" table="crypto2">
 		<id name="Id" type="long" column="ID">
 			<generator class="native" />
-		</id>
+		</id>  
 		<property name="subBytes_TestValue" type="string" column="SubBytes_TestValue"
 			not-null="true" />
 		<property name="mixColumns_TestValue" type="string" column="MixColumns_TestValue"
@@ -14,7 +14,7 @@
 		<property name="shiftRows_TestValue" type="string" column="ShiftRows_TestValue"
 			not-null="true" />
 		<property name="keyExpansion_TestValue" type="string" column="KeyExpansion_TestValue"
-			not-null="true" />
+			not-null="true" /> 
 		<property name="addRoundKey_TestValue" type="string" column="addRoundKey_TestValue"
 			not-null="true" />
 		<property name="metaTransformation_TestValue" type="string" column="MetaTransformation_TestValue"
@@ -22,16 +22,51 @@
 		<property name="userId" type="long" column="UserId"
 			not-null="true" />
 			
-<!-- 			
+			
 		<property name="invSubBytes_TestValue" type="string" column="InvSubBytes_TestValue"
 			not-null="true" />
 		<property name="invMixColumns_TestValue" type="string" column="InvMixColumns_TestValue"
 			not-null="true" />
 		<property name="invShiftRows_TestValue" type="string" column="InvShiftRows_TestValue"
 			not-null="true" />
+		<property name="invMetaTransformation_TestValue" type="string" column="InvMetaTransformation_TestValue"
+			not-null="true" />
+			
+<!-- 
 		<property name="GMUL_TestValue" type="string" column="GMUL_TestValue"
 			not-null="true" />
  --> 
 			
 	</class>
+	
+		<class name="edu.crypto2.entities.Source" table="source">
+		<id name="Id" type="long" column="ID">
+			<generator class="identity" />
+		</id> 
+		<property name="sourceCode" type="string" column="SourceCode"
+			not-null="true" />
+		<property name="userId" type="long" column="UserId"
+			not-null="true" />	
+		<property name="kind" type="long" column="Kind"
+			not-null="true" />	
+
+	</class>
+	
+	
+		<class name="edu.crypto2.entities.User" table="user">
+		<id name="Id" type="long" column="ID">
+			<generator class="identity" />
+		</id> 
+		<property name="userName" type="string" column="UserName"
+			not-null="true" />
+		<property name="password" type="string" column="Password"
+			not-null="true" />
+		<property name="name" type="string" column="Name"
+			not-null="true" />
+		<property name="email" type="string" column="Email"
+			not-null="true" /> 
+			
+ 
+	</class>
+	
 </hibernate-mapping>
