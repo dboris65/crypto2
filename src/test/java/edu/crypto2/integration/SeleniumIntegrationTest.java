@@ -43,8 +43,8 @@ public class SeleniumIntegrationTest {
     @BeforeClass
     @Parameters(value = "SeleniumBrowser")
     public void setUp(@Optional("*iehta") String browser_name) {
-    	System.out.println("setUp port----------------------- " + SeleniumServer.getDefaultPort());
-    	System.out.println("setUp ----------------------- " + browser_name);
+    	System.out.println("setUp port---------> " + SeleniumServer.getDefaultPort());
+    	System.out.println("setUp browser---------> " + browser_name);
 		//super.setUp();
         selenium = new DefaultSelenium(
         		"localhost", 
@@ -79,7 +79,7 @@ public class SeleniumIntegrationTest {
     	
     	selenium.click("//input[@value='Login']");
     	selenium.waitForPageToLoad("1500");
-    	selenium.click("link=Meta Transformations");
+    	selenium.click("link=Cipher - Meta Transformations");
     	selenium.click("link=Edit-Fill");
     	selenium.click("transform");
 
@@ -176,7 +176,7 @@ public class SeleniumIntegrationTest {
     
 */    
     
-/*    
+  
 
     @Test
     public void testAddRoundKeyPG() {
@@ -185,10 +185,10 @@ public class SeleniumIntegrationTest {
     	selenium.click("link=AddRoundKey");
     	selenium.waitForPageToLoad("1000");
     	selenium.click("view");
-    	assertTrue("prvi", selenium.isTextPresent("a4 68 6b 02"));
-        assertTrue("drugi", selenium.isTextPresent("9c 9f 5b 6a"));
-        assertTrue("treci", selenium.isTextPresent("7f 35 ea 50"));
-        assertTrue("cetvrti", selenium.isTextPresent("f2 2b 43 49"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("a4 68 6b 02"));
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("9c 9f 5b 6a"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("7f 35 ea 50"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("f2 2b 43 49"));
         selenium.click("link=Index");
         selenium.waitForPageToLoad("1000");
     }
@@ -199,10 +199,10 @@ public class SeleniumIntegrationTest {
     	selenium.click("link=MixColumns");
     	selenium.waitForPageToLoad("1000");
     	selenium.click("view");
-    	assertTrue("prvi", selenium.isTextPresent("04 e0 48 28"));
-        assertTrue("drugi", selenium.isTextPresent("66 cb f8 06"));
-        assertTrue("treci", selenium.isTextPresent("81 19 d3 26"));
-        assertTrue("cetvrti", selenium.isTextPresent("e5 9a 7a 4c"));
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("04 e0 48 28"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("66 cb f8 06"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("81 19 d3 26"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("e5 9a 7a 4c"));
         selenium.click("link=Index");
         selenium.waitForPageToLoad("1000");
 
@@ -214,10 +214,10 @@ public class SeleniumIntegrationTest {
     	selenium.click("link=ShiftRows");
     	selenium.waitForPageToLoad("1000");
     	selenium.click("view");
-    	assertTrue("prvi", selenium.isTextPresent("d4 e0 b8 1e"));
-        assertTrue("drugi", selenium.isTextPresent("bf b4 41 27"));
-        assertTrue("treci", selenium.isTextPresent("5d 52 11 98"));
-        assertTrue("cetvrti", selenium.isTextPresent("30 ae f1 e5"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("d4 e0 b8 1e"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("bf b4 41 27"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("5d 52 11 98"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("30 ae f1 e5"));
         selenium.click("link=Index");
         selenium.waitForPageToLoad("1000");
     }
@@ -228,14 +228,16 @@ public class SeleniumIntegrationTest {
     	selenium.click("link=SubBytes");
     	selenium.waitForPageToLoad("1000");
     	selenium.click("view");
-    	assertTrue("prvi", selenium.isTextPresent("d4 e0 b8 1e"));
-        assertTrue("drugi", selenium.isTextPresent("27 bf b4 41"));
-        assertTrue("treci", selenium.isTextPresent("11 98 5d 52"));
-        assertTrue("cetvrti", selenium.isTextPresent("ae f1 e5 30"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("d4 e0 b8 1e"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("27 bf b4 41"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("11 98 5d 52"));
+        org.testng.Assert.assertTrue( selenium.isTextPresent("ae f1 e5 30"));
         selenium.click("link=Index");
         selenium.waitForPageToLoad("1000");
     }
     
+    
+/*    
     @AfterClass
     public void tearDown() {
         selenium.stop();

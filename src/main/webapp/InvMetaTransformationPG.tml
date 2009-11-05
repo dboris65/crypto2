@@ -9,7 +9,7 @@
                 <t:pagelink page="values/Register">register</t:pagelink>.
  				If you register, you will be able to change test vectors and meta transformations.
             </p:else>
-        </t:if>  
+        </t:if>   
     <br></br>  
       
 	<div id="section">			

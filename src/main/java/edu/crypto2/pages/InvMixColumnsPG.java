@@ -29,7 +29,7 @@ import edu.crypto2.data.*;
 public class InvMixColumnsPG {
 	@SessionState(create=false)
 	private User user;
-	
+	 
 	@Property
 	private String UserName = ""; 
 

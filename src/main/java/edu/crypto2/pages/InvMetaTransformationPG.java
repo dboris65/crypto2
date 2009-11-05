@@ -40,7 +40,7 @@ import edu.crypto2.data.*;
  */
 public class InvMetaTransformationPG {
 	@SessionState
-	private User user;
+	private User user; 
 	
 	@Property
 	private String UserName = "";

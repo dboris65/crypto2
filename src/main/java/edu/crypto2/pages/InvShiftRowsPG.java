@@ -29,7 +29,7 @@ import edu.crypto2.data.*;
 public class InvShiftRowsPG { 
 	@SessionState(create=false)
 	private User user;
-	
+	 
 	@Property
 	private String UserName = "";
 	

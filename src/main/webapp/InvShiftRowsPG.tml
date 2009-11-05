@@ -10,7 +10,7 @@
  				If you register, you will be able to change test vectors and meta transformations.
             </p:else>
         </t:if>  
-      
+       
 	<div id="section">			
 	${message:greeting}
 		<t:zone t:id="viewZone"/>
