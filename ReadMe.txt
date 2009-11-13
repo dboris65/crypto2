@@ -2,12 +2,28 @@
  Download and install Maven. 
 
     
- 1. Install/Update Maven dependencies from Eclipse and go to crypto2 folder and type: 
-    mvn jetty:run
-    or run Tomcat
+ 1. Go to crypto2 folder and type:
+    mvn compile 
+    mvn jetty:run (and in your browser type http://localhost:8080/crypto2/)
+    mvn test
+    mvn integration-test
+    
 
- 2. Selenium integration tests are configured to run on windows using 
-    *iehta property in pom.xml file. If you are trying it with different browser on 
+ 2. Selenium integration tests are configured to run on windows using SeleniumBrowser property,
+    with *firefox value in pom.xml file.
+    Under windows, I tried it with 
+      *iehta
+      *iexplore
+      *googlechrome
+      *chrome
+      *firefox
+      *firefox3
+      *opera
+    Under Linux (Fedora 11), I tried it with
+      *firefox
+      *chrome  
+    
+    If you are trying it with different browser on 
     different OS, do not forget to set up PATH and file permissions.
        
  3. On some Eclipse installations, you need to apply following settings in order to start BeanShell:

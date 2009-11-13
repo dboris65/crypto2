@@ -35,17 +35,25 @@ import com.thoughtworks.selenium.Selenium;
 public class SeleniumIntegrationTest {
 	protected Selenium selenium;
 	
-	//*iexplore -ok
-	//*iehta -ok
-	//*chrome - fails
-	//*googlechrome - fails
-	//*firefox3 - fails
+	//Windows XP:
+	//*iexplore - ok
+	//*iehta - ok
+	//*chrome - ok
+	//*firefox - ok
+	//*firefox3 - ok
+	//*googlechrome - ok
+	//*opera - ok
+	
+	// Linux (Fedora 11)
+	//*chrome - ok
+	//*firefox - ok
+
+	
     @BeforeClass
     @Parameters(value = "SeleniumBrowser")
     public void setUp(@Optional("*iehta") String browser_name) {
     	System.out.println("setUp port---------> " + SeleniumServer.getDefaultPort());
     	System.out.println("setUp ---------> " + browser_name);
-		//super.setUp();
         selenium = new DefaultSelenium(
         		"localhost", 
         		SeleniumServer.getDefaultPort(), 
@@ -55,24 +63,20 @@ public class SeleniumIntegrationTest {
         System.out.println("SetUp before speed ----------------------- ");
         selenium.setSpeed("1500");
         System.out.println("SetUp after speed ----------------------- ");
+        selenium.windowMaximize();
 	}
 	
     @Test
     public void testMetaTransformationPG() {
-    	System.out.println("test 1----------------------- ");
-    	
     	try {
 			selenium.open("http://localhost:8080/crypto2/");
 		} catch (Exception e) {
-
 			e.printStackTrace();
 		}
     	
-    	
-    	System.out.println("test 2----------------------- ");
     	selenium.waitForPageToLoad("2000");
     	selenium.click("link=login");
-    	System.out.println("test ----------------------- ");
+
     	selenium.waitForPageToLoad("1000");
     	selenium.type("userName", "dboris");
     	selenium.type("password", "damjanovic");
@@ -100,87 +104,8 @@ public class SeleniumIntegrationTest {
     	
     }
 
-	
-	
-	
-	
-	
-	
-	
-/*	
-	private TestValuesDao testValuesDao;
-	private SourceDao sourceDao;
-    private SeleniumServer server;
-    private DefaultSelenium selenium;
-    
-    
-
-    
-    // *iexplore and *googlechrome are working under windows. *chrome - not working
-	// Create a string (br) that tells Selenium what browser to start (firefox)
-	// This is the most painful part with setting Firefox Selenium environment
-    // in profilemanager mode create new profile to listen port 4444
-	// For more info check http://clearspace.openqa.org/thread/14617
-    // String br = "*custom \"c:\\Program Files\\Mozilla Firefox\\firefox.exe\" ";
-	// br += "-no-remote ";
-	// br += "-profile \"C:\\Users\\Mare\\AppData\\Roaming\\Mozilla\\Firefox\\Profiles\\badaabd3.testing\"";
-
-    
-    @BeforeClass
-    @Parameters(value = "SeleniumBrowser")
-    public void setUp(@Optional("*iexplore") String br) {
-    /*
-        try {
-          sourceDao.reload();
-          testValuesDao.reload();
-            
-          this.server = new SeleniumServer();
-          this.server.start();
-     } catch (Exception e) {
-          System.err.println("Can't start selenium server");
-     }
-	  	//String br = "*iexplore";  
-	    //String br = "*googlechrome";
-     
-        this.selenium  = new DefaultSelenium("localhost", 4444, br, "http://localhost:8080/");
-        this.selenium.start();
-        this.selenium.open("http://localhost:8080/crypto2/");
-
-        this.selenium.setSpeed("1000");
-}
-    
-
-    
-    @Test
-    public void testMetaTransformationPG() {
-        //selenium.open("http://localhost:8080/crypto2/Selenium/SeleniumMetaTransformationPG.html");
-    	this.selenium.open("http://localhost:8080/crypto2/");
-    	selenium.click("link=login");
-    	selenium.waitForPageToLoad("1000");
-    	selenium.type("userName", "dboris");
-    	selenium.type("password", "damjanovic");
-    	
-    	selenium.click("//input[@value='Login']");
-    	selenium.waitForPageToLoad("1000");
-    	selenium.click("link=Meta Transformations");
-    	selenium.click("link=Edit-Fill");
-    	selenium.click("transform");
-    	assertTrue("prvi", selenium.isTextPresent("39 02 dc 19"));
-        assertTrue("drugi", selenium.isTextPresent("25 dc 11 6a"));
-        assertTrue("treci", selenium.isTextPresent("84 09 85 0b"));
-        assertTrue("cetvrti", selenium.isTextPresent("1d fb 97 32"));
-        selenium.click("link=Index");
-        selenium.waitForPageToLoad("1000");
-        selenium.click("link=Log out");
-    }
-    
-*/    
-    
-  
-
     @Test
     public void testAddRoundKeyPG() {
-        //selenium.open("http://localhost:8080/crypto2/Selenium/SeleniumAddRoundKeyPG.html");
     	this.selenium.open("http://localhost:8080/crypto2/");
     	selenium.click("link=AddRoundKey");
     	selenium.waitForPageToLoad("1500");
@@ -195,7 +120,6 @@ public class SeleniumIntegrationTest {
     
     @Test
     public void testMixColumnsPG() {
-        //selenium.open("http://localhost:8080/crypto2/Selenium/SeleniumMixColumnsPG.html");  
     	this.selenium.open("http://localhost:8080/crypto2/");
     	selenium.click("link=MixColumns");
     	selenium.waitForPageToLoad("2500");
@@ -210,7 +134,6 @@ public class SeleniumIntegrationTest {
     }
     @Test
     public void testShiftRowsPG() {
-        //selenium.open("http://localhost:8080/crypto2/Selenium/SeleniumShiftRowsPG.html");
     	this.selenium.open("http://localhost:8080/crypto2/");
     	selenium.click("link=ShiftRows");
     	selenium.waitForPageToLoad("1500");
@@ -222,9 +145,9 @@ public class SeleniumIntegrationTest {
         selenium.click("link=Index");
         selenium.waitForPageToLoad("1500");
     }
+    
     @Test
     public void testSubBytesPG() {
-    	//this.selenium.open("http://localhost:8080/crypto2/Selenium/SeleniumSubBytesPG.html");
     	this.selenium.open("http://localhost:8080/crypto2/");
     	selenium.click("link=SubBytes");
     	selenium.waitForPageToLoad("1500");
@@ -237,12 +160,47 @@ public class SeleniumIntegrationTest {
         selenium.waitForPageToLoad("1500");
     }
     
-    
-/*    
-    @AfterClass
-    public void tearDown() {
-        selenium.stop();
+    @Test
+    public void testInvSubBytesPG() {
+    	this.selenium.open("http://localhost:8080/crypto2/");
+    	selenium.click("link=InvSubBytes");
+    	selenium.waitForPageToLoad("1500");
+    	selenium.click("view");
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("3b f8 60 b9"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("fd da c6 d7"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("e7 9e fb 2f"));
+        org.testng.Assert.assertTrue( selenium.isTextPresent("30 58 74 52"));
+        selenium.click("link=Index");
+        selenium.waitForPageToLoad("1500");
     }
+    
+    @Test
+    public void testInvShiftRowsPG() {
+    	this.selenium.open("http://localhost:8080/crypto2/");
+    	selenium.click("link=InvShiftRows");
+    	selenium.waitForPageToLoad("1500");
+    	selenium.click("view");
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("d4 e0 b8 1e"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("41 27 bf b4"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("5d 52 11 98"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("f1 e5 30 ae"));
+        selenium.click("link=Index");
+        selenium.waitForPageToLoad("1500");
+    }
+    
+    @Test
+    public void testInvMixColumnsPG() {
+    	this.selenium.open("http://localhost:8080/crypto2/");
+    	selenium.click("link=InvMixColumns");
+    	selenium.waitForPageToLoad("2500");
+    	selenium.click("view");
+    	org.testng.Assert.assertTrue(selenium.isTextPresent("26 29 12 10"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("5c 94 c6 35"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("a3 d0 89 1e"));
+    	org.testng.Assert.assertTrue( selenium.isTextPresent("df c5 44 7f"));
+        selenium.click("link=Index");
+        selenium.waitForPageToLoad("1500");
 
-*/	
+    }
+	
 }

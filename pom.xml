@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.crypto2.aes</groupId>
 	<artifactId>crypto2</artifactId>
-	<version>0.9.6-SNAPSHOT</version>
+	<version>0.9.7-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>crypto2 Tapestry 5 Application</name>
 
@@ -164,7 +164,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>selenium-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
+				<version>1.0</version>
 				<executions>
 					<execution>
 						<id>start</id>
@@ -246,7 +246,7 @@
 						<systemProperties>
         					<property>
           					<name>SeleniumBrowser</name>
-          					<value>*iehta</value>
+          					<value>*firefox</value>
         					</property>
       					</systemProperties>
 						
