@@ -137,7 +137,8 @@ public class ShiftRowsPG {
     	ValueBeforeShiftRows = ValueBefore;
     	persistValueBeforeShiftRows = ValueBefore;
 		shift_rows = new ShiftRows();
-		shift_rows.initialize_State(ValueBeforeShiftRows);
+		shift_rows.inStr = ValueBeforeShiftRows;
+		shift_rows.InitializeState();
 		
 		String s = "";
 		/**********************************************
@@ -157,7 +158,7 @@ public class ShiftRowsPG {
 			}
 			s = "";
 		}
-		shift_rows.transform_state();
+		shift_rows.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After SubBytes

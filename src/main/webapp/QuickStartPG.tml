@@ -1,4 +1,4 @@
-<html t:type="layout" title="Crypto2 - Quick start"
+<html t:type="layout" title="ShiftRows transformation"
       xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
       xmlns:p="tapestry:parameter">
 	
@@ -71,13 +71,13 @@
 	concentrate on core of AES algorithm.<br></br> 
 	After a while, you can try experiment with original AES transformation sequence, 
 	for example to reorder:<p></p>
-	subBytes.transform_state();<br></br>
-	shiftRows.transform_state();<br></br>
-	mixColumns.transform_state();<p></p>
+	subBytes.TransformState();<br></br>
+	shiftRows.TransformState();<br></br>
+	mixColumns.TransformState();<p></p>
 	into<p></p>
-	mixColumns.transform_state();<br></br> 
-	subBytes.transform_state();<br></br>
-	shiftRows.transform_state();<p></p>
+	mixColumns.TransformState();<br></br> 
+	subBytes.TransformState();<br></br>
+	shiftRows.TransformState();<p></p>
 	For present state of this project, you MUST enter key_len and init_key variables in 
 	metatransformation source, as in following example:<br></br>
 	key_len = 128;<br></br>

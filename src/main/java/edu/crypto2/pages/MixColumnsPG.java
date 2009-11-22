@@ -135,7 +135,8 @@ public class MixColumnsPG {
     	ValueBeforeMixColumns = ValueBefore;
     	persistValueBeforeMixColumns = ValueBefore;
 		mix_columns = new MixColumns();
-		mix_columns.initialize_State(ValueBeforeMixColumns);
+		mix_columns.inStr = ValueBeforeMixColumns;
+		mix_columns.InitializeState();
 		String s = "";
 		/**********************************************
 		* STATE BEFORE MixColumns
@@ -154,7 +155,7 @@ public class MixColumnsPG {
 			}
 			s = "";
 		}
-		mix_columns.transform_state();
+		mix_columns.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After MixColumns

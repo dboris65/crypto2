@@ -13,7 +13,7 @@ import edu.crypto2.data.*;
  * This transformation always takes last 4 bytes from already generated key, 
  * and expand it to give next 16 bytes of key 
 */
-public class KeyExpansion implements Transformation{
+public class KeyExpansion {
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 

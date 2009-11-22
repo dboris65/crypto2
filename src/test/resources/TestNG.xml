@@ -37,6 +37,15 @@
     	<class name="edu.crypto2.services.TestValuesDaoTest"/>
     </classes>
  	</test>
+
+    <test name="AcceptanceTests"  verbose="2">
+    <packages>
+    	<package name="edu.crypto2.acceptance.*"/>
+    </packages>
+    <classes>
+    	<class name="edu.crypto2.acceptance.Accept"/>
+    </classes>
+ 	</test>
   	
 
     <test name="SeleniumIntegrationTest"  verbose="2">

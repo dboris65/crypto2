@@ -151,6 +151,23 @@ private static int CurrentId = 0;
 		CurrentId = user.getId().intValue();
 	}
 	
+	public boolean isValid(String userName, String password){
+
+		User findUser;
+		findUser = this.findUserName(userName);
+		if ((findUser != null) )
+		{
+			if ((findUser.getUserName().equals(userName)) )
+				return false;
+		}
+		findUser = this.findPassword(password);
+		if ((findUser != null) ){
+			if ((findUser.getPassword().equals(password)) )
+				//password exists
+				return false;
+		}
+		return true;
+	}
 	
 }
 	

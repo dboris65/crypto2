@@ -17,12 +17,11 @@
   </head>
   <body>
 
-
+	
     <t:beaneditform t:id="form" submitlabel="Create Values" object="testValues" />
   
     <p></p> <p></p><p></p><p></p>
-    
-		
+
     <p>
 	<t:grid source="TestValuesList" inPlace="true" row="testValues" t:add="delete">
 	        <t:parameter name="deleteCell">

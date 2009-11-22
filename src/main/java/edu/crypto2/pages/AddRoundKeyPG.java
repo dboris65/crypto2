@@ -171,7 +171,12 @@ public class AddRoundKeyPG {
     	Init_KeyBeforeAddRoundKey = init_key;
     	Key_LenBeforeAddRoundKey = key_len;
     	add_round_key = new AddRoundKey();
-    	add_round_key.initialize_State(Key_LenBeforeAddRoundKey, Init_KeyBeforeAddRoundKey, ValueBeforeAddRoundKey);
+    	
+		add_round_key.key_len = Key_LenBeforeAddRoundKey;
+		add_round_key.init_key = Init_KeyBeforeAddRoundKey;
+		add_round_key.InputVector = ValueBeforeAddRoundKey;
+
+    	add_round_key.InitializeState();
 		
 		String s = "";
 		/**********************************************
@@ -192,7 +197,8 @@ public class AddRoundKeyPG {
 			s = "";
 		}
 		/* we will use 1 as argument*/
-		add_round_key.transform_state(16);
+		add_round_key.key_index = 16;
+		add_round_key.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After SubBytes

@@ -17,6 +17,8 @@ import edu.crypto2.data.*;
  *.........| 0b 0d 09 0e |<br>
 */
 public class InvMixColumns implements Transformation {
+	public String inStr;
+	
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
@@ -71,7 +73,7 @@ public class InvMixColumns implements Transformation {
 	 *  @param inStr
 	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
-	public void initialize_State(String inStr)
+	public void InitializeState()
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
@@ -90,14 +92,14 @@ public class InvMixColumns implements Transformation {
 	}
 	
 	/**
-	 * InvMixColumns.transform_state<p>
+	 * InvMixColumns.TransformState<p>
 	 * InvMixColumns transformation takes column by column from AES State and performs matrix multiplication as follows:<br>
 	 *.........| 0e 0b 0d 09 |<br>
 	 *new = | 09 0e 0b 0d | * old_column<br>
 	 *.........| 0d 09 0e 0b |<br>
 	 *.........| 0b 0d 09 0e |<br>
 	*/
-	public void transform_state() {
+	public void TransformState() {
 		int a[] = new int[4];
 		int c;
 

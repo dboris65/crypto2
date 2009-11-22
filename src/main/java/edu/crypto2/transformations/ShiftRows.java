@@ -19,6 +19,8 @@ import edu.crypto2.data.*;
  * <b>ae f1 e5</b> 30  ---> 30 <b>ae f1 e5</b><br>
  */
 public class ShiftRows implements Transformation{
+	public String inStr;
+	
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
@@ -43,7 +45,7 @@ public class ShiftRows implements Transformation{
 	 *  @param inStr
 	 *  String inStr - 32 alphanumercis with hex values (16 bytes)
 	 */
-	public void initialize_State(String inStr)
+	public void InitializeState()
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
@@ -62,7 +64,7 @@ public class ShiftRows implements Transformation{
 	}
 	
 	/**
-	 * ShiftRows.transform_state<p>
+	 * ShiftRows.TransformState<p>
 	 * State buffer will be transformed in following manner:<br> 
 	 * <br>
 	 * d4 e0 b8 1e  ---->  d4 e0 b8 1e <br>
@@ -71,7 +73,7 @@ public class ShiftRows implements Transformation{
 	 * <b>ae f1 e5</b> 30  ---> 30 <b>ae f1 e5</b><br>
 	 * 
 	 */
-	public void transform_state() {
+	public void TransformState() {
 		  int temp1, temp2;
 
 		  temp1 = Data.State[0][1];

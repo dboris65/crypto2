@@ -132,7 +132,8 @@ public class InvSubBytesPG {
     	ValueBeforeInvSubBytes = ValueBefore;
     	persistValueBeforeInvSubBytes = ValueBefore;
 		invSub_bytes = new InvSubBytes();
-		invSub_bytes.initialize_State(ValueBeforeInvSubBytes);
+		invSub_bytes.inStr = ValueBeforeInvSubBytes;
+		invSub_bytes.InitializeState();
 		
 		String s = "";
 		/**********************************************
@@ -152,7 +153,7 @@ public class InvSubBytesPG {
 			}
 			s = "";
 		}
-		invSub_bytes.transform_state();
+		invSub_bytes.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After InvSubBytes

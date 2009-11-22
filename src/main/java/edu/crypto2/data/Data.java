@@ -349,20 +349,23 @@ public void setOutput(int[][] output) {
 		"keyExpansion.KeyExpansion128();\n"+ 
 		"Nb = 4;  //br.kolona //number of columns\n"+
 		"Nr = 10; //br.rundi // number of rounds\n"+
-		"addRoundKey.transform_state(0);\n"+
+		"addRoundKey.key_index = 0;\n"+
+		"addRoundKey.TransformState();\n"+
 		"for (runda = 1; runda <= Nr-1; runda++)\n"+
 		"{\n"+
-		"	subBytes.transform_state();\n"+
-		"	shiftRows.transform_state();\n"+
-		"	mixColumns.transform_state();\n"+
-		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	subBytes.TransformState();\n"+
+		"	shiftRows.TransformState();\n"+
+		"	mixColumns.TransformState();\n"+
+		"   addRoundKey.key_index = 4*runda*Nb;\n"+
+		"	addRoundKey.TransformState( );\n"+
 		"	runda2=runda;\n"+
 		"}\n"+
 		"runda2++;\n"+
-		"subBytes.transform_state();\n"+
+		"subBytes.TransformState();\n"+
 		"// Final round\n"+
-		"shiftRows.transform_state();\n"+
-		"addRoundKey.transform_state( 4*runda2*Nb );";
+		"shiftRows.TransformState();\n"+
+		"addRoundKey.key_index = 4*runda2*Nb;\n"+
+		"addRoundKey.TransformState(  );";
 	
 	
 	/**
@@ -379,20 +382,23 @@ public void setOutput(int[][] output) {
 		"keyExpansion.KeyExpansion128();\n"+ 
 		"Nb = 4;  //br.kolona //number of columns\n"+
 		"Nr = 10; //br.rundi // number of rounds\n"+
-		"addRoundKey.transform_state(0);\n"+
+		"addRoundKey.key_index = 0;\n"+
+		"addRoundKey.TransformState();\n"+
 		"for (runda = 1; runda <= Nr-1; runda++)\n"+
 		"{\n"+
-		"	subBytes.transform_state();\n"+
-		"	shiftRows.transform_state();\n"+
-		"	mixColumns.transform_state();\n"+
-		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	subBytes.TransformState();\n"+
+		"	shiftRows.TransformState();\n"+
+		"	mixColumns.TransformState();\n"+
+		"   addRoundKey.key_index = 4*runda*Nb;\n"+
+		"	addRoundKey.TransformState( );\n"+
 		"	runda2=runda;\n"+
 		"}\n"+
 		"runda2++;\n"+
-		"subBytes.transform_state();\n"+
+		"subBytes.TransformState();\n"+
 		"// Final round\n"+
-		"shiftRows.transform_state();\n"+
-		"addRoundKey.transform_state( 4*runda2*Nb );";
+		"shiftRows.TransformState();\n"+
+		"addRoundKey.key_index = 4*runda2*Nb;\n"+
+		"addRoundKey.TransformState(  );";
 	
 	/**
 	 * source_code_template_2:<br>
@@ -408,20 +414,23 @@ public void setOutput(int[][] output) {
 		"keyExpansion.KeyExpansion192();\n"+ 
 		"Nb = 4;  //br.kolona //number of columns\n"+
 		"Nr = 12; //br.rundi // number of rounds\n"+
-		"addRoundKey.transform_state(0);\n"+
+		"addRoundKey.key_index = 0;\n"+
+		"addRoundKey.TransformState();\n"+
 		"for (runda = 1; runda <= Nr-1; runda++)\n"+
 		"{\n"+
-		"	subBytes.transform_state();\n"+
-		"	shiftRows.transform_state();\n"+
-		"	mixColumns.transform_state();\n"+
-		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	subBytes.TransformState();\n"+
+		"	shiftRows.TransformState();\n"+
+		"	mixColumns.TransformState();\n"+
+		"   addRoundKey.key_index = 4*runda*Nb;\n"+
+		"	addRoundKey.TransformState( );\n"+
 		"	runda2=runda;\n"+
 		"}\n"+
 		"runda2++;\n"+
-		"subBytes.transform_state();\n"+
+		"subBytes.TransformState();\n"+
 		"// Final round\n"+
-		"shiftRows.transform_state();\n"+
-		"addRoundKey.transform_state( 4*runda2*Nb );";
+		"shiftRows.TransformState();\n"+
+		"addRoundKey.key_index = 4*runda2*Nb;\n"+ 
+		"addRoundKey.TransformState(  );";
 
 	/**
 	 * source_code_template_3:<br>
@@ -437,20 +446,23 @@ public void setOutput(int[][] output) {
 		"keyExpansion.KeyExpansion256();\n"+ 
 		"Nb = 4;  //br.kolona //number of columns\n"+
 		"Nr = 14; //br.rundi // number of rounds\n"+
-		"addRoundKey.transform_state(0);\n"+
+		"addRoundKey.key_index = 0;\n"+
+		"addRoundKey.TransformState();\n"+
 		"for (runda = 1; runda <= Nr-1; runda++)\n"+
 		"{\n"+
-		"	subBytes.transform_state();\n"+
-		"	shiftRows.transform_state();\n"+
-		"	mixColumns.transform_state();\n"+
-		"	addRoundKey.transform_state(4*runda*Nb );\n"+
+		"	subBytes.TransformState();\n"+
+		"	shiftRows.TransformState();\n"+
+		"	mixColumns.TransformState();\n"+
+		"   addRoundKey.key_index = 4*runda*Nb;\n"+
+		"	addRoundKey.TransformState( );\n"+
 		"	runda2=runda;\n"+
 		"}\n"+
 		"runda2++;\n"+
-		"subBytes.transform_state();\n"+
+		"subBytes.TransformState();\n"+
 		"// Final round\n"+
-		"shiftRows.transform_state();\n"+
-		"addRoundKey.transform_state( 4*runda2*Nb );";
+		"shiftRows.TransformState();\n"+
+		"addRoundKey.key_index = 4*runda2*Nb;\n"+
+		"addRoundKey.TransformState(  );";
 	
 
 	/**
@@ -468,19 +480,123 @@ public void setOutput(int[][] output) {
 		"Nb = 4;  //br.kolona //number of columns\n"+
 		"Nr = 10; //br.rundi // number of rounds\n"+
 
-		"addRoundKey.transform_state(4*Nr*Nb);\n" +
+		"addRoundKey.key_index = 4*Nr*Nb;\n" +
+		"addRoundKey.TransformState();\n" +
 		"for (runda = Nr-1; runda >= 1; runda--)\n" +
 		"{\n" +
-		"	invShiftRows.transform_state();\n" +
-		"   invSubBytes.transform_state();\n" +
-		"	addRoundKey.transform_state(4*runda*Nb );\n" +
-		"	invMixColumns.transform_state();\n" +
+		"	invShiftRows.TransformState();\n" +
+		"   invSubBytes.TransformState();\n" +
+		"   addRoundKey.key_index = 4*runda*Nb;\n" +
+		"	addRoundKey.TransformState( );\n" +
+		"	invMixColumns.TransformState();\n" +
 		"}\n" +
 		"\n" +
 
-		"invShiftRows.transform_state();\n" +
-		"invSubBytes.transform_state();\n" +
+		"invShiftRows.TransformState();\n" +
+		"invSubBytes.TransformState();\n" +
 		"// Final round\n" +
-		"addRoundKey.transform_state( 0 );\n";
+		"addRoundKey.key_index = 0;\n" +
+		"addRoundKey.TransformState(  );\n";
+
 	
+	/**
+	 * source_code_template_1:<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
+	 */
+	public static String inverse_source_code_template_1 = 
+		"// AES128 from FIPS197 pg.35-36\n"+
+		"// First try test vector no.2\n"+
+		"// (3243f6a8885a308d313198a2e0370734)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 128;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f\";\n"+
+		"keyExpansion.KeyExpansion128();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 10; //br.rundi // number of rounds\n"+
+		
+		"addRoundKey.key_index = 4*Nr*Nb;\n" +
+		"addRoundKey.TransformState();\n" +
+		"for (runda = Nr-1; runda >= 1; runda--)\n" +
+		"{\n" +
+		"	invShiftRows.TransformState();\n" +
+		"   invSubBytes.TransformState();\n" +
+		"   addRoundKey.key_index = 4*runda*Nb;\n" +
+		"	addRoundKey.TransformState( );\n" +
+		"	invMixColumns.TransformState();\n" +
+		"}\n" +
+		"\n" +
+
+		"invShiftRows.TransformState();\n" +
+		"invSubBytes.TransformState();\n" +
+		"// Final round\n" +
+		"addRoundKey.key_index = 0;\n" +
+		"addRoundKey.TransformState(  );\n";
+	
+	/**
+	 * source_code_template_2:<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
+	 */
+	public static String inverse_source_code_template_2 =
+		"// AES192 from FIPS197 pg.38-39\n"+
+		"// First, try test vector no.3\n"+
+		"// (00112233445566778899aabbccddeeff)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 192;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f1011121314151617\";\n"+
+		"keyExpansion.KeyExpansion192();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 12; //br.rundi // number of rounds\n"+
+
+		"addRoundKey.key_index = 4*Nr*Nb;\n" +
+		"addRoundKey.TransformState();\n" +
+		"for (runda = Nr-1; runda >= 1; runda--)\n" +
+		"{\n" +
+		"	invShiftRows.TransformState();\n" +
+		"   invSubBytes.TransformState();\n" +
+		"   addRoundKey.key_index = 4*runda*Nb;\n" +
+		"	addRoundKey.TransformState( );\n" +
+		"	invMixColumns.TransformState();\n" +
+		"}\n" +
+		"\n" +
+
+		"invShiftRows.TransformState();\n" +
+		"invSubBytes.TransformState();\n" +
+		"// Final round\n" +
+		"addRoundKey.key_index = 0;\n" +
+		"addRoundKey.TransformState(  );\n";
+
+	/**
+	 * source_code_template_3:<br>
+	 * "Real" AES cipher source code to be supplied to every registered user.<br>
+	 */
+	public static String inverse_source_code_template_3 =
+		"// AES256 from FIPS197 pg.42\n"+
+		"// First, try test vector no.4\n"+
+		"// (00112233445566778899aabbccddeeff)\n"+
+		"// Then try to experiment.\n"+
+		"key_len = 256;\n"+
+		"init_key = \"000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f\";\n"+
+		"keyExpansion.KeyExpansion256();\n"+ 
+		"Nb = 4;  //br.kolona //number of columns\n"+
+		"Nr = 14; //br.rundi // number of rounds\n"+
+
+		"addRoundKey.key_index = 4*Nr*Nb;\n" +
+		"addRoundKey.TransformState();\n" +
+		"for (runda = Nr-1; runda >= 1; runda--)\n" +
+		"{\n" +
+		"	invShiftRows.TransformState();\n" +
+		"   invSubBytes.TransformState();\n" +
+		"   addRoundKey.key_index = 4*runda*Nb;\n" +
+		"	addRoundKey.TransformState( );\n" +
+		"	invMixColumns.TransformState();\n" +
+		"}\n" +
+		"\n" +
+
+		"invShiftRows.TransformState();\n" +
+		"invSubBytes.TransformState();\n" +
+		"// Final round\n" +
+		"addRoundKey.key_index = 0;\n" +
+		"addRoundKey.TransformState(  );\n";
+
+
 }

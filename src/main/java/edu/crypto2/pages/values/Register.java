@@ -6,7 +6,9 @@ package edu.crypto2.pages.values;
 import org.apache.log4j.Logger;
 import org.apache.tapestry5.annotations.Component;
 import org.apache.tapestry5.annotations.InjectPage;
+import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
+import org.apache.tapestry5.annotations.SessionState;
 import org.apache.tapestry5.annotations.SetupRender;
 import org.apache.tapestry5.corelib.components.BeanEditForm;
 import org.apache.tapestry5.hibernate.annotations.CommitAfter;
@@ -25,16 +27,21 @@ import edu.crypto2.transformations.InvMetaTransformation;
  * 
  */
 public class Register {
+	@SessionState
 	@Property
 	private User user;
+	
     @Inject
     private Session session;
     @InjectPage
     private Index index;
     @Inject
     private UserDao userDao;
+    
+    @Persist
     @Property
     private String userName;
+    @Persist
     @Property
     private String password;
     
@@ -52,6 +59,8 @@ public class Register {
 	
 	public boolean isValid(String userName, String password){
 		userDao.reload();
+		return userDao.isValid(userName, password);
+		/*
 		User find_user;
 		find_user = userDao.findUserName(userName);
 		if ((find_user != null) )
@@ -66,6 +75,7 @@ public class Register {
 				return false;
 		}
 		return true;
+		*/
 	}
 
 	void onValidateForm()
@@ -165,6 +175,7 @@ public class Register {
 		session.persist(testValues4);
 		logger.debug("------    TestValues4  -----------");
 
+		
     	return index;
     }
 }

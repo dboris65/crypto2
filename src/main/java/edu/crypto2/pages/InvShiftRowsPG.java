@@ -137,7 +137,9 @@ public class InvShiftRowsPG {
     	ValueBeforeInvShiftRows = ValueBefore;
     	persistValueBeforeInvShiftRows = ValueBefore;
 		invShift_rows = new InvShiftRows();
-		invShift_rows.initialize_State(ValueBeforeInvShiftRows);
+		
+		invShift_rows.inStr = ValueBeforeInvShiftRows;
+		invShift_rows.InitializeState();
 		
 		String s = "";
 		/**********************************************
@@ -157,7 +159,7 @@ public class InvShiftRowsPG {
 			}
 			s = "";
 		}
-		invShift_rows.transform_state();
+		invShift_rows.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After SubBytes

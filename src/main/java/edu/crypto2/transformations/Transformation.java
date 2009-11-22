@@ -7,6 +7,7 @@ package edu.crypto2.transformations;
  *  
  */
 public interface Transformation {
-	
+	void TransformState();
+	void InitializeState();
 }
   

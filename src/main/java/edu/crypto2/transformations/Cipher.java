@@ -55,7 +55,7 @@ public class Cipher {
 					  return;
 			}
 		}
-		//subBytes.transform_state();
+		//subBytes.TransformState();
 		for (i = 0; i <= Nb-1; i++) {
 			for (j = 0; j <= Nb-1; j++) {
 			  Data.State[i][j] = Data.Input[i][j];
@@ -65,7 +65,8 @@ public class Cipher {
 		runda2 = runda = 0;
 
 		//*************************************
-		addRoundKey.transform_state(0);
+		addRoundKey.key_index = 0;
+		addRoundKey.TransformState();
 
 		for (runda = 1; runda <= Nr-1; runda++)
 		{
@@ -75,9 +76,10 @@ public class Cipher {
 					Data.State[i][j] = Data.SBox[ Data.State[i][j] ];
 				}
 			}
-			shiftRows.transform_state();
-			mixColumns.transform_state();
-			addRoundKey.transform_state(4*runda*Nb );
+			shiftRows.TransformState();
+			mixColumns.TransformState();
+			addRoundKey.key_index = 4*runda*Nb;
+			addRoundKey.TransformState( );
 			runda2=runda;
 		}
 
@@ -89,8 +91,9 @@ public class Cipher {
 			}
 		}
 		// Final round
-		shiftRows.transform_state();
-		addRoundKey.transform_state( 4*runda2*Nb );
+		shiftRows.TransformState();
+		addRoundKey.key_index = 4*runda2*Nb;
+		addRoundKey.TransformState(  );
 		for (i = 0; i <= 3; i++) {
 			for (j = 0; j <= 3; j++) {
 				Data.Output[i][j] = Data.State[i][j];

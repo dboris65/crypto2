@@ -17,6 +17,8 @@ import edu.crypto2.data.*;
  * AES performs SBox explicitly (using this transformation and SBox array), while permutations are done implicitly.
  */
 public class InvSubBytes implements Transformation {
+	public String inStr;
+	
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
@@ -41,7 +43,7 @@ public class InvSubBytes implements Transformation {
 	 *  input:<br>
 	 *  @param inStr (String) - 32 alphanumercis with hex values (16 bytes)
 	 */
-	public void initialize_State(String inStr)
+	public void InitializeState()
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
@@ -60,11 +62,11 @@ public class InvSubBytes implements Transformation {
 	}
 	
 	/**
-	 * SubBytes.transform_state<p>
+	 * SubBytes.TransformState<p>
 	 * Apply AES Inverse S-Box to every byte of State.
 	 * 
 	 */
-	public void transform_state() {
+	public void TransformState() {
 		// Nb is always 4 (by FIPS-197), but they live the space to change something in the future
 		for (int i = 0; i <= Nb - 1; i++) {
 			for (int j = 0; j <= Nb - 1; j++) {

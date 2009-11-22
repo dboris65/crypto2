@@ -91,6 +91,45 @@ public class SourceDaoImpl implements SourceDao{
 
 			session.persist(source);
 			transaction.commit();
+			
+			
+			// InverseCipher
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.inverse_source_code_template_0);
+			source.setKind(1);
+			// Here, UserId is always 1
+			source.setUserId(userId);  
+			session.persist(source);
+			transaction.commit();
+			// InverseCipher
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.inverse_source_code_template_1);
+			source.setKind(1);
+			// Here, UserId is always 1
+			source.setUserId(userId);  
+			session.persist(source);
+			transaction.commit();
+			// InverseCipher
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.inverse_source_code_template_2);
+			source.setKind(1);
+			// Here, UserId is always 1
+			source.setUserId(userId);  
+			session.persist(source);
+			transaction.commit();
+			// InverseCipher
+			transaction = session.beginTransaction();
+			source = new Source();
+			source.setSourceCode(Data.inverse_source_code_template_3);
+			source.setKind(1);
+			// Here, UserId is always 1
+			source.setUserId(userId);  
+			session.persist(source);
+			transaction.commit();
+			
 			CurrentId = source.getId().intValue();
 		}
 		

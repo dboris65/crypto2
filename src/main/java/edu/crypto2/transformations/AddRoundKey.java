@@ -9,6 +9,12 @@ import edu.crypto2.data.*;
  * 
  */ 
 public class AddRoundKey implements Transformation{
+	public int key_index;
+	
+	public int key_len;
+	public String init_key;
+	public String InputVector;
+	
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
@@ -44,7 +50,7 @@ public class AddRoundKey implements Transformation{
 	 *  init_key - key to expand
 	 *  Resulting key will be stored in Data.Key variable
 	 */
-	public void initialize_State(int key_len, String init_key, String InputVector)
+	public void InitializeState()
 	{
 		int	init_key_len = 16;
 		String hex = "";
@@ -79,12 +85,12 @@ public class AddRoundKey implements Transformation{
 	
 
 	/**
-	 * AddRoundkey.transform_state<p>
+	 * AddRoundkey.TransformState<p>
 	 * @param key_index
 	 * Transfrom_state() uses key_index to XOR each of 16 State bytes with current 16 key bytes 
 	*/
 
-	public void transform_state(int key_index) {
+	public void TransformState() {
 		  int i, j;
 		  for (j=0; j <= 3; j++) {
 			for (i=0; i <= 3; i++) {

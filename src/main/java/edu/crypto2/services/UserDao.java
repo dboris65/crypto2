@@ -28,5 +28,7 @@ public interface UserDao {
 	void delete(User _source);
 	
 	public void reload();
+	
+	public boolean isValid(String userName, String password);
 
 }

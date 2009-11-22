@@ -22,7 +22,7 @@ import edu.crypto2.services.TestValuesDao;
 import edu.crypto2.transformations.SubBytes;
 import edu.crypto2.rest.XmlParser;
 import edu.crypto2.components.LinesOut;
-import edu.crypto2.data.*;
+import edu.crypto2.data.Data;
 /***********************************************************************
  * 
  */
@@ -132,7 +132,8 @@ public class SubBytesPG {
     	ValueBeforeSubBytes = ValueBefore;
     	persistValueBeforeSubBytes = ValueBefore;
 		sub_bytes = new SubBytes();
-		sub_bytes.initialize_State(ValueBeforeSubBytes);
+		sub_bytes.inStr = ValueBeforeSubBytes;
+		sub_bytes.InitializeState();
 		
 		String s = "";
 		/**********************************************
@@ -152,7 +153,7 @@ public class SubBytesPG {
 			}
 			s = "";
 		}
-		sub_bytes.transform_state();
+		sub_bytes.TransformState();
 		s = "";
 		/**********************************************
 		* STATE After SubBytes

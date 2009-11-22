@@ -23,6 +23,12 @@ import edu.crypto2.transformations.KeyExpansion;
  * Uses bash interpreter to interpret Java code that represent transformation 
  */
 public class MetaTransformation implements Transformation{
+	public String testVector;
+	public int key_len;
+	public String init_key;
+	public String MetaTr;
+	public String resultString;
+	
 	/**
 	 * Nb is always 4 (by FIPS-197), but authors of AES left
 	 * the space to change something in the future, 
@@ -56,7 +62,7 @@ public class MetaTransformation implements Transformation{
 	 *  @param init_key - initial key to be expanded 
 	 *  Resulting key will be stored in Data.Key variable
 	 */
-	public void initialize_State(String testVector, int key_len, String init_key)
+	public void InitializeState()
 	{
 		String hex = "";
 		int ulaz[] = new int[16];
@@ -112,7 +118,7 @@ public class MetaTransformation implements Transformation{
 	
 
 	/**
-	 * transform_state<br>
+	 * TransformState<br>
 	 * Task:<br>
 	 * Process meta transformation stored in MetaTr string using BeanShell.  
 	 * @param testVector - transformation input
@@ -125,7 +131,7 @@ public class MetaTransformation implements Transformation{
 	 * key_len=192 => length(init_key)=24 bytes<br>
 	 * key_len=256 => length(init_key)=32 bytes<br>
 	 */
-	public String transform_state(String testVector, int key_len, String init_key, String MetaTr) {
+	public void TransformState() {
 		Interpreter i = new Interpreter();
 		String str_to_interpret, hex_key;
 		String result_str = "";
@@ -174,21 +180,24 @@ public class MetaTransformation implements Transformation{
 			"runda2 = 0;\n" +
 			"runda = 0;\n" +
 			"//*************************************\n" +
-			"addRoundKey.transform_state(0);\n" +
+			"addRoundKey.key_index = 0;\n" +
+			"addRoundKey.TransformState();\n" +
 			"for (runda = 1; runda <= Nr-1; runda++)\n" +
 			"{\n" +
-			"   subBytes.transform_state();\n" +
-			"	shiftRows.transform_state();\n" +
-			"	mixColumns.transform_state();\n" +
-			"	addRoundKey.transform_state(4*runda*Nb );\n" +
+			"   subBytes.TransformState();\n" +
+			"	shiftRows.TransformState();\n" +
+			"	mixColumns.TransformState();\n" +
+			"   addRoundKey.key_index = 4*runda*Nb;\n" +
+			"	addRoundKey.TransformState( );\n" +
 			"	runda2=runda;\n" +
 			"}\n" +
 			"\n" +
 			"runda2++;\n" +
-			"subBytes.transform_state();\n" +
+			"subBytes.TransformState();\n" +
 			"// Final round\n" +
-			"shiftRows.transform_state();\n" +
-			"addRoundKey.transform_state( 4*runda2*Nb );\n" +
+			"shiftRows.TransformState();\n" +
+			"addRoundKey.key_index = 4*runda2*Nb;\n" +
+			"addRoundKey.TransformState(  );\n" +
 			"for (i = 0; i <= 3; i++) {\n" +
 			"	for (j = 0; j <= 3; j++) {\n" +
 			"		Data.Output[i][j] = Data.State[i][j];\n" +
@@ -283,7 +292,10 @@ public class MetaTransformation implements Transformation{
 				result_str = ev_err;
 				
 			}
-    	return result_str;
+    	
+    	resultString = result_str;
+		final Logger logger = Logger.getLogger(MetaTransformation.class);
+		logger.debug("result_str -----=" + result_str + "=-----");
 		
 
 

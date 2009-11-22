@@ -4,13 +4,13 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.crypto2.aes</groupId>
 	<artifactId>crypto2</artifactId>
-	<version>0.9.7-SNAPSHOT</version>
+	<version>0.9.8-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>crypto2 Tapestry 5 Application</name>
 
 
             
-
+ 
 
 
 
@@ -216,6 +216,7 @@
 						<exclude>**/cryptotest/*Test.java</exclude>
 						<exclude>**/entities/*Test.java</exclude>
 						<exclude>**/services/*Test.java</exclude>
+						<exclude>**/acceptance/*Test.java</exclude>
 					</excludes>
 				</configuration>
 				<executions>
@@ -256,6 +257,7 @@
 								<exclude>**/cryptotest/*Test.java</exclude>
 								<exclude>**/entities/*Test.java</exclude>
 								<exclude>**/services/*Test.java</exclude>
+								<exclude>**/acceptance/*Test.java</exclude>
 							</excludes>
 							<skip>false</skip>
 							<includes>

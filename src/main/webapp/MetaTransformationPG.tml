@@ -113,13 +113,13 @@
 		Once, when you fill Input area with code, you can edit it's contents in experimental purposes.
 		You can try to reorder transformations, for example:
 		<p></p>  
-		subBytes.transform_state();<br></br>
-		shiftRows.transform_state();<br></br>
-		mixColumns.transform_state();<p></p>
+		subBytes.TransformState();<br></br>
+		shiftRows.TransformState();<br></br>
+		mixColumns.TransformState();<p></p>
 		into<p></p>
-		mixColumns.transform_state();<br></br> 
-		subBytes.transform_state();<br></br>
-		shiftRows.transform_state();
+		mixColumns.TransformState();<br></br> 
+		subBytes.TransformState();<br></br>
+		shiftRows.TransformState();
 		<p></p>
 		For present state of this project, you MUST enter key_len and init_key variables in 
 		metatransformation source, as in following example:<br></br>

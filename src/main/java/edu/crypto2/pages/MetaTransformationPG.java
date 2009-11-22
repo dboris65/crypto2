@@ -218,7 +218,11 @@ public class MetaTransformationPG {
     	ValueBeforeMetaTransformation = testVector;
     	persistValueBeforeMetaTransformation = testVector;
 		meta_transformation = new MetaTransformation();
-		meta_transformation.initialize_State(testVector, key_len, init_key);
+		
+		meta_transformation.testVector = testVector;
+		meta_transformation.key_len = key_len;
+		meta_transformation.init_key = init_key;
+		meta_transformation.InitializeState();
 		String s = "";
 		/**********************************************
 		* STATE BEFORE SubBytes
@@ -239,7 +243,12 @@ public class MetaTransformationPG {
 		}
 		
 		String err_str = "";
-		err_str = meta_transformation.transform_state(testVector, key_len, init_key, MetaTr);
+		meta_transformation.testVector = testVector;
+		meta_transformation.key_len = key_len;
+		meta_transformation.init_key = init_key;
+		meta_transformation.MetaTr = MetaTr;
+		meta_transformation.TransformState();
+		err_str = meta_transformation.resultString;
 		
 		if (err_str.length() == 0){
 			s = "";

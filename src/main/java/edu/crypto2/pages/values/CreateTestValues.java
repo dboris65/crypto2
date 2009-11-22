@@ -99,60 +99,107 @@ public class CreateTestValues {
     
     void onValidateForm()
 	{
+    	boolean err = false;
     	// FIRST round *********************************************
     	// some of these can be done through Validate anotation, but
     	// not all of them. So we will keep all of them on same place. 
-		if (testValues.getSubBytes_TestValue().length() != 32)
+		if (testValues.getSubBytes_TestValue().length() != 32){
 			form.recordError("Invalid SubBytes test vector length.");
-		if (testValues.getMixColumns_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getMixColumns_TestValue().length() != 32){
 			form.recordError("Invalid MixColumns test vector length.");
-		if (testValues.getShiftRows_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getShiftRows_TestValue().length() != 32){
 			form.recordError("Invalid ShiftRows test vector length.");
-		if (testValues.getAddRoundKey_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getAddRoundKey_TestValue().length() != 32){
 			form.recordError("Invalid AddRoundKey test vector length.");
-		if (testValues.getMetaTransformation_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getMetaTransformation_TestValue().length() != 32){
 			form.recordError("Invalid MetaTransformation test vector length.");
+			err = true;
+		}
 		if ((testValues.getKeyExpansion_TestValue().length() != 32) &&
 			(testValues.getKeyExpansion_TestValue().length() != 48) &&
-			(testValues.getKeyExpansion_TestValue().length() != 64)	)
+			(testValues.getKeyExpansion_TestValue().length() != 64)	){
 			form.recordError("Invalid KeyExpansion test vector length.");
+			err = true;
+		}
 
-		if (testValues.getInvSubBytes_TestValue().length() != 32)
+		if (testValues.getInvSubBytes_TestValue().length() != 32){
 			form.recordError("Invalid InvSubBytes test vector length.");
-		if (testValues.getInvMixColumns_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getInvMixColumns_TestValue().length() != 32){
 			form.recordError("Invalid InvMixColumns test vector length.");
-		if (testValues.getInvShiftRows_TestValue().length() != 32)
+			err = true;
+		}
+		if (testValues.getInvShiftRows_TestValue().length() != 32){
 			form.recordError("Invalid InvShiftRows test vector length.");
+			err = true;
+		}
+		if (testValues.getInvMetaTransformation_TestValue().length() != 32){
+			form.recordError("Invalid InvMetaTransformation test vector length.");
+			err = true;
+		}
 	
     	// SECOND round *********************************************
-		if (!isHexDigit(testValues.getSubBytes_TestValue()))
+		if (!isHexDigit(testValues.getSubBytes_TestValue())){
 			form.recordError("Invalid SubBytes test vector value.");
-		if (!isHexDigit(testValues.getMixColumns_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getMixColumns_TestValue())){
 			form.recordError("Invalid MixColumns test vector value.");
-		if (!isHexDigit(testValues.getShiftRows_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getShiftRows_TestValue())){
 			form.recordError("Invalid ShiftRows test vector value.");
-		if (!isHexDigit(testValues.getAddRoundKey_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getAddRoundKey_TestValue())){
 			form.recordError("Invalid AddRoundKey test vector value.");
-		if (!isHexDigit(testValues.getMetaTransformation_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getMetaTransformation_TestValue())){
 			form.recordError("Invalid MetaTransformation test vector value.");
-		if (!isHexDigit(testValues.getKeyExpansion_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getKeyExpansion_TestValue())){
 			form.recordError("Invalid KeyExpansion test vector value.");
+			err = true;
+		}
 		
-		if (!isHexDigit(testValues.getInvSubBytes_TestValue()))
+		if (!isHexDigit(testValues.getInvSubBytes_TestValue())){
 			form.recordError("Invalid InvSubBytes test vector value.");
-		if (!isHexDigit(testValues.getInvMixColumns_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getInvMixColumns_TestValue())){
 			form.recordError("Invalid InvMixColumns test vector value.");
-		if (!isHexDigit(testValues.getInvShiftRows_TestValue()))
+			err = true;
+		}
+		if (!isHexDigit(testValues.getInvShiftRows_TestValue())){
 			form.recordError("Invalid InvShiftRows test vector value.");
+			err = true;
+		}
+		if (!isHexDigit(testValues.getInvMetaTransformation_TestValue())){
+			form.recordError("Invalid InvMetaTransformation test vector value.");
+			err = true;
+		}
 
 	}
 
+	
     @CommitAfter
     Object onSuccess()
     {
     	testValues.setUserId(user.getId());
         session.persist(testValues);
    	    List<TestValues> result = session.createCriteria(TestValues.class).list();
+   	    
         return createTestValues;
     }
      /**********************************************************/
