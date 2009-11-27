@@ -2,6 +2,7 @@ package edu.crypto2.pages;
 
 
 import org.apache.tapestry5.annotations.Component;
+import org.apache.tapestry5.annotations.InjectPage;
 import org.apache.tapestry5.annotations.Persist;
 import org.apache.tapestry5.annotations.Property;
 import org.apache.tapestry5.annotations.SessionState;
@@ -74,6 +75,9 @@ public class Login
             form.recordError(passwordField, "Invalid user name or password.");
         }
 	}
+	
+    @InjectPage
+    private Index index;
     String onSuccess()
     {
         return "Index";

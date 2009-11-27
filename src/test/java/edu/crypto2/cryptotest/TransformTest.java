@@ -24,28 +24,44 @@ import edu.crypto2.transformations.SubBytes;
  */
 public class TransformTest {
 	
+	private String getState(){
+        String s = "";
+        for (int j = 0; j <= 3; j++) {
+                for (int i = 0; i <= 3; i++) {
+                        s = s + Integer.toString((Data.State[i][j] & 0xff) + 0x100,
+                                                        16 /* radix */).substring(1); // Integer.toHexString(AES_T.State[i][j])
+                }
+                s = s.trim();
+        }
+        return s;
+	}
+	
+	
 	/***********************************************************
 	 *  SubBytes Test<p>
 	 * 
 	 * Test using predefined vector "193de3bea0f4e22b9ac68d2ae9f84808"
 	 */
 	@Test
-	@Parameters(value = "SubBytesString")
+	@Parameters(value = {"SubBytesString", "SubBytesResultString"})
 	public void testAESSubBytes(
-			@Optional("193de3bea0f4e22b9ac68d2ae9f84808") String s_sub_bytes
+			@Optional("193de3bea0f4e22b9ac68d2ae9f84808") String sSubBytes,
+			@Optional("d4e0b81e27bfb44111985d52aef1e530") String sResultVector
 			) {
 		
-		SubBytes sub_bytes = new SubBytes();
+		SubBytes subBytes = new SubBytes();
 		
-		Assert.assertNotNull(sub_bytes);
-		String s = s_sub_bytes;
+		Assert.assertNotNull(subBytes);
+		String s = sSubBytes;
 		Assert.assertEquals(s.length(), 32);
 		
-		sub_bytes.inStr = s;
-		sub_bytes.InitializeState();
-		
+		subBytes.inStr = s;
+		subBytes.InitializeState();
 
-		sub_bytes.TransformState();
+		subBytes.TransformState();
+		String result = getState();
+
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
 	/***********************************************************
@@ -54,23 +70,25 @@ public class TransformTest {
 	 * Test using predefined vector "E254940441570B6AD0B40F92560E1500"
 	 */
 	@Test
-	@Parameters(value = "InvSubBytesString")
+	@Parameters(value = {"InvSubBytesString", "InvSubBytesResultString"})
 	public void testAESInvSubBytes(
-			@Optional("E254940441570B6AD0B40F92560E1500") String s_inv_sub_bytes
+			@Optional("E254940441570B6AD0B40F92560E1500") String sInvSubBytes,
+			@Optional("3bf860b9fddac6d7e79efb2f30587452") String sResultVector
 			) {
 		
-		InvSubBytes inv_sub_bytes = new InvSubBytes();
+		InvSubBytes invSubBytes = new InvSubBytes();
 		
-		Assert.assertNotNull(inv_sub_bytes);
-		String s = s_inv_sub_bytes;
+		Assert.assertNotNull(invSubBytes);
+		String s = sInvSubBytes;
 		Assert.assertEquals(s.length(), 32);
 		
-		inv_sub_bytes.inStr = s;
-		inv_sub_bytes.InitializeState();
+		invSubBytes.inStr = s;
+		invSubBytes.InitializeState();
+		invSubBytes.TransformState();
 		
+		String result = getState();
 
-		inv_sub_bytes.TransformState();
-
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
 
@@ -81,22 +99,23 @@ public class TransformTest {
 	 * Test using predefined vector "d4bf5d30e0b452aeb84111f11e2798e5"
 	 */
 	@Test
-	@Parameters(value = "MixColumnsString")
+	@Parameters(value = {"MixColumnsString", "MixColumnsResultString"})
 	public void testAESMixColumns(
-			@Optional("d4bf5d30e0b452aeb84111f11e2798e5") String s_mix_columns
+			@Optional("d4bf5d30e0b452aeb84111f11e2798e5") String sMixColumns,
+			@Optional("04e0482866cbf8068119d326e59a7a4c") String sResultVector
 			) {
-		MixColumns mix_columns = new MixColumns();
-		Assert.assertNotNull(mix_columns);
-		String s = s_mix_columns;
+		MixColumns mixColumns = new MixColumns();
+		Assert.assertNotNull(mixColumns);
+		String s = sMixColumns;
 		Assert.assertEquals(s.length(), 32);
 		
-		mix_columns.inStr = s;
-		mix_columns.InitializeState();
-		
+		mixColumns.inStr = s;
+		mixColumns.InitializeState();
 
-		mix_columns.TransformState();
+		mixColumns.TransformState();
+		String result = getState();
 
-
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 	
 	/***********************************************************
@@ -104,23 +123,23 @@ public class TransformTest {
 	 * Test using predefined vector "978A81C3E12042794817D235EE8B2F3C"
 	 */
 	@Test
-	@Parameters(value = "InvMixColumnsString")
+	@Parameters(value = {"InvMixColumnsString", "InvMixColumnsResultString"})
 	public void testAESInvMixColumns(
-			@Optional("978A81C3E12042794817D235EE8B2F3C") String s_inv_mix_columns
+			@Optional("978A81C3E12042794817D235EE8B2F3C") String sInvMixColumns,
+			@Optional("64a9a7e632f001d9cce556cbc5464882") String sResultVector
 			) {
-		InvMixColumns inv_mix_columns = new InvMixColumns();
-		Assert.assertNotNull(inv_mix_columns);
-		String s = s_inv_mix_columns;
+		InvMixColumns invMixColumns = new InvMixColumns();
+		Assert.assertNotNull(invMixColumns);
+		String s = sInvMixColumns;
 		Assert.assertEquals(s.length(), 32);
 		
-		inv_mix_columns.inStr = s;
-		inv_mix_columns.InitializeState();
-		
+		invMixColumns.inStr = s;
+		invMixColumns.InitializeState();
 
-		inv_mix_columns.TransformState();
+		invMixColumns.TransformState();
+		String result = getState();
 
-
-
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
 	
@@ -132,21 +151,22 @@ public class TransformTest {
 	 */
 
 	@Test
-	@Parameters(value = "ShiftRowsString")
+	@Parameters(value = {"ShiftRowsString", "ShiftRowsResultString"})
 	public void testAESShiftRows(
-			@Optional("d42711aee0bf98f1b8b45de51e415230") String s_shift_rows
+			@Optional("d42711aee0bf98f1b8b45de51e415230") String sShiftRows,
+			@Optional("d4e0b81ebfb441275d52119830aef1e5") String sResultVector
 			) {
-		ShiftRows shift_rows = new ShiftRows();
-		Assert.assertNotNull(shift_rows);
-		String s = s_shift_rows;
+		ShiftRows shiftRows = new ShiftRows();
+		Assert.assertNotNull(shiftRows);
+		String s = sShiftRows;
 		Assert.assertEquals(s.length(), 32);
 		
-		shift_rows.inStr = s;
-		shift_rows.InitializeState();
-		
+		shiftRows.inStr = s;
+		shiftRows.InitializeState();
 
-		shift_rows.TransformState();
-
+		shiftRows.TransformState();
+		String result = getState();
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
 	
@@ -158,39 +178,48 @@ public class TransformTest {
 	 */
 
 	@Test
-	@Parameters(value = "InvShiftRowsString")
+	@Parameters(value = {"InvShiftRowsString", "InvShiftRowsResultString"})
 	public void testAESInvShiftRows(
-			@Optional("E2570F0041B41504D00E946A56540B92") String s_inv_shift_rows
+			@Optional("E2570F0041B41504D00E946A56540B92") String sInvShiftRows,
+			@Optional("e241d0565457b40e940b0f15046a9200") String sResultVector
 			) {
-		InvShiftRows inv_shift_rows = new InvShiftRows();
-		Assert.assertNotNull(inv_shift_rows);
-		String s = s_inv_shift_rows;
+		InvShiftRows invShiftRows = new InvShiftRows();
+		Assert.assertNotNull(invShiftRows);
+		String s = sInvShiftRows;
 		Assert.assertEquals(s.length(), 32);
 		
-		inv_shift_rows.inStr = s;
-		inv_shift_rows.InitializeState();
+		invShiftRows.inStr = s;
+		invShiftRows.InitializeState();
+
+		invShiftRows.TransformState();
 		
-
-		inv_shift_rows.TransformState();
-
-
+		String result = getState();
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
-	
+
+	private String getKey(){
+		String s = "";
+		for (int i = 0; i<176; i++)
+			s = s + Integer.toString((Data.key[i] & 0xff) + 0x100,
+                    16 /* radix */).substring(1);
+		
+		return s;
+	}
 	
 	/***********************************************************
 	 *  KeyExpansion<br>
 	 *  Test using predefined vector "2b7e151628aed2a6abf7158809cf4f3c"
 	 */
-
 	@Test
-	@Parameters(value = "InitialKey128")
+	@Parameters(value = {"InitialKey128", "ResultingExpandedKey128"})
 	public void testAESKeyExpansion(
-			@Optional("2b7e151628aed2a6abf7158809cf4f3c") String s_key_expansion
+			@Optional("2b7e151628aed2a6abf7158809cf4f3c") String sKeyExpansion,
+			@Optional("2B7E151628AED2A6ABF7158809CF4F3CA0FAFE1788542CB123A339392A6C7605F2C295F27A96B9435935807A7359F67F3D80477D4716FE3E1E237E446D7A883BEF44A541A8525B7FB671253BDB0BAD00D4D1C6F87C839D87CAF2B8BC11F915BC6D88A37A110B3EFDDBF98641CA0093FD4E54F70E5F5FC9F384A64FB24EA6DC4FEAD27321B58DBAD2312BF5607F8D292FAC7766F319FADC2128D12941575C006ED014F9A8C9EE2589E13F0CC8B6630CA6") String sResultVector
 			) {
-		KeyExpansion key_expansion = new KeyExpansion();
-		Assert.assertNotNull(key_expansion);
-		String s = s_key_expansion;
+		KeyExpansion keyExpansion = new KeyExpansion();
+		Assert.assertNotNull(keyExpansion);
+		String s = sKeyExpansion;
 		Assert.assertEquals(s.length(), 32);
 		
 		
@@ -203,43 +232,43 @@ public class TransformTest {
 			skey[i] = Integer.parseInt(hex, 16);
 		};
 		
-		key_expansion.initialise(128, skey);
-		key_expansion.KeyExpansion128();
-
+		keyExpansion.initialise(128, skey);
+		keyExpansion.KeyExpansion128();
+		String result = getKey();
+		
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 	
+
 
 	
 	/***********************************************************
 	 *  AddRoundKey<br>
 	 *  Test using predefined vector "2b7e151628aed2a6abf7158809cf4f3c"
 	 */
-
 	@Test
-	@Parameters({"CipherInitialKey128", "InputVector128"})
+	@Parameters({"CipherInitialKey128", "InputVector128", "ResultCipherText128"})
 	public void testAESAddRoundKey(
-			@Optional("2b7e151628aed2a6abf7158809cf4f3c") String s_init_key,
-			@Optional("046681e5e0cb199a48f8d37a2806264c") String s_input_vector
+			@Optional("2b7e151628aed2a6abf7158809cf4f3c") String sInitKey,
+			@Optional("046681e5e0cb199a48f8d37a2806264c") String sInputVector,
+			@Optional("a4686b029c9f5b6a7f35ea50f22b4349") String sResultVector
 			) {
-		AddRoundKey add_round_key = new AddRoundKey();
-		Assert.assertNotNull(add_round_key);
-		//String s = s_key_expansion;
-		Assert.assertEquals(s_init_key.length(), 32);
+		AddRoundKey addRoundKey = new AddRoundKey();
+		Assert.assertNotNull(addRoundKey);
 		
-
+		Assert.assertEquals(sInitKey.length(), 32);
 		
+		addRoundKey.key_len = 128;
+		addRoundKey.init_key = sInitKey;
+		addRoundKey.InputVector = sInputVector;
 		
-		add_round_key.key_len = 128;
-		add_round_key.init_key = s_init_key;
-		add_round_key.InputVector = s_input_vector;
+		addRoundKey.InitializeState();
 		
-		add_round_key.InitializeState();
+		addRoundKey.key_index = 16;
+		addRoundKey.TransformState();
 		
-		add_round_key.key_index = 16;
-		add_round_key.TransformState();
-		
-
-
+		String result = getState();
+		Assert.assertEquals(result.toUpperCase(), sResultVector.toUpperCase());
 	}
 
 	

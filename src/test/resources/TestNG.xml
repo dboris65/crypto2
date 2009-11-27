@@ -3,15 +3,30 @@
  
 	<test name="cryptotest" verbose="2">
     <parameter name="SubBytesString" value="193de3bea0f4e22b9ac68d2ae9f84808"/>
+    <parameter name="SubBytesResultString" value="d4e0b81e27bfb44111985d52aef1e530"/>
+
     <parameter name="MixColumnsString" value="d4bf5d30e0b452aeb84111f11e2798e5"/> 	
+    <parameter name="MixColumnsResultString" value="04e0482866cbf8068119d326e59a7a4c"/> 	
+
     <parameter name="ShiftRowsString" value="d42711aee0bf98f1b8b45de51e415230"/> 	
+    <parameter name="ShiftRowsResultString" value="d4e0b81ebfb441275d52119830aef1e5"/> 	
     
+    <parameter name="InvSubBytesString" value="E254940441570B6AD0B40F92560E1500"/>
+    <parameter name="InvSubBytesResultString" value="3bf860b9fddac6d7e79efb2f30587452"/>
+
+    <parameter name="InvShiftRowsString" value="E2570F0041B41504D00E946A56540B92"/> 	
+    <parameter name="InvShiftRowsResultString" value="e241d0565457b40e940b0f15046a9200"/> 	
+
+    <parameter name="InvMixColumnsString" value="978A81C3E12042794817D235EE8B2F3C"/> 	
+    <parameter name="InvMixColumnsResultString" value="64a9a7e632f001d9cce556cbc5464882"/> 	
 
     <parameter name="InitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/> 	
     <parameter name="ResultingExpandedKey128" value="2B7E151628AED2A6ABF7158809CF4F3CA0FAFE1788542CB123A339392A6C7605F2C295F27A96B9435935807A7359F67F3D80477D4716FE3E1E237E446D7A883BEF44A541A8525B7FB671253BDB0BAD00D4D1C6F87C839D87CAF2B8BC11F915BC6D88A37A110B3EFDDBF98641CA0093FD4E54F70E5F5FC9F384A64FB24EA6DC4FEAD27321B58DBAD2312BF5607F8D292FAC7766F319FADC2128D12941575C006ED014F9A8C9EE2589E13F0CC8B6630CA6"/> 	
     
     <parameter name="CipherInitialKey128" value="2b7e151628aed2a6abf7158809cf4f3c"/> 	
     <parameter name="InputVector128" value="3243f6a8885a308d313198a2e0370734"/> 	
+    <parameter name="ResultAddRoundKey128" value="a4686b029c9f5b6a7f35ea50f22b4349"/> 	
+    
     <parameter name="ResultCipherText128" value="3925841D02DC09FBDC118597196A0B32"/> 	
     
     <packages>

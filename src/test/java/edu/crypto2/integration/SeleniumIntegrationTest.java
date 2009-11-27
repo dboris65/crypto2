@@ -34,25 +34,25 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class SeleniumIntegrationTest {
 	protected Selenium selenium;
-	//int min_interval = 2000;
+	//int minInterval = 2000;
 	//int max_interval = 6000;
 	//String speed = "2000";
 	//int PAGE_LOAD_INTERVAL = 2000;
 	
-	int min_interval = 400;
-	int max_interval = 800;
+	int minInterval = 400;
+	int maxInterval = 800;
 	String speed = "800";
 	int PAGE_LOAD_INTERVAL = 800;
 	
-	boolean firstTest_Loaded = false;
+	boolean firstTestLoaded = false;
 	
 	
     private int setInterval(){
-    	if (firstTest_Loaded){
-    		return min_interval;
+    	if (firstTestLoaded){
+    		return minInterval;
     	}else{
-    		firstTest_Loaded = true;
-    		return max_interval;    	
+    		firstTestLoaded = true;
+    		return maxInterval;    	
     	}
     }
     
@@ -334,7 +334,7 @@ public class SeleniumIntegrationTest {
     	org.testng.Assert.assertTrue(selenium.isTextPresent("84 09 85 0b"));
     	org.testng.Assert.assertTrue(selenium.isTextPresent("1d fb 97 32"));
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         selenium.click("link=Log out");
     }
  
@@ -371,7 +371,7 @@ public class SeleniumIntegrationTest {
 
 
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         selenium.click("link=Log out");
     }
     @Test (dependsOnMethods = {"testEnterMetaTransformation"})
@@ -406,7 +406,7 @@ public class SeleniumIntegrationTest {
     	
 
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
        
     }
 
@@ -425,7 +425,7 @@ public class SeleniumIntegrationTest {
     	org.testng.Assert.assertFalse(selenium.isTextPresent("//TESTTTTT"));
 
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
         selenium.click("link=Log out");
     }
@@ -455,11 +455,11 @@ public class SeleniumIntegrationTest {
         org.testng.Assert.assertTrue(selenium.isTextPresent("Boris Damjanovic"));
 
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         selenium.click("link=Log out");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
     }
 
@@ -508,11 +508,11 @@ public class SeleniumIntegrationTest {
     	
     	selenium.click("//input[@value='Login']");
 
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Welcome back, Boris Damjanovic"));
 
         selenium.click("link=Log out");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
 
     }
@@ -534,11 +534,11 @@ public class SeleniumIntegrationTest {
     	
     	selenium.click("//input[@value='Login']");
 
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Invalid user name or password"));
 
         selenium.click("link=Index");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
 
     }
@@ -560,7 +560,7 @@ public class SeleniumIntegrationTest {
 
     	selenium.click("//input[@value='Login']");
     	
-        selenium.waitForPageToLoad(Integer.toString(3*min_interval));
+        selenium.waitForPageToLoad(Integer.toString(3*minInterval));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Welcome back, Boris Damjanovic"));
 
     	selenium.click("link=Create test vectors");
@@ -583,7 +583,7 @@ public class SeleniumIntegrationTest {
     	
     	selenium.click("//input[@value='Create Values']");
 
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         
         org.testng.Assert.assertTrue(selenium.isTextPresent("10112233445566778899aabbccddeeff"));
         org.testng.Assert.assertTrue(selenium.isTextPresent("20112233445566778899aabbccddeeff"));
@@ -599,7 +599,7 @@ public class SeleniumIntegrationTest {
         org.testng.Assert.assertTrue(selenium.isTextPresent("11112233445566778899aabbccddeeff"));
 
         selenium.click("link=Log out");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
     }
 
@@ -621,7 +621,7 @@ public class SeleniumIntegrationTest {
 
     	selenium.click("//input[@value='Login']");
     	
-        selenium.waitForPageToLoad(Integer.toString(3*min_interval));
+        selenium.waitForPageToLoad(Integer.toString(3*minInterval));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Welcome back, Boris Damjanovic"));
 
     	selenium.click("link=Create test vectors");
@@ -644,7 +644,7 @@ public class SeleniumIntegrationTest {
     	
     	selenium.click("//input[@value='Create Values']");
 
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
         
         org.testng.Assert.assertTrue(selenium.isTextPresent("Invalid SubBytes test vector value"));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Invalid MixColumns test vector value"));
@@ -660,7 +660,7 @@ public class SeleniumIntegrationTest {
         org.testng.Assert.assertTrue(selenium.isTextPresent("Invalid InvMetaTransformation test vector value"));
 
         selenium.click("link=Log out");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
     }
 
@@ -682,7 +682,7 @@ public class SeleniumIntegrationTest {
 
     	selenium.click("//input[@value='Login']");
     	
-        selenium.waitForPageToLoad(Integer.toString(3*min_interval));
+        selenium.waitForPageToLoad(Integer.toString(3*minInterval));
         org.testng.Assert.assertTrue(selenium.isTextPresent("Welcome back, Boris Damjanovic"));
 
     	selenium.click("link=Create test vectors");
@@ -694,7 +694,7 @@ public class SeleniumIntegrationTest {
         org.testng.Assert.assertFalse(selenium.isTextPresent("3925841D02DC09FBDC118597196A0B32"));
 
         selenium.click("link=Log out");
-        selenium.waitForPageToLoad(Integer.toString(min_interval));
+        selenium.waitForPageToLoad(Integer.toString(minInterval));
 
     }
 

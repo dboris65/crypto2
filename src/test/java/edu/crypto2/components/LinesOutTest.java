@@ -19,7 +19,7 @@ public class LinesOutTest {
 	}
 	
 	@Test
-	public void testConstrustor(){
+	public void testConstructor(){
 		assertSame("0b", linesOutToTest.getLine0_before());
 		assertSame("1b", linesOutToTest.getLine1_before());
 		assertSame("2b", linesOutToTest.getLine2_before());
