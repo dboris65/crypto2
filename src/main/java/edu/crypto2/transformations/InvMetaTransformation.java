@@ -4,7 +4,7 @@
 package edu.crypto2.transformations;
 
 
-import org.apache.log4j.Logger;
+//import org.apache.log4j.Logger;
 
 import bsh.EvalError;
 import bsh.Interpreter;
@@ -135,7 +135,7 @@ public class InvMetaTransformation implements Transformation{
 		Interpreter i = new Interpreter();
 		String str_to_interpret, hex_key;
 		String result_str = "";
-		final Logger logger = Logger.getLogger(InvMetaTransformation.class);
+		//final Logger logger = Logger.getLogger(InvMetaTransformation.class);
 		str_to_interpret = "";
 		
     	try {
@@ -278,27 +278,18 @@ public class InvMetaTransformation implements Transformation{
 			
     	    Throwable t = e.getTarget();
     	    result_str = t.getMessage();
-			logger.debug("------    err  -----------");
-			logger.debug("------    err  -----------");
-			logger.debug("------    err  -----------");
-			logger.debug(result_str + "------    err  -----------");
+    	    
 
     	} catch ( ParseException e ) {
 			
 			result_str = e.getMessage();
-			logger.debug("------    err  -----------");
-			logger.debug("------    err  -----------");
-			logger.debug("------    err  -----------");
-			logger.debug(result_str + "------    err  -----------");
+			
 			
     	} catch ( EvalError e ) {
 			    String ev_err = e.getErrorText();
 
 				result_str = ev_err;
-				logger.debug("------    err  -----------");
-				logger.debug("------    err  -----------");
-				logger.debug("------    err  -----------");
-				logger.debug(result_str + "------    err  -----------");
+				
 				
 			}
     	
