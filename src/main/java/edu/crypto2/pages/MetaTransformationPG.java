@@ -523,6 +523,7 @@ public class MetaTransformationPG {
 			String s = getSource_code();
 			Source srce = sourceDao.getCurrent();
 			srce.setSourceCode(s);
+			srce.setKind(0);
 			sourceDao.update(srce);
 			return metaTransformationPG;
 		}
@@ -532,6 +533,7 @@ public class MetaTransformationPG {
 			Source srce = new Source();
 			srce.setSourceCode(s); 
 			srce.setUserId(user.getId());
+			srce.setKind(0);
 			sourceDao.save(srce);
 		}
 		return metaTransformationPG;

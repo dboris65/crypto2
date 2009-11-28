@@ -536,6 +536,7 @@ public class InvMetaTransformationPG {
 			String s = getSource_code();
 			Source srce = sourceDao.getCurrent();
 			srce.setSourceCode(s);
+			srce.setKind(1);
 			sourceDao.update(srce);
 			return metaTransformationPG;
 		}
@@ -545,6 +546,7 @@ public class InvMetaTransformationPG {
 			Source srce = new Source();
 			srce.setSourceCode(s); 
 			srce.setUserId(user.getId());
+			srce.setKind(1);
 			sourceDao.save(srce);
 		}
 		return metaTransformationPG;

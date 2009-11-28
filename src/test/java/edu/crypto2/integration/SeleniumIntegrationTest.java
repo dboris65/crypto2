@@ -34,16 +34,17 @@ import com.thoughtworks.selenium.Selenium;
  */
 public class SeleniumIntegrationTest {
 	protected Selenium selenium;
-	//int minInterval = 2000;
-	//int max_interval = 6000;
-	//String speed = "2000";
-	//int PAGE_LOAD_INTERVAL = 2000;
+	int minInterval = 2000;
+	int maxInterval = 6000;
+	String speed = "2000";
+	int PAGE_LOAD_INTERVAL = 2000;
 	
+	/*
 	int minInterval = 400;
 	int maxInterval = 800;
 	String speed = "800";
 	int PAGE_LOAD_INTERVAL = 800;
-	
+	*/
 	boolean firstTestLoaded = false;
 	
 	

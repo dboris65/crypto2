@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.crypto2.aes</groupId>
 	<artifactId>crypto2</artifactId>
-	<version>0.9.8-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>war</packaging>
 	<name>crypto2 Tapestry 5 Application</name>
 
